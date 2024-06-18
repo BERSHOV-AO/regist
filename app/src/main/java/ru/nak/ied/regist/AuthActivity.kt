@@ -48,6 +48,9 @@ class AuthActivity : AppCompatActivity() {
                         .show()
                     userLogin.text.clear()
                     userPass.text.clear()
+
+                    val intent = Intent(this, ItemsActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG)
                         .show()

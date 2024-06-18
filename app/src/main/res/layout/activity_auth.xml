@@ -25,6 +25,8 @@
             app:srcCompat="@drawable/ic_setting" />
     </LinearLayout>
 
+
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
@@ -55,12 +57,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0091EA"
+            android:textColor="@color/white"
+            android:text=" Беспилотные транспортные средства “AGV”" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         app:cardCornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +136,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="#007CBF"
+        android:backgroundTint="#0F89D5"
         android:text="Авторизоваться"
         android:textColor="#C2C8C4"
         android:textSize="18dp"
