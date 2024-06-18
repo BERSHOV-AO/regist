@@ -5,41 +5,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/grr"
+    android:orientation="vertical"
     tools:context=".AuthActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bSettings"
+        <ImageButton
+            android:id="@+id/butSetting"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="270dp"
+            android:layout_gravity="right"
             android:layout_marginTop="5dp"
-            android:tooltipText="Настройки"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/settings2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_setting" />
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -54,10 +38,10 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/logo2_gaz" />
 
@@ -75,8 +59,8 @@
         android:id="@+id/cardView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,49 +75,50 @@
 
     <EditText
         android:id="@+id/user_login_auth"
-        android:background="@drawable/design1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_gravity="center"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="Введите табельный номер"
-        android:textColorHint="#9A9A9A"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:background="@drawable/design1"
         android:digits="0123456789"
-        android:textColor="#fdfdfd" />
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Введите табельный номер"
+        android:inputType="number"
+        android:textColor="#fdfdfd"
+        android:textColorHint="#9A9A9A" />
 
     <EditText
         android:id="@+id/user_puss_auth"
-        android:background="@drawable/design1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_gravity="center"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/design1"
         android:ems="10"
+        android:gravity="center"
         android:hint="Введите пароль"
         android:inputType="textPassword"
-        android:textColorHint="#9A9A9A"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:textColor="#fdfdfd" />
+        android:textColor="#fdfdfd"
+        android:textColorHint="#9A9A9A" />
 
     <Button
         android:id="@+id/button_auth"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Авторизоваться"
         android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#007CBF"
+        android:text="Авторизоваться"
         android:textColor="#C2C8C4"
         android:textSize="18dp"
-        android:textStyle="bold"
-        android:backgroundTint="#007CBF"
-        android:layout_marginTop="30dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/link_to_reg"
@@ -143,6 +128,6 @@
         android:layout_marginTop="30dp"
         android:text="Зарегистрироваться"
         android:textColor="#fdfdfd"
-        android:textSize="13dp" />
+        android:textSize="14dp" />
 
 </LinearLayout>

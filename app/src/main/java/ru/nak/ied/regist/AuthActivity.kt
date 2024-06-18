@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +18,7 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
-        var bSettingsActivity: ConstraintLayout? = findViewById(R.id.bSettings)
+        val bSettings: ImageButton = findViewById(R.id.butSetting)
         val userLogin: EditText = findViewById(R.id.user_login_auth)
         val userPass: EditText = findViewById(R.id.user_puss_auth)
         val button: Button = findViewById(R.id.button_auth)
@@ -28,7 +29,7 @@ class AuthActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        bSettingsActivity?.setOnClickListener {
+        bSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
 

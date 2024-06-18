@@ -45,7 +45,7 @@
         android:fontFamily="@font/inter_bold"
         android:textColor="#fdfdfd"
         android:layout_gravity="center"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="80dp"
         android:textSize="25dp"
         android:text="Создайте аккаунт" />
 
@@ -60,9 +60,10 @@
         android:ems="10"
         android:hint="Введите табельный номер"
         android:textColorHint="#9A9A9A"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:digits="0123456789"
+        android:inputType="number"
         android:textColor="#fdfdfd" />
 
     <EditText
@@ -120,7 +121,6 @@
         android:layout_marginTop="30dp"
         android:text="Авторизоваться"
         android:textColor="#fdfdfd"
-        android:textSize="13dp" />
-
+        android:textSize="14dp" />
 
 </LinearLayout>
