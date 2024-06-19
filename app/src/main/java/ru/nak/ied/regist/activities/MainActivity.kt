@@ -1,4 +1,4 @@
-package ru.nak.ied.regist
+package ru.nak.ied.regist.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ru.nak.ied.regist.R
+import ru.nak.ied.regist.entities.User
+import ru.nak.ied.regist.db.DbHelper
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.Fragment
 import ru.nak.ied.regist.R
-import ru.nak.ied.regist.ScannerActivity
-import ru.nak.ied.regist.UserActivity
+import ru.nak.ied.regist.activities.ScannerActivity
 
 
 class QrScannerFragment : BaseFragment() {

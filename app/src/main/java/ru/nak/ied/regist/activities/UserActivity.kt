@@ -1,8 +1,9 @@
-package ru.nak.ied.regist
+package ru.nak.ied.regist.activities
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import ru.nak.ied.regist.R
 import ru.nak.ied.regist.databinding.ActivityUserBinding
 import ru.nak.ied.regist.fragments.FragmentManager
 import ru.nak.ied.regist.fragments.QrScannerFragment

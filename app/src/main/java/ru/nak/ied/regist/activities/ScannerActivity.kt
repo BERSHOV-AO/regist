@@ -1,4 +1,4 @@
-package ru.nak.ied.regist
+package ru.nak.ied.regist.activities
 
 import android.content.Intent
 import android.os.Bundle

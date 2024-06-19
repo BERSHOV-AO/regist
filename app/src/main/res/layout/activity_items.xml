@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grr"
-    tools:context=".ItemsActivity">
+    tools:context=".activities.ItemsActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"

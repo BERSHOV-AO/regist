@@ -1,9 +1,10 @@
-package ru.nak.ied.regist
+package ru.nak.ied.regist.db
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import ru.nak.ied.regist.entities.User
 
 class DbHelper(val context: Context, val factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, "app", factory, 1) {
