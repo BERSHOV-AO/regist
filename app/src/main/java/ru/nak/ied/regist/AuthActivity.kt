@@ -44,15 +44,18 @@ class AuthActivity : AppCompatActivity() {
                 val isAuth = db.getUser(login, pass)
 
                 if (isAuth) {
-                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "Пользователь с табельным номером $login авторизован", Toast.LENGTH_LONG)
                         .show()
                     userLogin.text.clear()
                     userPass.text.clear()
 
-                    val intent = Intent(this, ItemsActivity::class.java)
+//                    val intent = Intent(this, ItemsActivity::class.java)
+//                    startActivity(intent)
+                    val intent = Intent(this, UserActivity::class.java)
                     startActivity(intent)
+
                 } else {
-                    Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "Пользователь с табельным номером $login НЕ авторизован", Toast.LENGTH_LONG)
                         .show()
                 }
             }

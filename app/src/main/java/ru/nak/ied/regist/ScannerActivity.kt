@@ -29,16 +29,16 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
 
     override fun handleResult(result: Result?) {
         Log.d("MyLog", "Result:${result?.contents}")
-        val intent = Intent(this, ItemsActivity::class.java)
-        intent.putExtra("key", result?.contents)
-        startActivity(intent)
+//        val intent = Intent(this, ItemsActivity::class.java)
+//        intent.putExtra("key", result?.contents)
+//        startActivity(intent)
         finish()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this, ItemsActivity::class.java)
-        startActivity(intent);
-        finish();
+//        val intent = Intent(this, ItemsActivity::class.java)
+//        startActivity(intent);
+//        finish();
     }
 }

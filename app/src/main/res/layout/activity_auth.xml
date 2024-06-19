@@ -22,7 +22,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:background="@null"
-            app:srcCompat="@drawable/ic_setting" />
+            app:srcCompat="@drawable/ic_settings" />
     </LinearLayout>
 
 
@@ -138,7 +138,7 @@
         android:layout_marginEnd="32dp"
         android:backgroundTint="#0F89D5"
         android:text="Авторизоваться"
-        android:textColor="#C2C8C4"
+        android:textColor="#FFFFFF"
         android:textSize="18dp"
         android:textStyle="bold" />
 
