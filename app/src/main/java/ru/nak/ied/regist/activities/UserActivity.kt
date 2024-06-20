@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.databinding.ActivityUserBinding
 import ru.nak.ied.regist.fragments.FragmentManager
+import ru.nak.ied.regist.fragments.NoteFragment
 import ru.nak.ied.regist.fragments.QrScannerFragment
 import ru.nak.ied.regist.fragments.SettingsFragment
 
@@ -30,7 +31,7 @@ class UserActivity : AppCompatActivity() {
 
                 R.id.notes -> {
                     Log.d("MyLog", "Notes")
-                    //FragmentManager.setFragment(NoteFragment.newInstance(), this)
+                    FragmentManager.setFragment(NoteFragment.newInstance(), this)
                 }
 
                 R.id.list_agv -> {
