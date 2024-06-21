@@ -6,6 +6,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
+import ru.nak.ied.regist.databinding.ActivityNewAgvBinding
+import ru.nak.ied.regist.databinding.ActivityUserBinding
+import ru.nak.ied.regist.databinding.FragmentQrScannerBinding
 
 class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
     private lateinit var zbView: ZBarScannerView
@@ -37,8 +40,5 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this, ItemsActivity::class.java)
-        startActivity(intent);
-        finish();
     }
 }

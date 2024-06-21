@@ -17,6 +17,7 @@ class QrScannerFragment : BaseFragment() {
         TODO("Not yet implemented")
     }
 
+
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,

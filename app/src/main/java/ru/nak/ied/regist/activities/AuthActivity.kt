@@ -32,6 +32,7 @@ class AuthActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener {
+
             val login = userLogin.text.toString().trim()
             val pass = userPass.text.toString().trim()
 

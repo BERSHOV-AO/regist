@@ -6,4 +6,10 @@
     <color name="br">#9B9A9A</color>
     <color name="bl">#03A9F4</color>
     <color name="brl">#CACACA</color>
+    <color name="purple_200">#9378A1</color>
+    <color name="purple_500">#445EF4</color>
+    <color name="green_main">#10BF59</color>
+    <color name="purple_700">#304FFE</color>
+    <color name="teal_200">#00BFA5</color>
+    <color name="teal_700">#105E53</color>
 </resources>

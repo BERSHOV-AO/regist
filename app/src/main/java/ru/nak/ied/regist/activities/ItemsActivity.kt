@@ -16,7 +16,6 @@ class ItemsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
-        bScannerQR = findViewById(R.id.bScanQR)
         textViewQR = findViewById(R.id.textViewQtCode)
         bScannerQR?.setOnClickListener {
             startActivity(Intent(this, ScannerActivity::class.java))
@@ -24,6 +23,7 @@ class ItemsActivity : AppCompatActivity() {
         }
 
         val responseValue = intent.getStringExtra("key");
+
         textViewQR?.setText(responseValue)
     }
 }

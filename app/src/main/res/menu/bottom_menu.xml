@@ -4,16 +4,16 @@
 
     <item
         android:id="@+id/addAGV"
-        android:icon="@drawable/add_agv"
+        android:icon="@drawable/add_agv_2"
         android:title="@string/add_agv"
         app:showAsAction="ifRoom"
         />
-    <item
-        android:id="@+id/notes"
-        android:icon="@drawable/ic_edit_note"
-        android:title="@string/notes"
-        app:showAsAction="ifRoom"
-        />
+<!--    <item-->
+<!--        android:id="@+id/notes"-->
+<!--        android:icon="@drawable/ic_edit_note"-->
+<!--        android:title="@string/notes"-->
+<!--        app:showAsAction="ifRoom"-->
+<!--        />-->
     <item
         android:id="@+id/list_agv"
         android:icon="@drawable/ic_list_agv"
