@@ -75,7 +75,7 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/textViewQtCode"
+                android:id="@+id/tvSerialNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="90dp"
                 android:layout_marginStart="10dp"
@@ -100,7 +100,7 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/textViewNameTS"
+                android:id="@+id/tvDescript"
                 android:layout_width="wrap_content"
                 android:layout_height="90dp"
                 android:layout_marginStart="10dp"
