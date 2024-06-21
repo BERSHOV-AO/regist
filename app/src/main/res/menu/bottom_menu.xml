@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/settings"
+        android:id="@+id/addAGV"
+        android:icon="@drawable/add_agv"
+        android:title="@string/add_agv"
         app:showAsAction="ifRoom"
         />
     <item

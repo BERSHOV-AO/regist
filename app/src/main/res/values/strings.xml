@@ -10,6 +10,7 @@
     <string name="qr_scanner">QR scanner</string>
     <string name="agv_list">AGV list</string>
     <string name="agv_txt">Беспилотные транспортные средства “AGV”</string>
+    <string name="add_agv">Add AGV</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

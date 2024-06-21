@@ -76,9 +76,10 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:background="#0091EA"
             android:textColor="@color/white"
-            android:text=" Беспилотные транспортные средства “AGV”" />
+            android:text="Беспилотные транспортные средства “AGV”" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,7 +94,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:background="@color/white"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="24dp"

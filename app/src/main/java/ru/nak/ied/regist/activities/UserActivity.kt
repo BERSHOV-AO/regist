@@ -24,7 +24,7 @@ class UserActivity : AppCompatActivity() {
     private fun setBottomNavListener() {
         binding.bNav.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.settings -> {
+                R.id.addAGV -> {
                     Log.d("MyLog", "Settings")
                     FragmentManager.setFragment(SettingsFragment.newInstance(), this)
                 }
