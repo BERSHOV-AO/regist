@@ -8,9 +8,6 @@ import ru.nak.ied.regist.R
 import ru.nak.ied.regist.databinding.ActivityUserBinding
 import ru.nak.ied.regist.fragments.AgvFragment
 import ru.nak.ied.regist.fragments.FragmentManager
-import ru.nak.ied.regist.fragments.NoteFragment
-import ru.nak.ied.regist.fragments.QrScannerFragment
-import ru.nak.ied.regist.fragments.SettingsFragment
 
 class UserActivity : AppCompatActivity() {
     lateinit var binding: ActivityUserBinding

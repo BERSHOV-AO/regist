@@ -15,6 +15,7 @@ import ru.nak.ied.regist.R
 import ru.nak.ied.regist.databinding.ActivityItemsBinding
 import ru.nak.ied.regist.databinding.ActivityNewAgvBinding
 import ru.nak.ied.regist.db.MainViewModel
+import ru.nak.ied.regist.utils.HtmlManager
 
 class ItemsActivity : AppCompatActivity() {
 
@@ -39,7 +40,7 @@ class ItemsActivity : AppCompatActivity() {
             items.forEach { item ->
                 if (responseValueSerialNum.equals(item.serialNumber)) {
                     binding.tvSerialNumber.text = item.serialNumber
-                    binding.tvDescript.text = item.description
+                    binding.tvDescript.text = HtmlManager.getFromHtml(item.description).trim()
                     isItemFound = true
                 }
             }

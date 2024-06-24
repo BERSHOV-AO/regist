@@ -7,6 +7,8 @@
     <string name="description_hint">Описание</string>
     <string name="serial_number_hint">Серийный номер</string>
     <string name="save">Save</string>
+    <string name="bold">Bold</string>
+    <string name="color">Color</string>
     <string name="qr_scanner">QR scanner</string>
     <string name="agv_list">Список AGV</string>
     <string name="agv_txt">Беспилотные транспортные средства “AGV”</string>

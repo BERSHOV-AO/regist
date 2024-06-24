@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.databinding.AgvListItemBinding
 import ru.nak.ied.regist.entities.AGVItem
+import ru.nak.ied.regist.utils.HtmlManager
 
 class AgvAdapter(private val listener: Listener) :
     ListAdapter<AGVItem, AgvAdapter.ItemHolder>(ItemComparator()) {
@@ -26,7 +27,7 @@ class AgvAdapter(private val listener: Listener) :
         private val binding = AgvListItemBinding.bind(view)
         fun setData(agv: AGVItem, listener: Listener) = with(binding) {
             tvSerialNum.text = agv.serialNumber
-            tvDescription.text = agv.description
+            tvDescription.text = HtmlManager.getFromHtml(agv.description).trim()
             tvTime.text = agv.maintenanceTime
             itemView.setOnClickListener {
                 listener.onClickItem(agv)
