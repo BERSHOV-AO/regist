@@ -51,6 +51,7 @@ class AuthActivity : AppCompatActivity() {
 //                    val intent = Intent(this, ItemsActivity::class.java)
 //                    startActivity(intent)
                     val intent = Intent(this, UserActivity::class.java)
+                    intent.putExtra("login", login)
                     startActivity(intent)
 
                 } else {

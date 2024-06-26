@@ -17,6 +17,9 @@ class UserActivity : AppCompatActivity() {
         binding = ActivityUserBinding.inflate(layoutInflater) // активируем binding
         //setContentView(R.layout.activity_user)
         setContentView(binding.root)
+        val receivedLogin = intent.getStringExtra("login")
+        supportActionBar?.title = "Пользователь: $receivedLogin"
+
         setBottomNavListener()
     }
 
