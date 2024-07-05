@@ -10,7 +10,20 @@ material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 
+hiltVersion = "2.46.1"
+kaptVersion = "1.9.0"
+retrofitVersion = "2.9.0"
+hiltVersionNavigation = "1.2.0"
+
+
 [libraries]
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion"}
+hilt-android-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion"}
+retrofit-android = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion"}
+retrofit-android-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion"}
+hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltVersionNavigation"}
+
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -23,4 +36,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kaptVersion"}
+hiltCompiler = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 

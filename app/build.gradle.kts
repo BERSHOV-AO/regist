@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp") version "1.9.23-1.0.20"
+   alias(libs.plugins.kapt)
+    alias(libs.plugins.hiltCompiler)
 }
 
 android {
@@ -42,6 +44,12 @@ android {
 }
 
 dependencies {
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.retrofit.android)
+    implementation(libs.retrofit.android.converter)
+    implementation(libs.hilt.navigation)
+
     val room_version = "2.6.1"
     implementation("androidx.room:room-ktx:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
