@@ -9,19 +9,23 @@ import retrofit2.http.Body
 import ru.nak.ied.regist.entities.User
 import javax.inject.Inject
 
-@HiltViewModel
 class MainViewModel @Inject constructor(
     private val mainApi: MainApi
-) : ViewModel() {
-    val userList = mutableStateOf(emptyList<User>())
+) {
+    //val userList = mutableStateOf(emptyList<User>())
 
-    init {
-        viewModelScope.launch {
-            userList.value = mainApi.getAllUsers()
-        }
+
+    suspend fun getAllUsers() : List<User> {
+        return mainApi.getAllUsers()
     }
 
-    fun existenceUser(login: String, pass: String) = viewModelScope.launch {
-        mainApi.getUserExistence(login, pass);
-    }
+//    init {
+//        viewModelScope.launch {
+//            userList.value = mainApi.getAllUsers()
+//        }
+//    }
+
+//    fun existenceUser(login: String, pass: String) = viewModelScope.launch {
+//        mainApi.getUserExistence(login, pass);
+//    }
 }
