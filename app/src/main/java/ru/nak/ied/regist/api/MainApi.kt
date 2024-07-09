@@ -13,6 +13,9 @@ interface MainApi {
     @GET("get_all_users.php")
     suspend fun getAllUsers(): List<User>
 
+    @GET("test_connect_db.php")
+    suspend fun getConnectDB(): Boolean
+
     @GET("user_presence.php")
     suspend fun getUserExistence(@Body login: String, @Body pass: String): Boolean
 
