@@ -54,7 +54,7 @@ class AuthActivity : AppCompatActivity() {
                 } else {
                     binding.imWifi.setImageResource(R.drawable.ic_wifi_red)
                     Toast.makeText(
-                        context, "Нет связи с базой данных!",
+                        context, "Нет связи с сервером, проверьте wifi соединение, ip адрес!",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -75,8 +75,10 @@ class AuthActivity : AppCompatActivity() {
                     val pass = binding.userPussAuth.text.toString().trim()
 
                     if (login == "" || pass == "") {
-                        Toast.makeText(context, "Не все поля заполнены",
-                            Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context, "Не все поля заполнены",
+                            Toast.LENGTH_LONG
+                        ).show()
                     } else {
                         try {
                             val list = withContext(Dispatchers.IO) {
@@ -122,8 +124,11 @@ class AuthActivity : AppCompatActivity() {
                     }
                 } else {
                     binding.imWifi.setImageResource(R.drawable.ic_wifi_red)
-                    Toast.makeText(context, "Нет связи с базой данных!",
-                        Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context, "Нет связи с сервером, проверьте " +
+                                "wifi соединение, ip адрес!",
+                        Toast.LENGTH_LONG
+                    ).show()
                     Log.d("MyLog", "Нет связи с базой данных!")
                 }
             }
