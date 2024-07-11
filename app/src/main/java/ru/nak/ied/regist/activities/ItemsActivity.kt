@@ -11,19 +11,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.nak.ied.regist.R
+import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityItemsBinding
 import ru.nak.ied.regist.databinding.ActivityNewAgvBinding
-//import ru.nak.ied.regist.db.MainViewModel
-//import ru.nak.ied.regist.utils.HtmlManager
+import ru.nak.ied.regist.entities.AGVItem
+import ru.nak.ied.regist.entities.User
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ItemsActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var mainApi: MainApi
 
     private lateinit var binding: ActivityItemsBinding
 
-//    private val mainViewModel: MainViewModel by viewModels {
-//        MainViewModel.MainViewModelFactory((application as MainApp).database)
-//    }
+    var listAgv: List<AGVItem>? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,22 +40,35 @@ class ItemsActivity : AppCompatActivity() {
 
         val responseValueSerialNum = intent.getStringExtra("key");
 
-     //   mainViewModel.allAGV.observe(this, Observer { items ->
 
-            var isItemFound =
-                false // Флаг для отслеживания наличия элемента с заданным серийным номером
+        CoroutineScope(Dispatchers.Main).launch {
+            listAgv = mainApi.getAllAGV()
 
-//            items.forEach { item ->
-//                if (responseValueSerialNum.equals(item.serialNumber)) {
-//                    binding.tvSerialNumber.text = item.serialNumber
-//                    binding.tvDescript.text = HtmlManager.getFromHtml(item.description).trim()
-//                    isItemFound = true
-//                }
-//            }
-//            if (!isItemFound) {
-//                Toast.makeText(this, "QR code в базе данных не найден!", Toast.LENGTH_SHORT).show()
-//                finish()
-//            }
-//        })
+            var agvFound = false
+            listAgv?.forEach { agv ->
+                if (agv.serialNumber == responseValueSerialNum) {
+                    Log.d("MyLog", "AGV найден: ${agv.serialNumber}")
+                    Toast.makeText(
+                        this@ItemsActivity,
+                        "AGV найден: ${agv.serialNumber}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    binding.tvSerialNumber.text = agv.serialNumber
+                    binding.tvDescript.text = agv.description
+                    agvFound = true
+                    return@launch // Выход из функции launch
+                }
+            }
+
+            if (!agvFound) {
+                Toast.makeText(
+                    this@ItemsActivity,
+                    "QR code в базе данных не найден!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+        }
     }
 }

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B3B3B3"
-    tools:context=".fragments.AgvFragment">
+    android:background="@color/grr">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcVewNote"

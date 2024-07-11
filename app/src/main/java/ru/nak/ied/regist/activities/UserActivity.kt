@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.databinding.ActivityUserBinding
+//import ru.nak.ied.regist.fragments.AgvAllFragment
+//import ru.nak.ied.regist.fragments.AgvFragment
 import ru.nak.ied.regist.fragments.FragmentManager
 import ru.nak.ied.regist.fragments.QrScannerFragment
 
@@ -31,17 +33,14 @@ class UserActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.addAGV -> {
                     Log.d("MyLog", "addAGV")
-                  //  FragmentManager.currentFrag?.onClickNew()
+                    FragmentManager.currentFrag?.onClickNew()
                 }
-
-//                R.id.notes -> {
-//                    Log.d("MyLog", "Notes")
-//
-//                }
 
                 R.id.list_agv -> {
                     Log.d("MyLog", "list_agv")
-                  //  FragmentManager.setFragment(AgvFragment.newInstance(), this)
+                    val intent = Intent(this, AgvAllActivity::class.java)
+                    startActivity(intent);
+//                    FragmentManager.setFragment(AgvFragment.newInstance(), this)
                 }
 
                 R.id.qrcode -> {

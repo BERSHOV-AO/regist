@@ -17,7 +17,7 @@
 //import ru.nak.ied.regist.R
 //import ru.nak.ied.regist.databinding.ActivityNewAgvBinding
 //import ru.nak.ied.regist.entities.AGVItem
-//import ru.nak.ied.regist.fragments.AgvFragment
+////import ru.nak.ied.regist.fragments.AgvFragment
 //import ru.nak.ied.regist.utils.HtmlManager
 //import ru.nak.ied.regist.utils.MyTouchListener
 //import java.text.SimpleDateFormat
@@ -153,8 +153,8 @@
 //            tempAGV = updateAGV()
 //        }
 //        val i = Intent().apply {
-//            putExtra(AgvFragment.NEW_NOTE_KEY, tempAGV)
-//            putExtra(AgvFragment.EDIT_STATE_KEY, editState)
+////            putExtra(AgvFragment.NEW_NOTE_KEY, tempAGV)
+////            putExtra(AgvFragment.EDIT_STATE_KEY, editState)
 //        }
 //        setResult(RESULT_OK, i)
 //        finish()
