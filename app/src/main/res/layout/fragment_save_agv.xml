@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grr"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etNameAgv"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="Название AGV" />
+
+    <EditText
+        android:id="@+id/etSerialNumAgv"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="Серийный номер" />
+
+    <EditText
+        android:id="@+id/etDescriptionAGV"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:inputType="textMultiLine"
+        android:gravity="top|start"
+        android:scrollbars="vertical"
+        android:lines="5"
+        android:maxLines="10"
+        android:hint="Описание" />
+
+    <Button
+        android:id="@+id/bSaveAgv"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#0F89D5"
+        android:text="Добавить AGV" />
+</LinearLayout>

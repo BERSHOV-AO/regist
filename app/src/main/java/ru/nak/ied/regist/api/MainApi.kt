@@ -11,6 +11,9 @@ interface MainApi {
     @POST("save_user_agv.php")
     suspend fun saveUser(@Body user: User)
 
+    @POST("save_agv.php")
+    suspend fun saveAGV(@Body agvItem: AGVItem)
+
     @GET("get_all_users.php")
     suspend fun getAllUsers(): List<User>
 
@@ -22,6 +25,4 @@ interface MainApi {
 
     @GET("user_presence.php")
     suspend fun getUserExistence(@Body login: String, @Body pass: String): Boolean
-
-
 }

@@ -3,8 +3,10 @@ package ru.nak.ied.regist.activities
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.db.AgvAdapter
 import ru.nak.ied.regist.entities.AGVItem
@@ -14,7 +16,7 @@ import java.util.Date
 import java.util.Locale
 
 class AGVAdapter(private val agvList: List<AGVItem>) :
-    RecyclerView.Adapter<AGVAdapter.AGVViewHolder>() {
+    RecyclerView.Adapter<AGVAdapter.AGVViewHolder>()  {
 
     inner class AGVViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
