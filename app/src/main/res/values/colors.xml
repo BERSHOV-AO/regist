@@ -12,6 +12,7 @@
     <color name="purple_700">#304FFE</color>
     <color name="teal_200">#00BFA5</color>
     <color name="teal_700">#105E53</color>
+    <color name="red_light">#F38E8E</color>
 
     <color name="picker_red">#D50000</color>
     <color name="picker_green">#3AEF85</color>

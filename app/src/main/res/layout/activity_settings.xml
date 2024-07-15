@@ -103,7 +103,7 @@
                 android:hint="192"
                 android:maxLength="3"
                 android:digits="0123456789"
-                android:inputType="text" />
+                android:inputType="number" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -123,7 +123,7 @@
                 android:hint="168"
                 android:maxLength="3"
                 android:digits="0123456789"
-                android:inputType="text" />
+                android:inputType="number" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -141,7 +141,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="0"
-                android:inputType="text"
+                android:inputType="number"
                 android:digits="0123456789"
                 android:maxLength="3" />
 
@@ -162,7 +162,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="1"
-                android:inputType="text"
+                android:inputType="number"
                 android:digits="0123456789"
                 android:maxLength="3" />
         </LinearLayout>
@@ -192,13 +192,13 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="#0F89D5"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:text="читать IP"
+                android:text="читать текущий IP"
                 tools:ignore="MissingConstraints" />
 
             <TextView

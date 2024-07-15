@@ -13,6 +13,8 @@
     <string name="agv_list">Список AGV</string>
     <string name="agv_txt">Беспилотные транспортные средства “AGV”</string>
     <string name="add_agv">Добавить AGV</string>
+    <string name="ip_agv">http://192.168.0.7/host/</string>
+    <string name="ip_agv_pga">http://192.168.175.152/host/</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
