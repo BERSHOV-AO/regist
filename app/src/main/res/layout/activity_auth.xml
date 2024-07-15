@@ -14,7 +14,7 @@
         android:layout_height="40dp"
         android:orientation="horizontal">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imWifi"
             android:layout_width="30dp"
             android:layout_marginTop="2dp"

@@ -42,6 +42,26 @@ class AuthActivity : AppCompatActivity() {
             }
         }
 
+        binding.imWifi.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                val isConnected = getDataBaseConnection()
+                if (isConnected) {
+                    binding.imWifi.setImageResource(R.drawable.ic_wifi_green)
+                    Toast.makeText(
+                        context, "Связь с сервером установлена!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    binding.imWifi.setImageResource(R.drawable.ic_wifi_red)
+                    Toast.makeText(
+                        context, "Нет связи с сервером, проверьте wifi соединение, ip адрес!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            }
+        }
+
         binding.linkToReg.setOnClickListener {
 
             CoroutineScope(Dispatchers.Main).launch {

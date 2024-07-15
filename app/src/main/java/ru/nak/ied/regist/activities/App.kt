@@ -28,10 +28,8 @@ class App : Application() {
         fun baseUrl(): String
     }
 
-    //"http://192.168.0.7/host/"
     override fun onCreate() {
         super.onCreate()
-       // baseUrl = resources.getString(R.string.ip_agv_pga)
         baseUrl = "http://".plus(readIpAddressFromFile(this)).plus("/host/")
     }
 }
