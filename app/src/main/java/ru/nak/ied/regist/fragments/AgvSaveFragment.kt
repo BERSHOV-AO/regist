@@ -94,8 +94,7 @@ class AgvSaveFragment : BaseFragment() {
                 }
                 .setNegativeButton("Отмена") { dialog, _ ->
                     dialog.dismiss()
-                }
-                .show()
+                }.show()
         }
         return view
     }

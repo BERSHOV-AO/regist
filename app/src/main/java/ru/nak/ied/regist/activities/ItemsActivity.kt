@@ -3,24 +3,19 @@ package ru.nak.ied.regist.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.nak.ied.regist.R
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityItemsBinding
-import ru.nak.ied.regist.databinding.ActivityNewAgvBinding
 import ru.nak.ied.regist.entities.AGVItem
-import ru.nak.ied.regist.entities.User
+import ru.nak.ied.regist.entities.AgvDiagnostic
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,17 +27,19 @@ class ItemsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityItemsBinding
 
     var listAgv: List<AGVItem>? = null;
+    var listDiagnosticAgv: List<AgvDiagnostic>? = null;
+    var agvSerialNum : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityItemsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val responseValueSerialNum = intent.getStringExtra("key");
-
+        val responseValueSerialNum = intent.getStringExtra("key")
 
         CoroutineScope(Dispatchers.Main).launch {
             listAgv = mainApi.getAllAGV()
+           // listDiagnosticAgv  = mainApi.getAllDiagnosticAgv()
 
             var agvFound = false
             listAgv?.forEach { agv ->
@@ -54,12 +51,50 @@ class ItemsActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
+                    binding.tvName.text = agv.name
                     binding.tvSerialNumber.text = agv.serialNumber
                     binding.tvDescript.text = agv.description
+                    binding.tvDataAdded.text = convertTime(agv.maintenanceTime)
+
+                    agvSerialNum = agv.serialNumber
+
                     agvFound = true
                     return@launch // Выход из функции launch
                 }
             }
+
+
+//            listDiagnosticAgv?.forEach { diagnostic ->
+//                if (diagnostic.serialNumber == responseValueSerialNum) {
+//
+//                    Log.d("MyLog", "diagnostic: ${diagnostic.serialNumber}")
+//                    Log.d("MyLog", "diagnostic: ${diagnostic.id}")
+//                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticShassi}")
+//                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticsBattery}")
+//
+//
+//                   // if()
+//                   // binding.tvDiagnostShassi.text = diagnostic.diagnosticShassi.toString()
+//                  //  Log.d("MyLog", "AGV найден: ${diagnostic.serialNumber}")
+////                    Toast.makeText(
+////                        this@ItemsActivity,
+////                        "AGV найден: ${agv.serialNumber}",
+////                        Toast.LENGTH_SHORT
+////                    ).show()
+//
+////                    binding.tvName.text = agv.name
+////                    binding.tvSerialNumber.text = agv.serialNumber
+////                    binding.tvDescript.text = agv.description
+////                    binding.tvDataAdded.text = convertTime(agv.maintenanceTime)
+////
+////                    agvSerialNum = agv.serialNumber
+////
+////                    agvFound = true
+//                    return@launch // Выход из функции launch
+//                }
+//            }
+
+
 
             if (!agvFound) {
                 Toast.makeText(
@@ -69,6 +104,51 @@ class ItemsActivity : AppCompatActivity() {
                 ).show()
                 finish()
             }
+
         }
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            //***********************************Parse AgvDiagnostic*******************************
+//            val agvDiagnosticItem: AgvDiagnostic =
+//                mainApi.getDiagnosticBySerialNum(responseValueSerialNum.toString())
+//            Log.d("MyLog", "AgvDiagnostic найден: ${agvDiagnosticItem.serialNumber}")
+//        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            listDiagnosticAgv = mainApi.getAllDiagnosticAgv()
+            listDiagnosticAgv?.forEach { diagnostic ->
+                if (diagnostic.serialNumber == responseValueSerialNum) {
+
+                    Log.d("MyLog", "diagnostic: ${diagnostic.serialNumber}")
+                    Log.d("MyLog", "diagnostic: ${diagnostic.id}")
+                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticShassi}")
+                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticsBattery}")
+
+                    //  Log.d("MyLog", "AgvDiagnostic найден: ${listDiagnosticAgv.toString()}")
+                }
+            }
+        }
+
+
+        binding.bDiagnosticAgv.setOnClickListener {
+            val intent = Intent(this, PPRAgvActivity::class.java)
+            intent.putExtra("agvNumDiagnostic", agvSerialNum)
+            startActivity(intent)
+        }
+    }
+
+    fun convertTime(timeString: String): String {
+        if (timeString.isEmpty()) {
+            return "Некорректное время"
+        }
+
+        val milliseconds = timeString.toLongOrNull() ?: 0
+        if (milliseconds == 0L) {
+            return "Некорректное время"
+        }
+
+        val date = Date(milliseconds)
+        val outputFormat = SimpleDateFormat("hh:mm:ss - yyyy/MM/dd", Locale.getDefault())
+        return outputFormat.format(date)
     }
 }

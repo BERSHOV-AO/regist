@@ -23,9 +23,6 @@ object Module {
     @Singleton
     fun providesBaseUrl(): String {
         return baseUrl
-
-
-      //  "http://192.168.0.7/host/"
     }
 
     @Provides

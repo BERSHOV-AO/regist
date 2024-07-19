@@ -86,7 +86,7 @@ class SettingsActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return "default_ip_address"
+        return "192.168.0.7"
     }
 
     fun restartApplication(context: Context) {
