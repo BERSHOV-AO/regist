@@ -35,8 +35,8 @@ class AGVAdapter(private val agvList: List<AGVItem>) :
 
         holder.nameTextView.text = currentItem.name
         holder.serialNumberTextView.text = currentItem.serialNumber
-        holder.descriptionTextView.text = currentItem.description
-        holder.maintenanceTimeTextView.text = convertTime(currentItem.maintenanceTime)
+//        holder.descriptionTextView.text = currentItem.description
+//        holder.maintenanceTimeTextView.text = convertTime(currentItem.maintenanceTime)
     }
 
     override fun getItemCount(): Int {

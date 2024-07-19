@@ -159,6 +159,8 @@ class PPRAgvActivity : AppCompatActivity() {
                                     "AGV",
                                     responseSerialNum.toString(),
                                     "update Diagnostic",
+                                    "122",
+                                    "122",
                                     diagnosticTime
                                 )
                             )

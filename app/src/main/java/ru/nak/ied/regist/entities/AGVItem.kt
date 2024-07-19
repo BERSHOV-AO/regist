@@ -4,6 +4,8 @@ data class AGVItem(
     val id: Int?,
     val name: String,
     val serialNumber: String,
-    val description: String,
-    val maintenanceTime: String
+    val versionFW: String,
+    val model: String,
+    val ePlan: String,
+    val dataCreateAgv: String
 )

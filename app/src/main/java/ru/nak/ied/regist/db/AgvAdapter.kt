@@ -27,8 +27,8 @@ class AgvAdapter(private val listener: Listener) :
         private val binding = AgvListItemBinding.bind(view)
         fun setData(agv: AGVItem, listener: Listener) = with(binding) {
             tvSerialNum.text = agv.serialNumber
-            tvDescription.text = HtmlManager.getFromHtml(agv.description).trim()
-            tvTime.text = agv.maintenanceTime
+        //    tvDescription.text = HtmlManager.getFromHtml(agv.description).trim()
+       //     tvTime.text = agv.maintenanceTime
             itemView.setOnClickListener {
                 listener.onClickItem(agv)
             }

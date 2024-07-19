@@ -20,6 +20,8 @@ import ru.nak.ied.regist.R
 import ru.nak.ied.regist.activities.AGVAdapter
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
+import ru.nak.ied.regist.entities.ToName
+import ru.nak.ied.regist.utils.TOData
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -32,9 +34,13 @@ class AgvSaveFragment : BaseFragment() {
     @Inject
     lateinit var mainApi: MainApi
 
+    // var listNameTO : String? = null
+
+
     override fun onClickNew() {
         TODO("Not yet implemented")
     }
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -45,8 +51,12 @@ class AgvSaveFragment : BaseFragment() {
 
         val nameAgv = view.findViewById<EditText>(R.id.etNameAgv)
         val serialNumAgv = view.findViewById<EditText>(R.id.etSerialNumAgv)
-        val descriptionAGV = view.findViewById<EditText>(R.id.etDescriptionAGV)
+        val versionFW = view.findViewById<EditText>(R.id.etVersionFW)
+        val modelAgv = view.findViewById<EditText>(R.id.etModelAgv)
+        val ePlan = view.findViewById<EditText>(R.id.etePlan)
         val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
+
+        //  listNameTO = TOData.toMap.values.toString()
 
         buttonSaveAgv.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.dialog_password, null)
@@ -57,7 +67,7 @@ class AgvSaveFragment : BaseFragment() {
                 .setView(dialogView)
                 .setPositiveButton("OK") { dialog, _ ->
                     val enteredPassword = etDialogPassword.text.toString()
-                    if (enteredPassword == "красный") {
+                    if (enteredPassword == "121286") {
                         Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
                         /**
                          * **************************CoroutineScope*********************************
@@ -68,10 +78,55 @@ class AgvSaveFragment : BaseFragment() {
                                     null,
                                     nameAgv.text.toString(),
                                     serialNumAgv.text.toString(),
-                                    descriptionAGV.text.toString(),
+                                    versionFW.text.toString(),
+                                    modelAgv.text.toString(),
+                                    ePlan.text.toString(),
                                     getCurrentTime()
                                 )
                             )
+
+                            for ((key, value) in TOData.toMap) {
+                                println("Ключ: $key, Значение: $value")
+
+                                mainApi.saveAgvTo(
+                                    ToName(
+                                        null,
+                                        key,
+                                        serialNumAgv.text.toString(),
+                                        value,
+                                        true,
+                                        getCurrentTime()
+                                    )
+                                )
+
+                            }
+
+//                            for(to in listNameTO!!) {
+//
+//                                mainApi.saveAgvTo(
+//                                ToName(
+//                                    null,
+//                                    to.toString(),
+//                                    serialNumAgv.text.toString(),
+//                                    "30",
+//                                    true,
+//                                    getCurrentTime()
+//                                )
+//                            )
+//
+//                            }
+
+
+//                            mainApi.saveAgvTo(
+//                                ToName(
+//                                    null,
+//                                    resources.getString(R.string.body__cleaning),
+//                                    serialNumAgv.text.toString(),
+//                                    "30",
+//                                    true,
+//                                    getCurrentTime()
+//                                )
+//                            )
 
                             Toast.makeText(
                                 context,
@@ -81,7 +136,9 @@ class AgvSaveFragment : BaseFragment() {
 
                             nameAgv.text.clear()
                             serialNumAgv.text.clear()
-                            descriptionAGV.text.clear()
+                            versionFW.text.clear()
+                            modelAgv.text.clear()
+                            ePlan.text.clear()
                             /**
                              * *********************************************************************
                              */

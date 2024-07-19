@@ -6,6 +6,8 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import ru.nak.ied.regist.entities.AGVItem
 import ru.nak.ied.regist.entities.AgvDiagnostic
+import ru.nak.ied.regist.entities.AgvTo
+import ru.nak.ied.regist.entities.ToName
 import ru.nak.ied.regist.entities.User
 
 interface MainApi {
@@ -18,6 +20,9 @@ interface MainApi {
 
     @POST("save_agv.php")
     suspend fun saveAGV(@Body agvItem: AGVItem)
+
+    @POST("save_toagv.php")
+    suspend fun saveAgvTo(@Body toName: ToName)
 
     @POST("save_or_update_agv.php")
     suspend fun saveOrUpdateAgv(@Body agvItem: AGVItem)

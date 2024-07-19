@@ -53,8 +53,8 @@ class ItemsActivity : AppCompatActivity() {
 
                     binding.tvName.text = agv.name
                     binding.tvSerialNumber.text = agv.serialNumber
-                    binding.tvDescript.text = agv.description
-                    binding.tvDataAdded.text = convertTime(agv.maintenanceTime)
+//                    binding.tvDescript.text = agv.description
+//                    binding.tvDataAdded.text = convertTime(agv.maintenanceTime)
 
                     agvSerialNum = agv.serialNumber
 
