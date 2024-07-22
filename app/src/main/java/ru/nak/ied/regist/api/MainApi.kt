@@ -6,8 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import ru.nak.ied.regist.entities.AGVItem
 import ru.nak.ied.regist.entities.AgvDiagnostic
-import ru.nak.ied.regist.entities.AgvTo
-import ru.nak.ied.regist.entities.ToName
+import ru.nak.ied.regist.entities.NameTO
 import ru.nak.ied.regist.entities.User
 
 interface MainApi {
@@ -22,13 +21,16 @@ interface MainApi {
     suspend fun saveAGV(@Body agvItem: AGVItem)
 
     @POST("save_toagv.php")
-    suspend fun saveAgvTo(@Body toName: ToName)
+    suspend fun saveAgvTo(@Body nameTO: NameTO)
 
     @POST("save_or_update_agv.php")
     suspend fun saveOrUpdateAgv(@Body agvItem: AGVItem)
 
-    @GET("get_diagnostic_agv_by_serial_number.php")
-    suspend fun getDiagnosticBySerialNum(@Query("serialNumber") serialNumber: String): AgvDiagnostic
+//    @GET("get_diagnostic_agv_by_serial_number.php")
+//    suspend fun getDiagnosticBySerialNum(@Query("serialNumber") serialNumber: String): AgvDiagnostic
+
+    @GET("get_agv_to_by_sn.php")
+    suspend fun getTOAgvBySN(@Query("serialNumberAGV") serialNumberAGV: String): List<NameTO>
 
     @GET("get_all_users.php")
     suspend fun getAllUsers(): List<User>

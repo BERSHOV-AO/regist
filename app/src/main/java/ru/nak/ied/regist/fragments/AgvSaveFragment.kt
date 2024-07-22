@@ -3,28 +3,21 @@ package ru.nak.ied.regist.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.nak.ied.regist.R
-import ru.nak.ied.regist.activities.AGVAdapter
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
-import ru.nak.ied.regist.entities.ToName
+import ru.nak.ied.regist.entities.NameTO
 import ru.nak.ied.regist.utils.TOData
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 import javax.inject.Inject
 
 
@@ -69,6 +62,8 @@ class AgvSaveFragment : BaseFragment() {
                     val enteredPassword = etDialogPassword.text.toString()
                     if (enteredPassword == "121286") {
                         Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
+
+                        val thisCurrentTime: String = getCurrentTime()
                         /**
                          * **************************CoroutineScope*********************************
                          */
@@ -81,7 +76,7 @@ class AgvSaveFragment : BaseFragment() {
                                     versionFW.text.toString(),
                                     modelAgv.text.toString(),
                                     ePlan.text.toString(),
-                                    getCurrentTime()
+                                    thisCurrentTime
                                 )
                             )
 
@@ -89,44 +84,16 @@ class AgvSaveFragment : BaseFragment() {
                                 println("Ключ: $key, Значение: $value")
 
                                 mainApi.saveAgvTo(
-                                    ToName(
+                                    NameTO(
                                         null,
                                         key,
                                         serialNumAgv.text.toString(),
                                         value,
                                         true,
-                                        getCurrentTime()
+                                        thisCurrentTime
                                     )
                                 )
-
                             }
-
-//                            for(to in listNameTO!!) {
-//
-//                                mainApi.saveAgvTo(
-//                                ToName(
-//                                    null,
-//                                    to.toString(),
-//                                    serialNumAgv.text.toString(),
-//                                    "30",
-//                                    true,
-//                                    getCurrentTime()
-//                                )
-//                            )
-//
-//                            }
-
-
-//                            mainApi.saveAgvTo(
-//                                ToName(
-//                                    null,
-//                                    resources.getString(R.string.body__cleaning),
-//                                    serialNumAgv.text.toString(),
-//                                    "30",
-//                                    true,
-//                                    getCurrentTime()
-//                                )
-//                            )
 
                             Toast.makeText(
                                 context,

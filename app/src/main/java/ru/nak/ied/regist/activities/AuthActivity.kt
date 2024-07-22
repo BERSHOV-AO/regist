@@ -33,7 +33,7 @@ class AuthActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        //**********************************add TOData******************************************
+        //**********************************add TOData**********************************************
         TOData.addToMap("Корпус - очистка от загрязнений", "30")
         TOData.addToMap("Корпус - контроль резьбовых соединений, протяжка", "30")
 
@@ -89,7 +89,7 @@ class AuthActivity : AppCompatActivity() {
         TOData.addToMap("Колеса поворотные - Проверить продольный люфт", "30")
 
         TOData.addToMap("Колеса задние - Проверить продольный люфт", "30")
-        //****************************************************************************************
+        //******************************************************************************************
 
         val context = this@AuthActivity
 
@@ -230,7 +230,6 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 }
-
 
 //        binding.buttonAuth.setOnClickListener {
 //            CoroutineScope(Dispatchers.Main).launch {

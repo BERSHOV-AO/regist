@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nak.ied.regist.R
-import ru.nak.ied.regist.db.AgvAdapter
+//import ru.nak.ied.regist.db.AgvAdapter
 import ru.nak.ied.regist.entities.AGVItem
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -16,13 +16,15 @@ import java.util.Date
 import java.util.Locale
 
 class AGVAdapter(private val agvList: List<AGVItem>) :
-    RecyclerView.Adapter<AGVAdapter.AGVViewHolder>()  {
+    RecyclerView.Adapter<AGVAdapter.AGVViewHolder>() {
 
     inner class AGVViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         val serialNumberTextView: TextView = itemView.findViewById(R.id.serialNumberTextView)
-        val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
-        val maintenanceTimeTextView: TextView = itemView.findViewById(R.id.maintenanceTimeTextView)
+        val versionFW: TextView = itemView.findViewById(R.id.tvVersionFW)
+        val model: TextView = itemView.findViewById(R.id.tvModel)
+        val ePlan: TextView = itemView.findViewById(R.id.tvEPlan)
+        val timeLastTo: TextView = itemView.findViewById(R.id.tvTimeOfLastTo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AGVViewHolder {
@@ -35,8 +37,11 @@ class AGVAdapter(private val agvList: List<AGVItem>) :
 
         holder.nameTextView.text = currentItem.name
         holder.serialNumberTextView.text = currentItem.serialNumber
-//        holder.descriptionTextView.text = currentItem.description
-//        holder.maintenanceTimeTextView.text = convertTime(currentItem.maintenanceTime)
+        holder.versionFW.text = currentItem.versionFW
+        holder.model.text = currentItem.model
+        holder.ePlan.text = currentItem.ePlan
+        holder.timeLastTo.text = convertTime(currentItem.dataLastTo)
+
     }
 
     override fun getItemCount(): Int {

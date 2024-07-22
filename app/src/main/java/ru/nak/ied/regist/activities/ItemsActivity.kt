@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.nak.ied.regist.R
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityItemsBinding
 import ru.nak.ied.regist.entities.AGVItem
 import ru.nak.ied.regist.entities.AgvDiagnostic
+import ru.nak.ied.regist.entities.NameTO
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -24,9 +28,13 @@ class ItemsActivity : AppCompatActivity() {
     @Inject
     lateinit var mainApi: MainApi
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: AGVTOAdapter
+
     private lateinit var binding: ActivityItemsBinding
 
     var listAgv: List<AGVItem>? = null;
+    var listTOAgv: List<NameTO>? = null;
     var listDiagnosticAgv: List<AgvDiagnostic>? = null;
     var agvSerialNum : String? = null
 
@@ -35,10 +43,22 @@ class ItemsActivity : AppCompatActivity() {
         binding = ActivityItemsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        recyclerView = binding.rcViewAgvTo
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
         val responseValueSerialNum = intent.getStringExtra("key")
+
+        binding.tvSnAgvText.text = responseValueSerialNum
 
         CoroutineScope(Dispatchers.Main).launch {
             listAgv = mainApi.getAllAGV()
+
+            listTOAgv = mainApi.getTOAgvBySN(responseValueSerialNum!!)
+
+            adapter = AGVTOAdapter(listTOAgv!!)
+            recyclerView.adapter = adapter
+
+
            // listDiagnosticAgv  = mainApi.getAllDiagnosticAgv()
 
             var agvFound = false
@@ -51,8 +71,9 @@ class ItemsActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    binding.tvName.text = agv.name
-                    binding.tvSerialNumber.text = agv.serialNumber
+//                    binding.tvName.text = agv.name
+//                    binding.tvSerialNumber.text = agv.serialNumber
+                    //binding.
 //                    binding.tvDescript.text = agv.description
 //                    binding.tvDataAdded.text = convertTime(agv.maintenanceTime)
 

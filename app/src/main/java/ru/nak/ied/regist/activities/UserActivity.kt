@@ -13,8 +13,6 @@ import ru.nak.ied.regist.fragments.AgvSaveFragment
 //import ru.nak.ied.regist.fragments.AgvFragment
 import ru.nak.ied.regist.fragments.FragmentManager
 
-//import ru.nak.ied.regist.fragments.AgvFragment
-//import ru.nak.ied.regist.fragments.FragmentManager
 
 @AndroidEntryPoint
 class UserActivity : AppCompatActivity() {
@@ -29,6 +27,8 @@ class UserActivity : AppCompatActivity() {
         supportActionBar?.title = "Пользователь: $receivedLogin"
 
         setBottomNavListener()
+
+        FragmentManager.setFragment(AgvAllFragment.newInstance(), this)
     }
 
     private fun setBottomNavListener() {

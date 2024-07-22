@@ -1,6 +1,6 @@
 package ru.nak.ied.regist.entities
 
-data class ToName(
+data class NameTO(
     val id: Int?,
     val nameTo: String,
     val serialNumberAGV: String,
