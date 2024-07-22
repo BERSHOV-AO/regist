@@ -1,9 +1,12 @@
 package ru.nak.ied.regist.activities
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.entities.NameTO
@@ -12,9 +15,8 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class AGVTOAdapter(private val agvToList: List<NameTO>)
+class AGVTOAdapter(private val context: Context, private val agvToList: List<NameTO>)
     : RecyclerView.Adapter<AGVTOAdapter.AGVViewHolder>() {
-
 
     inner class AGVViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTexTO: TextView = itemView.findViewById(R.id.tvNameTO)
@@ -34,7 +36,15 @@ class AGVTOAdapter(private val agvToList: List<NameTO>)
             holder.nameTexTO.text = currentItem.nameTo
             holder.dataLastTO.text = convertTime(currentItem.dataTo)
             holder.dataFutureTO.text = convertTimeWithDays(currentItem.dataTo, currentItem.frequencyOfTo)
-            holder.statusTO.text = currentItem.statusTo.toString()
+
+            if(currentItem.statusTo){
+                holder.statusTO.text = "OK"
+                holder.statusTO.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark))
+            } else {
+                holder.statusTO.text = "NOK"
+                holder.statusTO.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+            }
+
         }
 
         override fun getItemCount(): Int {

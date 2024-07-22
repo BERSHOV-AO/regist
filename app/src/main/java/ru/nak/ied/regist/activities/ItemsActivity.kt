@@ -55,7 +55,7 @@ class ItemsActivity : AppCompatActivity() {
 
             listTOAgv = mainApi.getTOAgvBySN(responseValueSerialNum!!)
 
-            adapter = AGVTOAdapter(listTOAgv!!)
+            adapter = AGVTOAdapter(this@ItemsActivity, listTOAgv!!)
             recyclerView.adapter = adapter
 
 
