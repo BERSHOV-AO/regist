@@ -35,8 +35,7 @@ class ItemsActivity : AppCompatActivity() {
 
     var listAgv: List<AGVItem>? = null;
     var listTOAgv: List<NameTO>? = null;
-    var listDiagnosticAgv: List<AgvDiagnostic>? = null;
-    var agvSerialNum : String? = null
+    var agvSerialNum: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +58,6 @@ class ItemsActivity : AppCompatActivity() {
             recyclerView.adapter = adapter
 
 
-           // listDiagnosticAgv  = mainApi.getAllDiagnosticAgv()
-
             var agvFound = false
             listAgv?.forEach { agv ->
                 if (agv.serialNumber == responseValueSerialNum) {
@@ -71,51 +68,12 @@ class ItemsActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-//                    binding.tvName.text = agv.name
-//                    binding.tvSerialNumber.text = agv.serialNumber
-                    //binding.
-//                    binding.tvDescript.text = agv.description
-//                    binding.tvDataAdded.text = convertTime(agv.maintenanceTime)
-
                     agvSerialNum = agv.serialNumber
 
                     agvFound = true
                     return@launch // Выход из функции launch
                 }
             }
-
-
-//            listDiagnosticAgv?.forEach { diagnostic ->
-//                if (diagnostic.serialNumber == responseValueSerialNum) {
-//
-//                    Log.d("MyLog", "diagnostic: ${diagnostic.serialNumber}")
-//                    Log.d("MyLog", "diagnostic: ${diagnostic.id}")
-//                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticShassi}")
-//                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticsBattery}")
-//
-//
-//                   // if()
-//                   // binding.tvDiagnostShassi.text = diagnostic.diagnosticShassi.toString()
-//                  //  Log.d("MyLog", "AGV найден: ${diagnostic.serialNumber}")
-////                    Toast.makeText(
-////                        this@ItemsActivity,
-////                        "AGV найден: ${agv.serialNumber}",
-////                        Toast.LENGTH_SHORT
-////                    ).show()
-//
-////                    binding.tvName.text = agv.name
-////                    binding.tvSerialNumber.text = agv.serialNumber
-////                    binding.tvDescript.text = agv.description
-////                    binding.tvDataAdded.text = convertTime(agv.maintenanceTime)
-////
-////                    agvSerialNum = agv.serialNumber
-////
-////                    agvFound = true
-//                    return@launch // Выход из функции launch
-//                }
-//            }
-
-
 
             if (!agvFound) {
                 Toast.makeText(
@@ -125,35 +83,11 @@ class ItemsActivity : AppCompatActivity() {
                 ).show()
                 finish()
             }
-
         }
-
-//        CoroutineScope(Dispatchers.Main).launch {
-//            //***********************************Parse AgvDiagnostic*******************************
-//            val agvDiagnosticItem: AgvDiagnostic =
-//                mainApi.getDiagnosticBySerialNum(responseValueSerialNum.toString())
-//            Log.d("MyLog", "AgvDiagnostic найден: ${agvDiagnosticItem.serialNumber}")
-//        }
-
-        CoroutineScope(Dispatchers.Main).launch {
-            listDiagnosticAgv = mainApi.getAllDiagnosticAgv()
-            listDiagnosticAgv?.forEach { diagnostic ->
-                if (diagnostic.serialNumber == responseValueSerialNum) {
-
-                    Log.d("MyLog", "diagnostic: ${diagnostic.serialNumber}")
-                    Log.d("MyLog", "diagnostic: ${diagnostic.id}")
-                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticShassi}")
-                    Log.d("MyLog", "diagnostic: ${diagnostic.diagnosticsBattery}")
-
-                    //  Log.d("MyLog", "AgvDiagnostic найден: ${listDiagnosticAgv.toString()}")
-                }
-            }
-        }
-
 
         binding.bDiagnosticAgv.setOnClickListener {
-            val intent = Intent(this, PPRAgvActivity::class.java)
-            intent.putExtra("agvNumDiagnostic", agvSerialNum)
+            val intent = Intent(this, MakeAGVTOActivity::class.java)
+            intent.putExtra("agvSerialNumTo", agvSerialNum)
             startActivity(intent)
         }
     }

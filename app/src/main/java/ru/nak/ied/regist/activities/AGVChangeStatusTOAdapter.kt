@@ -1,9 +1,12 @@
 package ru.nak.ied.regist.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -14,46 +17,40 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class AGVTOAdapter(private val context: Context, private val agvToList: List<NameTO>) :
-    RecyclerView.Adapter<AGVTOAdapter.AGVViewHolder>() {
+class AGVChangeStatusTOAdapter(private val agvToList: List<NameTO>) :
+    RecyclerView.Adapter<AGVChangeStatusTOAdapter.AGVChangeStatusViewHolder>() {
 
-    inner class AGVViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTexTO: TextView = itemView.findViewById(R.id.tvNameTO)
-        val dataLastTO: TextView = itemView.findViewById(R.id.tvDataLastTO)
-        val dataFutureTO: TextView = itemView.findViewById(R.id.tvDataFutureTO)
-        val statusTO: TextView = itemView.findViewById(R.id.tvStatusTO)
+
+    inner class AGVChangeStatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
+        val switchStatusToName: Switch = itemView.findViewById(R.id.swStatusTOSwitch)
+       // val imageStatusTo: ImageView = itemView.findViewById(R.id.ivStatusTOImage)
+//            val dataLastTO: TextView = itemView.findViewById(R.id.tvDataLastTO)
+//            val dataFutureTO: TextView = itemView.findViewById(R.id.tvDataFutureTO)
+//            val statusTO: TextView = itemView.findViewById(R.id.tvStatusTO)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AGVViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_agv_to, parent, false)
-        return AGVViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AGVChangeStatusViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_agv_to_change_status, parent, false)
+        return AGVChangeStatusViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AGVViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AGVChangeStatusViewHolder, position: Int) {
         val currentItem = agvToList[position]
 
-        holder.nameTexTO.text = currentItem.nameTo
-        holder.dataLastTO.text = convertTime(currentItem.dataTo)
-        holder.dataFutureTO.text =
-            convertTimeWithDays(currentItem.dataTo, currentItem.frequencyOfTo)
-
         if (currentItem.statusTo) {
-            holder.statusTO.text = "OK"
-            holder.statusTO.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    android.R.color.holo_green_dark
-                )
-            )
+            holder.switchStatusToName.isChecked = true
         } else {
-            holder.statusTO.text = "NOK"
-            holder.statusTO.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    android.R.color.holo_red_dark
-                )
-            )
+            holder.switchStatusToName.isChecked = false
         }
+
+        holder.switchStatusToName.text = currentItem.nameTo
+
+//        if (currentItem.statusTo) {
+//            holder.imageStatusTo.setImageResource(R.drawable.ic_ok)
+//        } else {
+//            holder.imageStatusTo.setImageResource(R.drawable.ic_nok)
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -96,5 +93,3 @@ class AGVTOAdapter(private val context: Context, private val agvToList: List<Nam
         return outputFormat.format(calendar.time)
     }
 }
-
-
