@@ -35,7 +35,8 @@ class ItemsActivity : AppCompatActivity() {
 
     var listAgv: List<AGVItem>? = null;
     var listTOAgv: List<NameTO>? = null;
-    var agvSerialNum: String? = null
+    lateinit var listTOAgvNoTO: List<NameTO>;
+    lateinit var agvSerialNum: String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,12 +70,10 @@ class ItemsActivity : AppCompatActivity() {
                     ).show()
 
                     agvSerialNum = agv.serialNumber
-
                     agvFound = true
                     return@launch // Выход из функции launch
                 }
             }
-
             if (!agvFound) {
                 Toast.makeText(
                     this@ItemsActivity,
@@ -86,9 +85,21 @@ class ItemsActivity : AppCompatActivity() {
         }
 
         binding.bDiagnosticAgv.setOnClickListener {
-            val intent = Intent(this, MakeAGVTOActivity::class.java)
-            intent.putExtra("agvSerialNumTo", agvSerialNum)
-            startActivity(intent)
+
+            CoroutineScope(Dispatchers.Main).launch {
+                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agvSerialNum)
+                if (listTOAgvNoTO.size == 0) {
+                    Toast.makeText(
+                        this@ItemsActivity,
+                        "У AGV sn: $agvSerialNum, все ТО выпонены!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    val intent = Intent(this@ItemsActivity, MakeAGVTOActivity::class.java)
+                    intent.putExtra("agvSerialNumTo", agvSerialNum)
+                    startActivity(intent)
+                }
+            }
         }
     }
 
