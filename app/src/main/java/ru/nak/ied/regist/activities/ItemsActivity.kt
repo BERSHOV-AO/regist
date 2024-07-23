@@ -11,15 +11,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.nak.ied.regist.R
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityItemsBinding
 import ru.nak.ied.regist.entities.AGVItem
-import ru.nak.ied.regist.entities.AgvDiagnostic
 import ru.nak.ied.regist.entities.NameTO
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,7 +31,6 @@ class ItemsActivity : AppCompatActivity() {
     var listAgv: List<AGVItem>? = null;
     var listTOAgv: List<NameTO>? = null;
     lateinit var listTOAgvNoTO: List<NameTO>;
-    lateinit var agvSerialNum: String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,64 +51,30 @@ class ItemsActivity : AppCompatActivity() {
 
             adapter = AGVTOAdapter(this@ItemsActivity, listTOAgv!!)
             recyclerView.adapter = adapter
-
-
-            var agvFound = false
-            listAgv?.forEach { agv ->
-                if (agv.serialNumber == responseValueSerialNum) {
-                    Log.d("MyLog", "AGV найден: ${agv.serialNumber}")
-                    Toast.makeText(
-                        this@ItemsActivity,
-                        "AGV найден: ${agv.serialNumber}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    agvSerialNum = agv.serialNumber
-                    agvFound = true
-                    return@launch // Выход из функции launch
-                }
-            }
-            if (!agvFound) {
-                Toast.makeText(
-                    this@ItemsActivity,
-                    "QR code в базе данных не найден!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                finish()
-            }
         }
 
-        binding.bDiagnosticAgv.setOnClickListener {
+        binding.bToAgv.setOnClickListener {
 
             CoroutineScope(Dispatchers.Main).launch {
-                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agvSerialNum)
+
+                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(responseValueSerialNum.toString())
+
+                Log.d("MyLog", "size: ${listTOAgvNoTO.size}")
+                Log.d("MyLog", "sn: ${listTOAgvNoTO}")
+
                 if (listTOAgvNoTO.size == 0) {
                     Toast.makeText(
                         this@ItemsActivity,
-                        "У AGV sn: $agvSerialNum, все ТО выпонены!",
+                        "У AGV sn: $responseValueSerialNum, все ТО выпонены!",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     val intent = Intent(this@ItemsActivity, MakeAGVTOActivity::class.java)
-                    intent.putExtra("agvSerialNumTo", agvSerialNum)
+                    intent.putExtra("agvSerialNumTo", responseValueSerialNum)
                     startActivity(intent)
                 }
             }
         }
     }
-
-    fun convertTime(timeString: String): String {
-        if (timeString.isEmpty()) {
-            return "Некорректное время"
-        }
-
-        val milliseconds = timeString.toLongOrNull() ?: 0
-        if (milliseconds == 0L) {
-            return "Некорректное время"
-        }
-
-        val date = Date(milliseconds)
-        val outputFormat = SimpleDateFormat("hh:mm:ss - yyyy/MM/dd", Locale.getDefault())
-        return outputFormat.format(date)
-    }
 }
+
