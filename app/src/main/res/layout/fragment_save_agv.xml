@@ -157,8 +157,7 @@
                 android:layout_height="30dp"
                 android:textSize="14dp"
                 android:paddingStart="5dp"
-                android:hint="Введите S/N"
-                android:inputType="number" />
+                android:hint="Введите S/N" />
 
             <Button
                 android:id="@+id/bDeleteAgvBySerialNum"
