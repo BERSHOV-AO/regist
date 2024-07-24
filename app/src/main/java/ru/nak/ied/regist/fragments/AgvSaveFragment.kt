@@ -3,11 +3,14 @@ package ru.nak.ied.regist.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -27,13 +30,11 @@ class AgvSaveFragment : BaseFragment() {
     @Inject
     lateinit var mainApi: MainApi
 
-    // var listNameTO : String? = null
-
+    var listAgv: List<AGVItem>? = null;
 
     override fun onClickNew() {
         TODO("Not yet implemented")
     }
-
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -48,8 +49,13 @@ class AgvSaveFragment : BaseFragment() {
         val modelAgv = view.findViewById<EditText>(R.id.etModelAgv)
         val ePlan = view.findViewById<EditText>(R.id.etePlan)
         val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
+        val buttonOpenMenuDeleteAgv = view.findViewById<Button>(R.id.bMenuDeleteAgv)
+        val listSerialNumAgvTv = view.findViewById<TextView>(R.id.tvListSerialNumAgv)
+        val LayoutMenuDelete = view.findViewById<LinearLayout>(R.id.llMenuDelete)
 
-        //  listNameTO = TOData.toMap.values.toString()
+        val buttonDeleteAgv = view.findViewById<Button>(R.id.bDeleteAgvBySerialNum)
+        val serialNumDeleteET = view.findViewById<EditText>(R.id.etSerialNumAgvDelete)
+
 
         buttonSaveAgv.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.dialog_password, null)
@@ -120,6 +126,63 @@ class AgvSaveFragment : BaseFragment() {
                     dialog.dismiss()
                 }.show()
         }
+
+        buttonOpenMenuDeleteAgv.setOnClickListener {
+            LayoutMenuDelete.setVisibility(View.VISIBLE)
+            CoroutineScope(Dispatchers.Main).launch {
+
+                val listAgv = mainApi.getAllAGV()
+
+                val serialNumbersList: List<String> = listAgv.map { it.serialNumber }
+                val displayedText = serialNumbersList.joinToString(separator = "\n")
+                listSerialNumAgvTv.text = displayedText
+            }
+        }
+
+        buttonDeleteAgv.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                val listAgv = mainApi.getAllAGV()
+
+                val sn = serialNumDeleteET.text.toString().trim()
+
+                if (sn.isEmpty()) {
+                    Toast.makeText(
+                        context, "Поле незаполнено",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    // Проверка наличия AGV с указанным серийным номером
+                    val agvToDelete = listAgv.find { it.serialNumber == sn }
+
+                    if (agvToDelete != null) {
+                        // Если AGV найден, выполняем удаление
+                        try {
+                            mainApi.deleteAgvBySerialNumber(sn) // Предполагается, что deleteAGV - метод API для удаления
+                            mainApi.deleteAgvTOBySerialNumber(sn) //
+
+                            Toast.makeText(
+                                context, "AGV с серийным номером $sn успешно удален",
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                        } catch (e: Exception) {
+
+                            Log.d("MyLog", "error:  ${e.message}")
+                            Toast.makeText(
+                                context, "Ошибка sn: $sn : ${e.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    } else {
+                        // Если AGV не найден
+                        Toast.makeText(
+                            context, "AGV с серийным номером $sn не найден",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        }
         return view
     }
 
@@ -134,63 +197,3 @@ class AgvSaveFragment : BaseFragment() {
         return currentTimeMillis.toString()
     }
 }
-
-//@AndroidEntryPoint
-//class AgvSaveFragment : BaseFragment() {
-//
-//    @Inject
-//    lateinit var mainApi: MainApi
-//
-//    override fun onClickNew() {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        val view = inflater.inflate(R.layout.fragment_save_agv, container, false)
-//
-//        val nameAgv = view.findViewById<EditText>(R.id.etNameAgv)
-//        val serialNumAgv = view.findViewById<EditText>(R.id.etSerialNumAgv)
-//        val descriptionAGV = view.findViewById<EditText>(R.id.etDescriptionAGV)
-//        val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
-//
-//        buttonSaveAgv.setOnClickListener {
-//            CoroutineScope(Dispatchers.Main).launch {
-//                mainApi.saveAGV(
-//                    AGVItem(
-//                        null,
-//                        nameAgv.text.toString(),
-//                        serialNumAgv.text.toString(),
-//                        descriptionAGV.text.toString(),
-//                        getCurrentTime()
-//                    )
-//                )
-//
-//                Toast.makeText(
-//                    context,
-//                    "Добавлен AGV c S/N: ${serialNumAgv.text}",
-//                    Toast.LENGTH_LONG
-//                ).show()
-//
-//                nameAgv.text.clear()
-//                serialNumAgv.text.clear()
-//                descriptionAGV.text.clear()
-//            }
-//        }
-//        return view
-//    }
-//
-//    companion object {
-//        @JvmStatic
-//        fun newInstance() = AgvSaveFragment()
-//    }
-//
-//    // взятие текущего времени
-//    private fun getCurrentTime(): String {
-//        val currentTimeMillis = System.currentTimeMillis()
-//        return currentTimeMillis.toString()
-//    }
-//}
-

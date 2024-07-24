@@ -70,4 +70,108 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#0F89D5"
         android:text="Добавить AGV" />
-</LinearLayout>
+
+    <Button
+        android:id="@+id/bMenuDeleteAgv"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#0F89D5"
+        android:text="Меню удаления AGV" />
+
+    <LinearLayout
+        android:id="@+id/llMenuDelete"
+        android:layout_width="370dp"
+        android:layout_height="290dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:background="#C0F0F8"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="280dp"
+            android:layout_weight="5"
+            android:background="#C0F0F8"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S/N AGV:"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="#EA2E2E"
+                android:orientation="horizontal" />
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5">
+
+            <TextView
+                android:id="@+id/tvListSerialNumAgv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                android:background="@color/white"
+                android:textSize="14sp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:scrollbars="vertical" />
+        </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="280dp"
+            android:layout_weight="5"
+            android:background="#C0F0F8"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etSerialNumAgvDelete"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="14dp"
+                android:paddingStart="5dp"
+                android:hint="Введите S/N"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/bDeleteAgvBySerialNum"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#DD2C00"
+                android:text="Удалить AGV" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    </LinearLayout>

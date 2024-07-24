@@ -2,18 +2,12 @@ package ru.nak.ied.regist.activities
 
 import android.app.Application
 import android.content.Context
-import dagger.Module
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import ru.nak.ied.regist.R
 import java.io.BufferedReader
 import java.io.InputStreamReader
-
 
 @HiltAndroidApp
 class App : Application() {
@@ -50,10 +44,3 @@ private fun readIpAddressFromFile(context: Context): String {
     }
     return "192.168.0.7"
 }
-
-
-//************************************work****************************************
-//@HiltAndroidApp()
-//class App : Application() {
-//}
-//************************************work****************************************
