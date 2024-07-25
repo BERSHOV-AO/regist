@@ -172,10 +172,15 @@ class AgvSaveFragment : BaseFragment() {
                                 if (agvToDelete != null) {
                                     // Если AGV найден, выполняем удаление
                                     try {
-                                        mainApi.deleteAgvBySerialNumber(sn) // Предполагается, что deleteAGV - метод API для удаления
-                                        mainApi.deleteAgvTOBySerialNumber(sn) //
-
+                                        mainApi.deleteAgvBySerialNumber(sn)
+                                        mainApi.deleteAgvTOBySerialNumber(sn)
                                         serialNumDeleteET.text.clear()
+
+                                        val listAgvAfter = mainApi.getAllAGV()
+
+                                        val serialNumbersList: List<String> = listAgvAfter.map { it.serialNumber }
+                                        val displayedText = serialNumbersList.joinToString(separator = "\n")
+                                        listSerialNumAgvTv.text = displayedText
 
                                         Toast.makeText(
                                             context, "AGV с серийным номером $sn успешно удален",
