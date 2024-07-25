@@ -55,6 +55,8 @@ class AgvAllActivity : AppCompatActivity() {
     private fun deleteAgv(serialNumber: String) {
 
         CoroutineScope(Dispatchers.Main).launch {
+
+
             mainApi.deleteAgvBySerialNumber(serialNumber)
             mainApi.deleteAgvTOBySerialNumber(serialNumber)
 

@@ -1,10 +1,13 @@
 package ru.nak.ied.regist.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +48,7 @@ class AgvAllFragment : BaseFragment() {
 
             agvList.addAll(listAgv)
 
-            adapter = AGVAdapter(agvList){ serialNumber->
+            adapter = AGVAdapter(agvList) { serialNumber ->
 
                 deleteAgv(serialNumber)
             }
@@ -56,17 +59,39 @@ class AgvAllFragment : BaseFragment() {
 
     private fun deleteAgv(serialNumber: String) {
 
-        CoroutineScope(Dispatchers.Main).launch {
-            mainApi.deleteAgvBySerialNumber(serialNumber)
-            mainApi.deleteAgvTOBySerialNumber(serialNumber)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_password, null)
+        val etDialogPassword = dialogView.findViewById<EditText>(R.id.etDialogPassword)
 
-            // Здесь вы можете добавить код для удаления AGV из базы данных или API.
-            // После успешного удаления обновите список в адаптере:
-            adapter.removeItem(serialNumber)
-        }
+        AlertDialog.Builder(requireContext())
+            .setTitle(
+                "Для удаления AGV c S/N: $serialNumber, \n" +
+                        "введите пароль! "
+            )
+            .setView(dialogView)
+            .setPositiveButton("OK") { dialog, _ ->
+                val enteredPassword = etDialogPassword.text.toString()
+                if (enteredPassword == "121286") {
+                    Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
+
+                    CoroutineScope(Dispatchers.Main).launch {
+
+                        mainApi.deleteAgvBySerialNumber(serialNumber)
+                        mainApi.deleteAgvTOBySerialNumber(serialNumber)
+
+                        // Здесь вы можете добавить код для удаления AGV из базы данных или API.
+                        // После успешного удаления обновите список в адаптере:
+                        adapter.removeItem(serialNumber)
+                    }
+                } else {
+                    // Пароль неверный, показать сообщение об ошибке
+                    Toast.makeText(context, "Неверный пароль", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
-
-
 
     companion object {
         @JvmStatic

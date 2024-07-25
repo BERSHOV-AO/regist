@@ -17,9 +17,6 @@ import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.User
 import javax.inject.Inject
 
-//import ru.nak.ied.regist.db.DbHelper
-
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
