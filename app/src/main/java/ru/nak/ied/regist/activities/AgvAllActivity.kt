@@ -29,6 +29,7 @@ class AgvAllActivity : AppCompatActivity() {
     lateinit var mainApi: MainApi
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AGVAdapter
+    private var agvList: MutableList<AGVItem> = mutableListOf() // Используем MutableList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +42,25 @@ class AgvAllActivity : AppCompatActivity() {
             val listAgv = mainApi.getAllAGV()
             Log.d("MyLog", "listAgv: $listAgv")
 
-            adapter = AGVAdapter(listAgv)
+            agvList.addAll(listAgv)
+
+            adapter = AGVAdapter(agvList){ serialNumber->
+
+                deleteAgv(serialNumber)
+            }
             recyclerView.adapter = adapter
+        }
+    }
+
+    private fun deleteAgv(serialNumber: String) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            mainApi.deleteAgvBySerialNumber(serialNumber)
+            mainApi.deleteAgvTOBySerialNumber(serialNumber)
+
+            // Здесь вы можете добавить код для удаления AGV из базы данных или API.
+            // После успешного удаления обновите список в адаптере:
+            adapter.removeItem(serialNumber)
         }
     }
 }

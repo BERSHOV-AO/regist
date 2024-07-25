@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.activities.AGVAdapter
 import ru.nak.ied.regist.api.MainApi
+import ru.nak.ied.regist.entities.AGVItem
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,6 +24,7 @@ class AgvAllFragment : BaseFragment() {
     lateinit var mainApi: MainApi
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AGVAdapter
+    private var agvList: MutableList<AGVItem> = mutableListOf() // Используем MutableList
 
     override fun onClickNew() {
         TODO("Not yet implemented")
@@ -41,11 +43,30 @@ class AgvAllFragment : BaseFragment() {
             val listAgv = mainApi.getAllAGV()
             Log.d("MyLog", "listAgv: $listAgv")
 
-            adapter = AGVAdapter(listAgv)
+            agvList.addAll(listAgv)
+
+            adapter = AGVAdapter(agvList){ serialNumber->
+
+                deleteAgv(serialNumber)
+            }
             recyclerView.adapter = adapter
         }
         return view
     }
+
+    private fun deleteAgv(serialNumber: String) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            mainApi.deleteAgvBySerialNumber(serialNumber)
+            mainApi.deleteAgvTOBySerialNumber(serialNumber)
+
+            // Здесь вы можете добавить код для удаления AGV из базы данных или API.
+            // После успешного удаления обновите список в адаптере:
+            adapter.removeItem(serialNumber)
+        }
+    }
+
+
 
     companion object {
         @JvmStatic

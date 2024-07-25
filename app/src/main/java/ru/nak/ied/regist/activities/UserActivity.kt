@@ -28,7 +28,7 @@ class UserActivity : AppCompatActivity() {
 
         setBottomNavListener()
 
-        FragmentManager.setFragment(AgvAllFragment.newInstance(), this)
+   //     FragmentManager.setFragment(AgvAllFragment.newInstance(), this)
     }
 
     private fun setBottomNavListener() {
