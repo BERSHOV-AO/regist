@@ -1,6 +1,7 @@
 package ru.nak.ied.regist.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.activities.AGVAdapter
+import ru.nak.ied.regist.activities.ShowOneAgvToActivity
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
 import javax.inject.Inject
@@ -48,14 +50,24 @@ class AgvAllFragment : BaseFragment() {
 
             agvList.addAll(listAgv)
 
-            adapter = AGVAdapter(agvList) { serialNumber ->
+            adapter = AGVAdapter(agvList, { serialNumber ->
 
                 deleteAgv(serialNumber)
-            }
+            }, {serialNumber ->
+                openAgvToListActivity(serialNumber)
+
+            })
             recyclerView.adapter = adapter
         }
         return view
     }
+
+    private fun openAgvToListActivity(serialNumber: String) {
+        val intent = Intent(requireContext(), ShowOneAgvToActivity::class.java)
+        intent.putExtra("SERIAL_NUMBER", serialNumber)
+        startActivity(intent)
+    }
+
 
     private fun deleteAgv(serialNumber: String) {
 

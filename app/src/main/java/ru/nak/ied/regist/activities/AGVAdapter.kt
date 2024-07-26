@@ -16,10 +16,14 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+/**
+ *  ----> AgvAllFragment
+ */
 
 class AGVAdapter(
     private val agvList: MutableList<AGVItem>,
-    private val onDeleteClick: (String) -> Unit
+    private val onDeleteClick: (String) -> Unit,
+    private val onShowAgvToListClick: (String) -> Unit
 ) :
     RecyclerView.Adapter<AGVAdapter.AGVViewHolder>() {
 
@@ -31,11 +35,19 @@ class AGVAdapter(
         val ePlan: TextView = itemView.findViewById(R.id.tvEPlan)
         val timeLastTo: TextView = itemView.findViewById(R.id.tvTimeOfLastTo)
         val deleteButton: ImageButton = itemView.findViewById(R.id.btnDelete) // Кнопка удаления
+        val bListAgvTo: ImageButton = itemView.findViewById(R.id.btnListToAgv)
 
         init {
+            // deleteAgvAll
             deleteButton.setOnClickListener {
                 val serialNumber = serialNumberTextView.text.toString()
                 onDeleteClick(serialNumber) // Вызываем callback с серийным номером
+            }
+
+            // showListToAgv
+            bListAgvTo.setOnClickListener {
+                val serialNumber = serialNumberTextView.text.toString()
+                onShowAgvToListClick(serialNumber)
             }
         }
     }
