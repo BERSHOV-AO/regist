@@ -14,7 +14,6 @@ import ru.nak.ied.regist.R
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityAuthBinding
 import ru.nak.ied.regist.entities.User
-import ru.nak.ied.regist.utils.TOData
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,7 +24,6 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     var list: List<User>? = null;
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

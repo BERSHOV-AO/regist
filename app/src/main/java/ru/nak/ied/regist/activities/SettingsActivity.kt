@@ -30,7 +30,6 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.bSetIP.setOnClickListener {
             val ip_one = binding.ipOne.text.toString().trim()
             val ip_second = binding.ipSecond.text.toString().trim()
