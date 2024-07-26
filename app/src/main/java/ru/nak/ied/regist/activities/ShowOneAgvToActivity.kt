@@ -1,7 +1,9 @@
 package ru.nak.ied.regist.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +26,7 @@ class ShowOneAgvToActivity : AppCompatActivity() {
     private lateinit var adapter: AGVTOAdapter
 
     var listTOAgv: List<NameTO>? = null;
+    lateinit var listTOAgvNoTO: List<NameTO>;
 
     private lateinit var binding: ActivityShowOneAgvToBinding
 
@@ -47,6 +50,29 @@ class ShowOneAgvToActivity : AppCompatActivity() {
             Log.d("MyLog", "listTOAgv false:   $listTOAgv")
             adapter = AGVTOAdapter(this@ShowOneAgvToActivity, listTOAgv!!)
             recyclerView.adapter = adapter
+        }
+
+        binding.bToOneAgv.setOnClickListener {
+
+            CoroutineScope(Dispatchers.Main).launch {
+
+                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(responseSerialNum.toString())
+
+                Log.d("MyLog", "size: ${listTOAgvNoTO.size}")
+                Log.d("MyLog", "sn: ${listTOAgvNoTO}")
+
+                if (listTOAgvNoTO.size == 0) {
+                    Toast.makeText(
+                        this@ShowOneAgvToActivity,
+                        "У AGV sn: $responseSerialNum, все ТО выпонены!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    val intent = Intent(this@ShowOneAgvToActivity, MakeAGVTOActivity::class.java)
+                    intent.putExtra("agvSerialNumTo", responseSerialNum)
+                    startActivity(intent)
+                }
+            }
         }
     }
 }

@@ -14,7 +14,9 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class AGVTOAdapter(private val context: Context, private val agvToList: List<NameTO>) :
+class AGVTOAdapter(
+    private val context: Context,
+    private val agvToList: List<NameTO>) :
     RecyclerView.Adapter<AGVTOAdapter.AGVViewHolder>() {
 
     inner class AGVViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -7,5 +7,6 @@ data class AGVItem(
     val versionFW: String,
     val model: String,
     val ePlan: String,
-    val dataLastTo: String
+    val dataLastTo: String,
+    var statusReadyTo: Boolean = false
 )

@@ -46,16 +46,21 @@ class AgvAllFragment : BaseFragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             val listAgv = mainApi.getAllAGV()
+
+            for (agv in listAgv) {
+                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agv.serialNumber)
+                if (listTOAgvNoTO.isEmpty()) {
+                    agv.statusReadyTo = true
+                }
+            }
+
             Log.d("MyLog", "listAgv: $listAgv")
 
             agvList.addAll(listAgv)
-
             adapter = AGVAdapter(agvList, { serialNumber ->
-
                 deleteAgv(serialNumber)
-            }, {serialNumber ->
+            }, { serialNumber ->
                 openAgvToListActivity(serialNumber)
-
             })
             recyclerView.adapter = adapter
         }
@@ -67,7 +72,6 @@ class AgvAllFragment : BaseFragment() {
         intent.putExtra("SERIAL_NUMBER", serialNumber)
         startActivity(intent)
     }
-
 
     private fun deleteAgv(serialNumber: String) {
 

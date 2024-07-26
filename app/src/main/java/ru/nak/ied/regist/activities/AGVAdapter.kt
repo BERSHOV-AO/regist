@@ -3,16 +3,13 @@ package ru.nak.ied.regist.activities
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import dagger.hilt.android.AndroidEntryPoint
 import ru.nak.ied.regist.R
-//import ru.nak.ied.regist.db.AgvAdapter
 import ru.nak.ied.regist.entities.AGVItem
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -36,6 +33,7 @@ class AGVAdapter(
         val timeLastTo: TextView = itemView.findViewById(R.id.tvTimeOfLastTo)
         val deleteButton: ImageButton = itemView.findViewById(R.id.btnDelete) // Кнопка удаления
         val bListAgvTo: ImageButton = itemView.findViewById(R.id.btnListToAgv)
+        val constraintLayoutItemAgv: ConstraintLayout = itemView.findViewById(R.id.clItemAgv)
 
         init {
             // deleteAgvAll
@@ -67,6 +65,15 @@ class AGVAdapter(
         holder.ePlan.text = currentItem.ePlan
         holder.timeLastTo.text = convertTime(currentItem.dataLastTo)
 
+        if (currentItem.statusReadyTo) {
+            holder.constraintLayoutItemAgv.setBackgroundColor(
+                holder.itemView.resources.getColor(R.color.green_light_item_agv_to_no)
+            )
+        } else {
+            holder.constraintLayoutItemAgv.setBackgroundColor(
+                holder.itemView.resources.getColor(R.color.red_light_item_agv_to_nok)
+            )
+        }
     }
 
     override fun getItemCount(): Int {
