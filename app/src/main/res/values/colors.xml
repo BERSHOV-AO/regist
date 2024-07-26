@@ -15,6 +15,9 @@
     <color name="red_light">#F38E8E</color>
     <color name="green_light">#C0ECDD</color>
 
+    <color name="red_light_item_agv_to_nok">#FFCCCC</color>
+    <color name="green_light_item_agv_to_no">#FFB9FBC2</color>
+
     <color name="picker_red">#D50000</color>
     <color name="picker_green">#3AEF85</color>
     <color name="picker_blue">#304FFE</color>
