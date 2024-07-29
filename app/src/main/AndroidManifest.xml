@@ -36,13 +36,6 @@
             android:name=".activities.PPRAgvActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.AgvAllActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Regist" />
-        <activity
-            android:name=".activities.NewAgvActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.UserActivity"
             android:exported="false" />
         <activity
