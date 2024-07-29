@@ -68,7 +68,7 @@ class ShowOneAgvToActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    val intent = Intent(this@ShowOneAgvToActivity, MakeAGVTOActivity::class.java)
+                    val intent = Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
                     intent.putExtra("agvSerialNumTo", responseSerialNum)
                     startActivity(intent)
                 }

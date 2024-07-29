@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/grr"
     android:orientation="vertical"
-    tools:context=".activities.MakeAGVTOActivity">
+    tools:context=".activities.MakeChangeAGVTOActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"

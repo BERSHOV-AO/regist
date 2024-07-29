@@ -69,7 +69,7 @@ class ItemsActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    val intent = Intent(this@ItemsActivity, MakeAGVTOActivity::class.java)
+                    val intent = Intent(this@ItemsActivity, MakeChangeAGVTOActivity::class.java)
                     intent.putExtra("agvSerialNumTo", responseValueSerialNum)
                     startActivity(intent)
                 }

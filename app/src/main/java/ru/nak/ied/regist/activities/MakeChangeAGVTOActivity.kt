@@ -15,7 +15,7 @@ import ru.nak.ied.regist.entities.NameTO
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MakeAGVTOActivity : AppCompatActivity() {
+class MakeChangeAGVTOActivity : AppCompatActivity() {
 
     @Inject
     lateinit var mainApi: MainApi

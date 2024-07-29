@@ -30,7 +30,7 @@
             android:name=".activities.ShowOneAgvToActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MakeAGVTOActivity"
+            android:name=".activities.MakeChangeAGVTOActivity"
             android:exported="false" />
         <activity
             android:name=".activities.PPRAgvActivity"
