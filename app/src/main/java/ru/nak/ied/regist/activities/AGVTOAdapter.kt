@@ -24,7 +24,7 @@ class AGVTOAdapter(
         val nameTexTO: TextView = itemView.findViewById(R.id.tvNameTO)
         val dataLastTO: TextView = itemView.findViewById(R.id.tvDataLastTO)
         val dataFutureTO: TextView = itemView.findViewById(R.id.tvDataFutureTO)
-        val statusTO: TextView = itemView.findViewById(R.id.tvStatusTO)
+   //     val statusTO: TextView = itemView.findViewById(R.id.tvStatusTO)
         val llMainItemToAgvBC: LinearLayout = itemView.findViewById(R.id.llMainItemToAgv)
     }
 
@@ -46,25 +46,25 @@ class AGVTOAdapter(
             holder.llMainItemToAgvBC.setBackgroundColor(
                 holder.itemView.resources.getColor(R.color.green_light_item_agv_to_no))
 
-            holder.statusTO.text = "OK"
-            holder.statusTO.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    android.R.color.holo_green_dark
-                )
-            )
+         //   holder.statusTO.text = "OK"
+//            holder.statusTO.setTextColor(
+//                ContextCompat.getColor(
+//                    context,
+//                    android.R.color.holo_green_dark
+//                )
+//            )
         } else {
 
             holder.llMainItemToAgvBC.setBackgroundColor(
                 holder.itemView.resources.getColor(R.color.red_light_item_agv_to_nok))
 
-            holder.statusTO.text = "NOK"
-            holder.statusTO.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    android.R.color.holo_red_dark
-                )
-            )
+//            holder.statusTO.text = "NOK"
+//            holder.statusTO.setTextColor(
+//                ContextCompat.getColor(
+//                    context,
+//                    android.R.color.holo_red_dark
+//                )
+//            )
         }
     }
 

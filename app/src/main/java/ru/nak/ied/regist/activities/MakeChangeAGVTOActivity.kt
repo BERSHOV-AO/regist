@@ -56,8 +56,8 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                         listTOAgv!![position].serialNumberAGV,
                         listTOAgv!![position].frequencyOfTo,
                         isChecked,
-                        getCurrentTime(),
-                        position
+                        getCurrentTime()
+                       // position
                     )
                 )
 

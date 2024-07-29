@@ -45,6 +45,7 @@ class ShowOneAgvToActivity : AppCompatActivity() {
         binding.bToOneAgv.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER").toString()
+                binding.tvSerNumShow.text = responseSerialNum
                 listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(responseSerialNum)
 
                 if (listTOAgvNoTO.isEmpty()) {
@@ -65,6 +66,7 @@ class ShowOneAgvToActivity : AppCompatActivity() {
     // Метод для загрузки данных в RecyclerView
     private fun loadData() {
         val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER")
+        binding.tvSerNumShow.text = responseSerialNum
         CoroutineScope(Dispatchers.Main).launch {
             listTOAgv = mainApi.getTOAgvBySN(responseSerialNum!!)
             adapter = AGVTOAdapter(this@ShowOneAgvToActivity, listTOAgv!!)
