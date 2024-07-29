@@ -26,7 +26,7 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMakeAgvtoBinding
 
     var listTOAgv: MutableList<NameTO>? = null;
-    var listTOAgvAfterSwitch: MutableList<NameTO>? = null;
+    var listTOAgvAfterSwitch: MutableList<NameTO>? = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +49,18 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
 
             adapter = AGVChangeStatusTOAdapter(listTOAgv!!) { position, isChecked, switchText ->
 
+                listTOAgvAfterSwitch?.add(
+                    NameTO(
+                        listTOAgv!![position].id,
+                        listTOAgv!![position].nameTo,
+                        listTOAgv!![position].serialNumberAGV,
+                        listTOAgv!![position].frequencyOfTo,
+                        isChecked,
+                        getCurrentTime(),
+                        position
+                    )
+                )
 
-               // listTOAgvAfterSwitch.add()
-                // Обновляем состояние в списке при изменении переключателя
-                listTOAgv!![position].statusTo = isChecked
                 Log.d(
                     "MyLog",
                     "Switch at position $position changed to $isChecked with text '$switchText'"
@@ -61,21 +69,17 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                 Log.d("MyLog", "list Switch: ${listTOAgv.toString()} ")
             }
             recyclerView.adapter = adapter
-
-//            listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!)
-//
-//            Log.d("MyLog", "listTOAgv false:   $listTOAgv")
-//
-//            adapter = AGVChangeStatusTOAdapter(listTOAgv!!)
-//            recyclerView.adapter = adapter
         }
         binding.bSaveDataToAgv.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 // Перебираем каждый элемент в списке listTOAgv
-                for (nameTO in listTOAgv!!) {
+                for (nameTO in listTOAgvAfterSwitch!!) {
                     try {
                         // Обновляем элемент на сервере
                         mainApi.updateAgvTo(nameTO)
+                        adapter.removeItem(nameTO.serialNumberAGV, nameTO.positionListTo)
+                       // adapter.removeItem(nameTO.serialNumberAGV)
+
                         // Обработка успешного ответа
                         Log.d("MyLog", "Successfully updated: ${nameTO.nameTo}")
                     } catch (e: Exception) {
@@ -83,7 +87,13 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                         Log.d("MyLog", "Error updating ${nameTO.nameTo}: ${e.message}")
                     }
                 }
+                listTOAgvAfterSwitch!!.clear()
             }
         }
+    }
+
+    private fun getCurrentTime(): String {
+        val currentTimeMillis = System.currentTimeMillis()
+        return currentTimeMillis.toString()
     }
 }
