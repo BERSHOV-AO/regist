@@ -33,6 +33,9 @@ interface MainApi {
     @POST("save_toagv.php")
     suspend fun saveAgvTo(@Body nameTO: NameTO)
 
+    @POST("update_agv_to.php")
+    suspend fun updateAgvTo(@Body nameTO: NameTO)
+
     @POST("save_or_update_agv.php")
     suspend fun saveOrUpdateAgv(@Body agvItem: AGVItem)
 

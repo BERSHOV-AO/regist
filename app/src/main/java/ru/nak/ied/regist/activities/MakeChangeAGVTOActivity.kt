@@ -25,7 +25,8 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMakeAgvtoBinding
 
-    var listTOAgv: List<NameTO>? = null;
+    var listTOAgv: MutableList<NameTO>? = null;
+    var listTOAgvAfterSwitch: MutableList<NameTO>? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +43,47 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
 
-            listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!)
+            listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!) as MutableList<NameTO>
 
             Log.d("MyLog", "listTOAgv false:   $listTOAgv")
 
-            adapter = AGVChangeStatusTOAdapter(listTOAgv!!)
+            adapter = AGVChangeStatusTOAdapter(listTOAgv!!) { position, isChecked, switchText ->
+
+
+               // listTOAgvAfterSwitch.add()
+                // Обновляем состояние в списке при изменении переключателя
+                listTOAgv!![position].statusTo = isChecked
+                Log.d(
+                    "MyLog",
+                    "Switch at position $position changed to $isChecked with text '$switchText'"
+                )
+
+                Log.d("MyLog", "list Switch: ${listTOAgv.toString()} ")
+            }
             recyclerView.adapter = adapter
+
+//            listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!)
+//
+//            Log.d("MyLog", "listTOAgv false:   $listTOAgv")
+//
+//            adapter = AGVChangeStatusTOAdapter(listTOAgv!!)
+//            recyclerView.adapter = adapter
+        }
+        binding.bSaveDataToAgv.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                // Перебираем каждый элемент в списке listTOAgv
+                for (nameTO in listTOAgv!!) {
+                    try {
+                        // Обновляем элемент на сервере
+                        mainApi.updateAgvTo(nameTO)
+                        // Обработка успешного ответа
+                        Log.d("MyLog", "Successfully updated: ${nameTO.nameTo}")
+                    } catch (e: Exception) {
+                        // Обработка ошибки
+                        Log.d("MyLog", "Error updating ${nameTO.nameTo}: ${e.message}")
+                    }
+                }
+            }
         }
     }
 }
