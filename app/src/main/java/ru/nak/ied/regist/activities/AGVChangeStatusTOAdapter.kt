@@ -49,13 +49,13 @@ class AGVChangeStatusTOAdapter(
     }
 
     //----------------------work------------------------------
-    fun removeItem(serialNumber: String, positionToAgv: Int?) {
-        // Проверяем, что позиция не равна null и не равна -1
-        if (positionToAgv != null && positionToAgv >= 0) {
-            agvToList.removeAt(positionToAgv)
-            notifyItemRemoved(positionToAgv) // Уведомляем адаптер о том, что элемент был удалён
-        }
-    }
+//    fun removeItem(serialNumber: String, positionToAgv: Int?) {
+//        // Проверяем, что позиция не равна null и не равна -1
+//        if (positionToAgv != null && positionToAgv >= 0) {
+//            agvToList.removeAt(positionToAgv)
+//            notifyItemRemoved(positionToAgv) // Уведомляем адаптер о том, что элемент был удалён
+//        }
+//    }
     //---------------------------------------------------------
 
 //    fun removeItem(serialNumber: String) {
@@ -65,6 +65,14 @@ class AGVChangeStatusTOAdapter(
 //            notifyItemRemoved(indexToRemove)
 //        }
 //    }
+
+    fun removeItem(nameTO: String) {
+        val indexToRemove = agvToList.indexOfFirst { it.nameTo == nameTO }
+        if (indexToRemove != -1) {
+            agvToList.removeAt(indexToRemove)
+            notifyItemRemoved(indexToRemove)
+        }
+    }
 
     override fun getItemCount(): Int {
         return agvToList.size

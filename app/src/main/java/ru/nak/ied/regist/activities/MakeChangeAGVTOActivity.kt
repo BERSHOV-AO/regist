@@ -77,8 +77,8 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                     try {
                         // Обновляем элемент на сервере
                         mainApi.updateAgvTo(nameTO)
-                        adapter.removeItem(nameTO.serialNumberAGV, nameTO.positionListTo)
-                       // adapter.removeItem(nameTO.serialNumberAGV)
+                       // adapter.removeItem(nameTO.serialNumberAGV, nameTO.positionListTo)
+                        adapter.removeItem(nameTO.nameTo)
 
                         // Обработка успешного ответа
                         Log.d("MyLog", "Successfully updated: ${nameTO.nameTo}")

@@ -25,8 +25,8 @@ class ShowOneAgvToActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AGVTOAdapter
 
-    var listTOAgv: List<NameTO>? = null;
-    lateinit var listTOAgvNoTO: List<NameTO>;
+    var listTOAgv: List<NameTO>? = null
+    lateinit var listTOAgvNoTO: List<NameTO>
 
     private lateinit var binding: ActivityShowOneAgvToBinding
 
@@ -39,32 +39,18 @@ class ShowOneAgvToActivity : AppCompatActivity() {
         recyclerView = binding.rcViewAgvToShow
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER");
-
-        binding.tvSerNumShow.text = responseSerialNum
-
-        CoroutineScope(Dispatchers.Main).launch {
-
-            listTOAgv = mainApi.getTOAgvBySN(responseSerialNum!!)
-
-            Log.d("MyLog", "listTOAgv false:   $listTOAgv")
-            adapter = AGVTOAdapter(this@ShowOneAgvToActivity, listTOAgv!!)
-            recyclerView.adapter = adapter
-        }
+        // Изначальная загрузка данных
+        loadData()
 
         binding.bToOneAgv.setOnClickListener {
-
             CoroutineScope(Dispatchers.Main).launch {
+                val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER").toString()
+                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(responseSerialNum)
 
-                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(responseSerialNum.toString())
-
-                Log.d("MyLog", "size: ${listTOAgvNoTO.size}")
-                Log.d("MyLog", "sn: ${listTOAgvNoTO}")
-
-                if (listTOAgvNoTO.size == 0) {
+                if (listTOAgvNoTO.isEmpty()) {
                     Toast.makeText(
                         this@ShowOneAgvToActivity,
-                        "У AGV sn: $responseSerialNum, все ТО выпонены!",
+                        "У AGV sn: $responseSerialNum, все ТО выполнены!",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
@@ -75,4 +61,82 @@ class ShowOneAgvToActivity : AppCompatActivity() {
             }
         }
     }
+
+    // Метод для загрузки данных в RecyclerView
+    private fun loadData() {
+        val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER")
+        CoroutineScope(Dispatchers.Main).launch {
+            listTOAgv = mainApi.getTOAgvBySN(responseSerialNum!!)
+            adapter = AGVTOAdapter(this@ShowOneAgvToActivity, listTOAgv!!)
+            recyclerView.adapter = adapter
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Обновление данных при возвращении в активити
+        loadData()
+    }
 }
+
+
+
+//@AndroidEntryPoint
+//class ShowOneAgvToActivity : AppCompatActivity() {
+//
+//    @Inject
+//    lateinit var mainApi: MainApi
+//    private lateinit var recyclerView: RecyclerView
+//    private lateinit var adapter: AGVTOAdapter
+//
+//    var listTOAgv: List<NameTO>? = null;
+//    lateinit var listTOAgvNoTO: List<NameTO>;
+//
+//    private lateinit var binding: ActivityShowOneAgvToBinding
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//        binding = ActivityShowOneAgvToBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        recyclerView = binding.rcViewAgvToShow
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//
+//        val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER");
+//
+//        binding.tvSerNumShow.text = responseSerialNum
+//
+//        CoroutineScope(Dispatchers.Main).launch {
+//
+//            listTOAgv = mainApi.getTOAgvBySN(responseSerialNum!!)
+//
+//            Log.d("MyLog", "listTOAgv false:   $listTOAgv")
+//            adapter = AGVTOAdapter(this@ShowOneAgvToActivity, listTOAgv!!)
+//            recyclerView.adapter = adapter
+//        }
+//
+//        binding.bToOneAgv.setOnClickListener {
+//
+//            CoroutineScope(Dispatchers.Main).launch {
+//
+//                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(responseSerialNum.toString())
+//
+//                Log.d("MyLog", "size: ${listTOAgvNoTO.size}")
+//                Log.d("MyLog", "sn: ${listTOAgvNoTO}")
+//
+//                if (listTOAgvNoTO.size == 0) {
+//                    Toast.makeText(
+//                        this@ShowOneAgvToActivity,
+//                        "У AGV sn: $responseSerialNum, все ТО выпонены!",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                } else {
+//                    val intent = Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
+//                    intent.putExtra("agvSerialNumTo", responseSerialNum)
+//                    startActivity(intent)
+//                }
+//            }
+//        }
+//    }
+//}

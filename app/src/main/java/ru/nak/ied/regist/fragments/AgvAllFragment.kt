@@ -44,26 +44,28 @@ class AgvAllFragment : BaseFragment() {
         recyclerView = view.findViewById(R.id.rcVewNote)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val listAgv = mainApi.getAllAGV()
+        loadAgvData() // Загрузка данных при создании фрагмента
 
-            for (agv in listAgv) {
-                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agv.serialNumber)
-                if (listTOAgvNoTO.isEmpty()) {
-                    agv.statusReadyTo = true
-                }
-            }
-
-            Log.d("MyLog", "listAgv: $listAgv")
-
-            agvList.addAll(listAgv)
-            adapter = AGVAdapter(agvList, { serialNumber ->
-                deleteAgv(serialNumber)
-            }, { serialNumber ->
-                openAgvToListActivity(serialNumber)
-            })
-            recyclerView.adapter = adapter
-        }
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val listAgv = mainApi.getAllAGV()
+//
+//            for (agv in listAgv) {
+//                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agv.serialNumber)
+//                if (listTOAgvNoTO.isEmpty()) {
+//                    agv.statusReadyTo = true
+//                }
+//            }
+//
+//            Log.d("MyLog", "listAgv: $listAgv")
+//
+//            agvList.addAll(listAgv)
+//            adapter = AGVAdapter(agvList, { serialNumber ->
+//                deleteAgv(serialNumber)
+//            }, { serialNumber ->
+//                openAgvToListActivity(serialNumber)
+//            })
+//            recyclerView.adapter = adapter
+//        }
         return view
     }
 
@@ -112,5 +114,40 @@ class AgvAllFragment : BaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance() = AgvAllFragment()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        loadAgvData() // Обновляем данные при возвращении к фрагменту
+    }
+
+    private fun loadAgvData() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val listAgv = mainApi.getAllAGV()
+
+            for (agv in listAgv) {
+                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agv.serialNumber)
+                if (listTOAgvNoTO.isEmpty()) {
+                    agv.statusReadyTo = true
+                }
+            }
+
+            Log.d("MyLog", "listAgv: $listAgv")
+
+            agvList.clear() // Очистите список перед добавлением новых данных
+            agvList.addAll(listAgv)
+
+            if (!::adapter.isInitialized) {
+                adapter = AGVAdapter(agvList, { serialNumber ->
+                    deleteAgv(serialNumber)
+                }, { serialNumber ->
+                    openAgvToListActivity(serialNumber)
+                })
+                recyclerView.adapter = adapter
+            } else {
+                adapter.notifyDataSetChanged() // Обновите адаптер, если он уже инициализирован
+            }
+        }
     }
 }

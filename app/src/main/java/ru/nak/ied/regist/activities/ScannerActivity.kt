@@ -59,8 +59,10 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
 
                     agvFound = true
                     // Если AGV найден, переходим в ItemsActivity
-                    val intent = Intent(this@ScannerActivity, ItemsActivity::class.java)
-                    intent.putExtra("key", result.contents)
+//                    val intent = Intent(this@ScannerActivity, ItemsActivity::class.java)
+//                    intent.putExtra("key", result.contents)
+                    val intent = Intent(this@ScannerActivity, ShowOneAgvToActivity::class.java)
+                    intent.putExtra("SERIAL_NUMBER", result.contents)
                     startActivity(intent)
                     finish() // Закрываем текущую активность
                     return@launch // Завершаем выполнение launch
