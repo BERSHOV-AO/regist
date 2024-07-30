@@ -1,7 +1,5 @@
 package ru.nak.ied.regist.api
 
-import android.telecom.Call
-import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -55,6 +53,9 @@ interface MainApi {
 
     @GET("get_all_agv.php")
     suspend fun getAllAGV(): List<AGVItem>
+
+    @GET("get_all_agv_to.php")
+    suspend fun getAllAgvTo(): List<NameTO>
 
     @GET("test_connect_db.php")
     suspend fun getConnectDB(): Boolean
