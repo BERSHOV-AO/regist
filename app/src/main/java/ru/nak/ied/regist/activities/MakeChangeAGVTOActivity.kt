@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityMakeAgvtoBinding
+import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.NameTO
 import javax.inject.Inject
 
@@ -57,7 +58,6 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                         listTOAgv!![position].frequencyOfTo,
                         isChecked,
                         getCurrentTime()
-                       // position
                     )
                 )
 
@@ -77,7 +77,19 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                     try {
                         // Обновляем элемент на сервере
                         mainApi.updateAgvTo(nameTO)
-                       // adapter.removeItem(nameTO.serialNumberAGV, nameTO.positionListTo)
+
+                        mainApi.saveLogAgv(
+                            LogAgv(
+                                null,
+                                "2",
+                                "556949",
+                                "null",
+                                nameTO.serialNumberAGV,
+                                nameTO.nameTo,
+                                getCurrentTime()
+                            )
+                        )
+                        // adapter.removeItem(nameTO.serialNumberAGV, nameTO.positionListTo)
                         adapter.removeItem(nameTO.nameTo)
 
                         // Обработка успешного ответа

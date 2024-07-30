@@ -2,7 +2,10 @@ package ru.nak.ied.regist.entities
 
 data class LogAgv(
     val id: Int?,
+    val typeLog: String,
     val tabelNum: String,
     val timeOpenApp: String,
-    val timeToAgv: String? = null
+    val serialNumberAgv: String,
+    val nameTO: String,
+    val timeToAgv: String
 )

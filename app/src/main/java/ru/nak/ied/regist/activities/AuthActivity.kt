@@ -114,9 +114,12 @@ class AuthActivity : AppCompatActivity() {
 
                                     mainApi.saveLogAgv(LogAgv(
                                         null,
+                                        "1",
                                         login,
                                         getCurrentTime(),
-                                        null
+                                        "null",
+                                        "null",
+                                        "null"
                                     ))
 
                                     val intent = Intent(context, UserActivity::class.java)
