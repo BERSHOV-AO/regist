@@ -1,5 +1,6 @@
 package ru.nak.ied.regist.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,13 @@ class UserActivity : AppCompatActivity() {
         setContentView(binding.root)
         val receivedLogin = intent.getStringExtra("login")
         supportActionBar?.title = "Пользователь: $receivedLogin"
+
+        //--------------------- Сохранение табельного номера в SharedPreferences-------------------
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("tabel_number", receivedLogin)
+        editor.apply()
+        //-----------------------------------------------------------------------------------------
 
         setBottomNavListener()
         FragmentManager.setFragment(AgvAllFragment.newInstance(), this)

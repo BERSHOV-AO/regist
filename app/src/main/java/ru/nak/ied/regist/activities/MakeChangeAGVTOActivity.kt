@@ -1,5 +1,6 @@
 package ru.nak.ied.regist.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -23,8 +24,8 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AGVChangeStatusTOAdapter
-
     private lateinit var binding: ActivityMakeAgvtoBinding
+    private lateinit var tabelNumber: String
 
     var listTOAgv: MutableList<NameTO>? = null;
     var listTOAgvAfterSwitch: MutableList<NameTO>? = mutableListOf()
@@ -41,6 +42,12 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
         val responseSerialNum = intent.getStringExtra("agvSerialNumTo");
 
         binding.tvSerNum.text = responseSerialNum
+
+        //--------------------- Извлечение табельного номера из SharedPreferences---------------
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        tabelNumber =
+            sharedPreferences.getString("tabel_number", null)!! // Получаем табельный номер
+        // ----------------------------------------------------------------------------------------
 
         CoroutineScope(Dispatchers.Main).launch {
 
@@ -98,14 +105,13 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
         return currentTimeMillis.toString()
     }
 
-
     private fun saveLog(nameTO: NameTO) {
         CoroutineScope(Dispatchers.Main).launch {
             mainApi.saveLogAgv(
                 LogAgv(
                     null,
                     "2",
-                    "556949",
+                    tabelNumber.toString(),
                     "null",
                     nameTO.serialNumberAGV,
                     nameTO.nameTo,
