@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityAuthBinding
+import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.User
 import javax.inject.Inject
 
@@ -111,6 +112,13 @@ class AuthActivity : AppCompatActivity() {
                                     binding.userLoginAuth.text.clear()
                                     binding.userPussAuth.text.clear()
 
+                                    mainApi.saveLogAgv(LogAgv(
+                                        null,
+                                        login,
+                                        getCurrentTime(),
+                                        null
+                                    ))
+
                                     val intent = Intent(context, UserActivity::class.java)
                                     intent.putExtra("login", login)
                                     startActivity(intent)
@@ -120,6 +128,16 @@ class AuthActivity : AppCompatActivity() {
                                         "Пользователь с табельным номером $login авторизован",
                                         Toast.LENGTH_LONG
                                     ).show()
+
+//                                    mainApi.saveLogAgv(
+//                                        LogAgv(
+//                                            null,
+//                                            login,
+//                                            getCurrentTime(),
+//                                            null
+//                                        )
+//                                    )
+
 
                                     userFound = true
                                     return@launch // Выход из функции launch
@@ -167,4 +185,9 @@ class AuthActivity : AppCompatActivity() {
             }
         }
     }
+}
+
+private fun getCurrentTime(): String {
+    val currentTimeMillis = System.currentTimeMillis()
+    return currentTimeMillis.toString()
 }

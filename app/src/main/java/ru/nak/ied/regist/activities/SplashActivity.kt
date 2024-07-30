@@ -92,65 +92,6 @@ class SplashActivity : AppCompatActivity() {
     }
 }
 
-//@AndroidEntryPoint
-//class SplashActivity : AppCompatActivity() {
-//
-//    @Inject
-//    lateinit var mainApi: MainApi
-//    private val SPLASH_DISPLAY_LENGTH = 3000 // Время задержки в миллисекундах (здесь 3 секунды)
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_splash)
-//
-//        // Запускаем проверку AGV
-//        checkAGVStatus()
-//    }
-//
-//    private fun checkAGVStatus() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            // Получаем список NameTO из базы данных
-//            val listAgvTO = mainApi.getAllAgvTo()
-//
-//            val currentTimeMillis = System.currentTimeMillis()
-//
-//            for (nameTO in listAgvTO) {
-//                Log.d("MyLog", "$nameTO!")
-//
-//                if (currentTimeMillis > (nameTO.dataTo.toLong() + convertDaysToMillis(nameTO.frequencyOfTo))) {
-//                    nameTO.statusTo = false
-//                    mainApi.updateAgvTo(nameTO)
-//                }
-//            }
-//            // После завершения проверки статуса, запускаем AuthActivity с задержкой
-//            withContext(Dispatchers.Main) {
-//                Handler().postDelayed({
-//                    val mainIntent = Intent(this@SplashActivity, AuthActivity::class.java)
-//                    startActivity(mainIntent)
-//                    finish()
-//                }, SPLASH_DISPLAY_LENGTH.toLong())
-//            }
-//        }
-//    }
-//
-//    fun convertDaysToMillis(days: String): Long {
-//        return try {
-//            // Преобразуем строку в число
-//            val daysCount = days.toLong()
-//
-//            // Рассчитываем количество миллисекунд
-//            val millis = daysCount * 24 * 60 * 60 * 1000
-//
-//            // Возвращаем результат в виде Long
-//            millis
-//        } catch (e: NumberFormatException) {
-//            // В случае ошибки можно вернуть 0 или выбросить исключение
-//            // Например, можно выбросить исключение:
-//            throw IllegalArgumentException("Ошибка: некорректный ввод")
-//        }
-//    }
-//}
-
 //class SplashActivity : AppCompatActivity() {
 //    private val SPLASH_DISPLAY_LENGTH = 3000 // Время задержки в миллисекундах (здесь 3 секунды)
 //    override fun onCreate(savedInstanceState: Bundle?) {

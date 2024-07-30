@@ -7,6 +7,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import ru.nak.ied.regist.entities.AGVItem
 import ru.nak.ied.regist.entities.AgvDiagnostic
+import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.NameTO
 import ru.nak.ied.regist.entities.User
 import ru.nak.ied.regist.utils.TOData
@@ -27,6 +28,9 @@ interface MainApi {
 
     @POST("save_agv.php")
     suspend fun saveAGV(@Body agvItem: AGVItem)
+
+    @POST("save_log_agv.php")
+    suspend fun saveLogAgv(@Body logAgv: LogAgv)
 
     @POST("save_toagv.php")
     suspend fun saveAgvTo(@Body nameTO: NameTO)
@@ -62,4 +66,6 @@ interface MainApi {
 
     @GET("user_presence.php")
     suspend fun getUserExistence(@Body login: String, @Body pass: String): Boolean
+
+
 }
