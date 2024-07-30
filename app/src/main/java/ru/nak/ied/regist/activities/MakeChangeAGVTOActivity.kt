@@ -78,18 +78,7 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                         // Обновляем элемент на сервере
                         mainApi.updateAgvTo(nameTO)
 
-                        mainApi.saveLogAgv(
-                            LogAgv(
-                                null,
-                                "2",
-                                "556949",
-                                "null",
-                                nameTO.serialNumberAGV,
-                                nameTO.nameTo,
-                                getCurrentTime()
-                            )
-                        )
-                        // adapter.removeItem(nameTO.serialNumberAGV, nameTO.positionListTo)
+                        saveLog(nameTO)
                         adapter.removeItem(nameTO.nameTo)
 
                         // Обработка успешного ответа
@@ -107,5 +96,22 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
     private fun getCurrentTime(): String {
         val currentTimeMillis = System.currentTimeMillis()
         return currentTimeMillis.toString()
+    }
+
+
+    private fun saveLog(nameTO: NameTO) {
+        CoroutineScope(Dispatchers.Main).launch {
+            mainApi.saveLogAgv(
+                LogAgv(
+                    null,
+                    "2",
+                    "556949",
+                    "null",
+                    nameTO.serialNumberAGV,
+                    nameTO.nameTo,
+                    getCurrentTime()
+                )
+            )
+        }
     }
 }
