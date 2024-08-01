@@ -32,6 +32,11 @@ class UserActivity : AppCompatActivity() {
 
         setBottomNavListener()
         FragmentManager.setFragment(AgvAllFragment.newInstance(), this)
+
+        binding.ibLogOpe.setOnClickListener {
+            val intent = Intent(this, ShowLogActivity::class.java)
+            startActivity(intent);
+        }
     }
 
     private fun setBottomNavListener() {

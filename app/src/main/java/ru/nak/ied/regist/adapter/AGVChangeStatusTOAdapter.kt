@@ -1,4 +1,4 @@
-package ru.nak.ied.regist.activities
+package ru.nak.ied.regist.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.nak.ied.regist.adapter.AGVChangeStatusTOAdapter
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.databinding.ActivityMakeAgvtoBinding
 import ru.nak.ied.regist.entities.LogAgv

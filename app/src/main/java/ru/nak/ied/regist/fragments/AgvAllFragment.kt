@@ -16,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.nak.ied.regist.R
-import ru.nak.ied.regist.activities.AGVAdapter
+import ru.nak.ied.regist.adapter.AGVAdapter
 import ru.nak.ied.regist.activities.ShowOneAgvToActivity
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
@@ -45,27 +45,6 @@ class AgvAllFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         loadAgvData() // Загрузка данных при создании фрагмента
-
-//        CoroutineScope(Dispatchers.Main).launch {
-//            val listAgv = mainApi.getAllAGV()
-//
-//            for (agv in listAgv) {
-//                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agv.serialNumber)
-//                if (listTOAgvNoTO.isEmpty()) {
-//                    agv.statusReadyTo = true
-//                }
-//            }
-//
-//            Log.d("MyLog", "listAgv: $listAgv")
-//
-//            agvList.addAll(listAgv)
-//            adapter = AGVAdapter(agvList, { serialNumber ->
-//                deleteAgv(serialNumber)
-//            }, { serialNumber ->
-//                openAgvToListActivity(serialNumber)
-//            })
-//            recyclerView.adapter = adapter
-//        }
         return view
     }
 
@@ -115,7 +94,6 @@ class AgvAllFragment : BaseFragment() {
         @JvmStatic
         fun newInstance() = AgvAllFragment()
     }
-
 
     override fun onResume() {
         super.onResume()

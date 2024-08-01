@@ -1,4 +1,4 @@
-package ru.nak.ied.regist.activities
+package ru.nak.ied.regist.adapter
 
 import android.view.LayoutInflater
 import android.view.View

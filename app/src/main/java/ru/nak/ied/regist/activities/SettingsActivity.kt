@@ -7,17 +7,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import ru.nak.ied.regist.R
-import ru.nak.ied.regist.databinding.ActivityItemsBinding
 import ru.nak.ied.regist.databinding.ActivitySettingsBinding
 import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
 import java.io.InputStreamReader
 
 class SettingsActivity : AppCompatActivity() {
@@ -50,7 +43,6 @@ class SettingsActivity : AppCompatActivity() {
                 saveIpAddressToFile(this, ipaddress)
                 Toast.makeText(this, "Установлен ip address: $ipaddress", Toast.LENGTH_LONG).show()
                 showRestartDialog(this)
-                //restartApplication(this)
             }
         }
 
@@ -59,7 +51,6 @@ class SettingsActivity : AppCompatActivity() {
             binding.textIP.text = ipAddress
         }
     }
-
 
     private fun saveIpAddressToFile(context: Context, ipAddress: String) {
         try {
@@ -85,7 +76,7 @@ class SettingsActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return "192.168.0.7"
+        return "192.168.175.152"
     }
 
     fun restartApplication(context: Context) {
@@ -98,7 +89,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-   fun showRestartDialog(context: Context) {
+    fun showRestartDialog(context: Context) {
         val alertDialogBuilder = AlertDialog.Builder(context)
         alertDialogBuilder.setTitle("Предупреждение")
         alertDialogBuilder.setMessage("Приложение требует перезагрузки после смены IP!")
@@ -110,16 +101,15 @@ class SettingsActivity : AppCompatActivity() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
-       // Установка красного цвета фона для диалогового окна
-       val dialogView = alertDialog.window?.decorView
-       dialogView?.setBackgroundColor(context.resources.getColor(R.color.red_light))
+        // Установка красного цвета фона для диалогового окна
+        val dialogView = alertDialog.window?.decorView
+        dialogView?.setBackgroundColor(context.resources.getColor(R.color.red_light))
 
-       // Центрирование кнопки "Ok"
-       val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-       val layoutParams = button.layoutParams as android.widget.LinearLayout.LayoutParams
-       layoutParams.gravity = Gravity.CENTER
-       button.layoutParams = layoutParams
-
+        // Центрирование кнопки "Ok"
+        val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        val layoutParams = button.layoutParams as android.widget.LinearLayout.LayoutParams
+        layoutParams.gravity = Gravity.CENTER
+        button.layoutParams = layoutParams
     }
 }
 //**********************************************************************************************

@@ -52,6 +52,9 @@ interface MainApi {
     @GET("get_all_users.php")
     suspend fun getAllUsers(): List<User>
 
+    @GET("get_all_log.php")
+    suspend fun getAllLog(): List<LogAgv>
+
     @GET("get_all_diagnostic_agv.php")
     suspend fun getAllDiagnosticAgv(): List<AgvDiagnostic>
 
@@ -66,6 +69,4 @@ interface MainApi {
 
     @GET("user_presence.php")
     suspend fun getUserExistence(@Body login: String, @Body pass: String): Boolean
-
-
 }
