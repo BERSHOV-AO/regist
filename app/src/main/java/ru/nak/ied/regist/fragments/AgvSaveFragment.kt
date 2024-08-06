@@ -20,6 +20,12 @@ import ru.nak.ied.regist.entities.NameTO
 import ru.nak.ied.regist.utils.TOData
 import javax.inject.Inject
 
+/**
+ * statusTo - 1 ---> ТО выполнено
+ * statusTo - 0 ----> TO не выполнено
+ * statusTo - 2 ----> Через ~ N дней нужно выполнить TO
+ */
+
 
 @AndroidEntryPoint
 class AgvSaveFragment : BaseFragment() {
@@ -87,7 +93,7 @@ class AgvSaveFragment : BaseFragment() {
                                         key,
                                         serialNumAgv.text.toString(),
                                         value,
-                                        true,
+                                        "1",
                                         thisCurrentTime
                                     )
                                 )

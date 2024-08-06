@@ -5,6 +5,6 @@ data class NameTO(
     val nameTo: String,
     val serialNumberAGV: String,
     val frequencyOfTo: String,
-    var statusTo: Boolean,
+    var statusTo: String,
     val dataTo: String
 )

@@ -8,5 +8,5 @@ data class AGVItem(
     val model: String,
     val ePlan: String,
     val dataLastTo: String,
-    var statusReadyTo: Boolean = false
+    var statusReadyTo: String = "0"
 )

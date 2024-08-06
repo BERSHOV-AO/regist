@@ -105,26 +105,47 @@ class AgvAllFragment : BaseFragment() {
             val listAgv = mainApi.getAllAGV()
 
             for (agv in listAgv) {
-                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(agv.serialNumber)
+                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_0(agv.serialNumber)
                 if (listTOAgvNoTO.isEmpty()) {
-                    agv.statusReadyTo = true
+                    val listTOAgvNoTO2 = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
+                    if(listTOAgvNoTO2.isEmpty()){
+                        agv.statusReadyTo = "1"
+                    } else {
+                        agv.statusReadyTo = "2"
+                    }
+                } else {
+                    agv.statusReadyTo = "0"
                 }
-            }
 
-            Log.d("MyLog", "listAgv: $listAgv")
+//                for (agv in listAgv) {
+//                    val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
+//                    if (listTOAgvNoTO.isEmpty()) {
+//                        agv.statusReadyTo = "2"
+//                    }
+//                }
+//
+//                for (agv in listAgv) {
+//                    val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
+//                    if (listTOAgvNoTO.isEmpty()) {
+//                        agv.statusReadyTo = "2"
+//                    }
+//                }
 
-            agvList.clear() // Очистите список перед добавлением новых данных
-            agvList.addAll(listAgv)
+                Log.d("MyLog", "listAgv: $listAgv")
 
-            if (!::adapter.isInitialized) {
-                adapter = AGVAdapter(agvList, { serialNumber ->
-                    deleteAgv(serialNumber)
-                }, { serialNumber ->
-                    openAgvToListActivity(serialNumber)
-                })
-                recyclerView.adapter = adapter
-            } else {
-                adapter.notifyDataSetChanged() // Обновите адаптер, если он уже инициализирован
+                agvList.clear() // Очистите список перед добавлением новых данных
+                agvList.addAll(listAgv)
+
+                if (!::adapter.isInitialized) {
+                    adapter = AGVAdapter(agvList, { serialNumber ->
+                        deleteAgv(serialNumber)
+                    }, { serialNumber ->
+                        openAgvToListActivity(serialNumber)
+                    })
+                    recyclerView.adapter = adapter
+                } else {
+                    adapter.notifyDataSetChanged() // Обновите адаптер, если он уже инициализирован
+                }
             }
         }
     }

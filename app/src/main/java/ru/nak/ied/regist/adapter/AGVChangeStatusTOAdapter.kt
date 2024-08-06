@@ -44,7 +44,13 @@ class AGVChangeStatusTOAdapter(
     override fun onBindViewHolder(holder: AGVChangeStatusViewHolder, position: Int) {
         val currentItem = agvToList[position]
 
-        holder.switchStatusToName.isChecked = currentItem.statusTo
+        if(currentItem.statusTo == "1") {
+            holder.switchStatusToName.isChecked = true
+        }
+        if(currentItem.statusTo == "0") {
+            holder.switchStatusToName.isChecked = false
+        }
+       // holder.switchStatusToName.isChecked = currentItem.statusTo
         holder.switchStatusToName.text = currentItem.nameTo
     }
 

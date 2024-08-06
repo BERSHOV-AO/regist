@@ -65,9 +65,13 @@ class AGVAdapter(
         holder.ePlan.text = currentItem.ePlan
         holder.timeLastTo.text = convertTime(currentItem.dataLastTo)
 
-        if (currentItem.statusReadyTo) {
+        if (currentItem.statusReadyTo == "1") {
             holder.constraintLayoutItemAgv.setBackgroundColor(
                 holder.itemView.resources.getColor(R.color.green_light_item_agv_to_no)
+            )
+        } else if (currentItem.statusReadyTo == "2") {
+            holder.constraintLayoutItemAgv.setBackgroundColor(
+                holder.itemView.resources.getColor(R.color.yellow_light_item_agv_before_to)
             )
         } else {
             holder.constraintLayoutItemAgv.setBackgroundColor(

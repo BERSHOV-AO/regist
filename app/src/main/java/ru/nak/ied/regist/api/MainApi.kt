@@ -44,10 +44,28 @@ interface MainApi {
     @GET("get_agv_to_by_sn.php")
     suspend fun getTOAgvBySN(@Query("serialNumberAGV") serialNumberAGV: String): List<NameTO>
 
+    //-------------------------------------------------------------------------
+    @GET("get_agv_to_by_sn_and_status_1.php")
+    suspend fun getTOAgvBySNAndStatus_1(
+        @Query("serialNumberAGV") serialNumberAGV: String
+    ): List<NameTO>
+
+    @GET("get_agv_to_by_sn_and_status_0.php")
+    suspend fun getTOAgvBySNAndStatus_0(
+        @Query("serialNumberAGV") serialNumberAGV: String
+    ): List<NameTO>
+
+    @GET("get_agv_to_by_sn_and_status_2.php")
+    suspend fun getTOAgvBySNAndStatus_2(
+        @Query("serialNumberAGV") serialNumberAGV: String
+    ): List<NameTO>
+
     @GET("get_agv_to_by_sn_and_status.php")
     suspend fun getTOAgvBySNAndStatus(
         @Query("serialNumberAGV") serialNumberAGV: String
     ): List<NameTO>
+
+    //----------------------------------------------------------------------------------
 
     @GET("get_all_users.php")
     suspend fun getAllUsers(): List<User>

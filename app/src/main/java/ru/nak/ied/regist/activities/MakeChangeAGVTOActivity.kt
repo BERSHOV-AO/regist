@@ -17,6 +17,12 @@ import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.NameTO
 import javax.inject.Inject
 
+/**
+ * statusTo - 1 ---> ТО выполнено
+ * statusTo - 0 ----> TO не выполнено
+ * statusTo - 2 ----> Через ~ N дней нужно выполнить TO
+ */
+
 @AndroidEntryPoint
 class MakeChangeAGVTOActivity : AppCompatActivity() {
 
@@ -54,7 +60,7 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
 
             listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!) as MutableList<NameTO>
 
-            Log.d("MyLog", "listTOAgv false:   $listTOAgv")
+            Log.d("MyLog", "!!!!!!!!!!!!!!listTOAgv false:   $listTOAgv")
 
             adapter = AGVChangeStatusTOAdapter(listTOAgv!!) { position, isChecked, switchText ->
 
@@ -64,7 +70,7 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                         listTOAgv!![position].nameTo,
                         listTOAgv!![position].serialNumberAGV,
                         listTOAgv!![position].frequencyOfTo,
-                        isChecked,
+                        "1",
                         getCurrentTime()
                     )
                 )

@@ -39,7 +39,7 @@ class AGVTOAdapter(
         holder.dataFutureTO.text =
             convertTimeWithDays(currentItem.dataTo, currentItem.frequencyOfTo)
 
-        if (currentItem.statusTo) {
+        if (currentItem.statusTo == "1") {
 
             holder.llMainItemToAgvBC.setBackgroundColor(
                 holder.itemView.resources.getColor(R.color.green_light_item_agv_to_no))
