@@ -1,5 +1,6 @@
 package ru.nak.ied.regist.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -26,10 +27,12 @@ class ShowOneAgvToActivity : AppCompatActivity() {
     private lateinit var adapter: AGVTOAdapter
 
     var listTOAgv: List<NameTO>? = null
-    lateinit var listTOAgvNoTO: List<NameTO>
+    lateinit var listTOAgvNoTO_0: List<NameTO>
+    lateinit var listTOAgvNoTO_2: List<NameTO>
 
     private lateinit var binding: ActivityShowOneAgvToBinding
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,24 +45,56 @@ class ShowOneAgvToActivity : AppCompatActivity() {
         // Изначальная загрузка данных
         loadData()
 
+
+//        for (agv in listAgv) {
+//            val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_0(agv.serialNumber)
+//            if (listTOAgvNoTO.isEmpty()) {
+//                val listTOAgvNoTO2 = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
+//                if(listTOAgvNoTO2.isEmpty()){
+//                    agv.statusReadyTo = "1"
+//                } else {
+//                    agv.statusReadyTo = "2"
+//                }
+//            } else {
+//                agv.statusReadyTo = "0"
+//            }
+
         binding.bToOneAgv.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER").toString()
                 binding.tvSerNumShow.text = responseSerialNum
-                listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus(responseSerialNum)
+                listTOAgvNoTO_0 = mainApi.getTOAgvBySNAndStatus_0(responseSerialNum)
+                listTOAgvNoTO_2 = mainApi.getTOAgvBySNAndStatus_2(responseSerialNum)
 
-                if (listTOAgvNoTO.isEmpty()) {
+                if (listTOAgvNoTO_0.isEmpty() && listTOAgvNoTO_2.isEmpty()) {
+
                     Toast.makeText(
                         this@ShowOneAgvToActivity,
                         "У AGV sn: $responseSerialNum, все ТО выполнены!",
                         Toast.LENGTH_SHORT
                     ).show()
-                } else {
+                }
+                if (listTOAgvNoTO_0.isNotEmpty()) {
                     val intent =
                         Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
                     intent.putExtra("agvSerialNumTo", responseSerialNum)
+                    intent.putExtra("keyStatusTo", "0")
                     startActivity(intent)
                 }
+
+                if (listTOAgvNoTO_2.isNotEmpty()) {
+                    val intent =
+                        Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
+                    intent.putExtra("agvSerialNumTo", responseSerialNum)
+                    intent.putExtra("keyStatusTo", "2")
+                    startActivity(intent)
+                }
+//                } else {
+//                    val intent =
+//                        Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
+//                    intent.putExtra("agvSerialNumTo", responseSerialNum)
+//                    startActivity(intent)
+//                }
             }
         }
     }

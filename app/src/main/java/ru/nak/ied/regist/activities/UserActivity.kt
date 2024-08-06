@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nak.ied.regist.R
@@ -15,6 +16,9 @@ import ru.nak.ied.regist.fragments.FragmentManager
 @AndroidEntryPoint
 class UserActivity : AppCompatActivity() {
     lateinit var binding: ActivityUserBinding
+
+    private var backPressedTime: Long = 0 // Время последнего нажатия кнопки "Назад"
+    private lateinit var backToast: Toast // Toast для отображения предупреждения
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,5 +65,20 @@ class UserActivity : AppCompatActivity() {
             }
             true
         }
+    }
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel() // Отменяем предыдущий Toast
+            super.onBackPressed() // Выходим из активности
+            return
+        } else {
+            backToast = Toast.makeText(
+                applicationContext,
+                "Нажмите еще раз, чтобы выйти",
+                Toast.LENGTH_SHORT
+            )
+            backToast.show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }

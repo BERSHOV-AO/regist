@@ -68,14 +68,16 @@ class SplashActivity : AppCompatActivity() {
                             Log.d("MyLog", "!!!!!!!!!!!!!!!!!!!!!!!NOK statusTo")
                             nameTO.statusTo = "0"
                             mainApi.updateAgvTo(nameTO)
-                        } else if (currentTimeMillis in dataAndFrequencyMinusDaysBeforeTO..dataAndFrequencyDays) {
+                        }
+                        if (currentTimeMillis in dataAndFrequencyMinusDaysBeforeTO..dataAndFrequencyDays) {
                             Log.d("MyLog", "!!!!!!!!!!!!!!!!!!!!!!! statusBeforeTo")
                             nameTO.statusTo = "2"
                             mainApi.updateAgvTo(nameTO)
-                        } else {
-                            nameTO.statusTo = "1"
-                            mainApi.updateAgvTo(nameTO)
                         }
+//                        } else {
+//                            nameTO.statusTo = "1"
+//                            mainApi.updateAgvTo(nameTO)
+//                        }
 
 
 

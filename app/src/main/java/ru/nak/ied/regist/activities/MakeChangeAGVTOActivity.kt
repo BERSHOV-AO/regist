@@ -47,6 +47,8 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val responseSerialNum = intent.getStringExtra("agvSerialNumTo");
+        val responseKeyStatusTo = intent.getStringExtra("keyStatusTo")
+
 
         binding.tvSerNum.text = responseSerialNum
 
@@ -58,7 +60,13 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
 
-            listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!) as MutableList<NameTO>
+            if(responseKeyStatusTo == "0") {
+                listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!) as MutableList<NameTO>
+            }
+
+            if(responseKeyStatusTo == "2") {
+                listTOAgv = mainApi.getTOAgvBySNAndStatus_2(responseSerialNum!!) as MutableList<NameTO>
+            }
 
             Log.d("MyLog", "!!!!!!!!!!!!!!listTOAgv false:   $listTOAgv")
 

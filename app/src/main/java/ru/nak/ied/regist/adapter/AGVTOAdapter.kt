@@ -40,10 +40,14 @@ class AGVTOAdapter(
             convertTimeWithDays(currentItem.dataTo, currentItem.frequencyOfTo)
 
         if (currentItem.statusTo == "1") {
-
             holder.llMainItemToAgvBC.setBackgroundColor(
                 holder.itemView.resources.getColor(R.color.green_light_item_agv_to_no))
-        } else {
+        }
+        else if(currentItem.statusTo == "2") {
+            holder.llMainItemToAgvBC.setBackgroundColor(
+                holder.itemView.resources.getColor(R.color.yellow_light_item_agv_before_to))
+        }
+        else {
             holder.llMainItemToAgvBC.setBackgroundColor(
                 holder.itemView.resources.getColor(R.color.red_light_item_agv_to_nok))
         }

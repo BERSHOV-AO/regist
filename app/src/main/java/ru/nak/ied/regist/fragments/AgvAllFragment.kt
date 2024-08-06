@@ -13,13 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.adapter.AGVAdapter
 import ru.nak.ied.regist.activities.ShowOneAgvToActivity
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
+import ru.nak.ied.regist.entities.NameTO
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,6 +35,7 @@ class AgvAllFragment : BaseFragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AGVAdapter
     private var agvList: MutableList<AGVItem> = mutableListOf() // Используем MutableList
+
 
     override fun onClickNew() {
         TODO("Not yet implemented")
@@ -100,53 +106,103 @@ class AgvAllFragment : BaseFragment() {
         loadAgvData() // Обновляем данные при возвращении к фрагменту
     }
 
+//    private fun loadAgvData() {
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val listAgv = mainApi.getAllAGV()
+//
+//            for (agv in listAgv) {
+//               // val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_0(agv.serialNumber)
+//                val listTOAgvNoTO = loadAgvData0(agv)
+//                if (listTOAgvNoTO.isEmpty()) {
+//                   // val listTOAgvNoTO2 = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
+//                    val listTOAgvNoTO2 = loadAgvData2(agv)
+//                    if(listTOAgvNoTO2.isEmpty()){
+//                        agv.statusReadyTo = "1"
+//                    } else {
+//                        agv.statusReadyTo = "2"
+//                    }
+//                } else {
+//                    agv.statusReadyTo = "0"
+//                }
+//
+//                Log.d("MyLog", "listAgv: $listAgv")
+//
+//                agvList.clear() // Очистите список перед добавлением новых данных
+//                agvList.addAll(listAgv)
+//
+//                if (!::adapter.isInitialized) {
+//                    adapter = AGVAdapter(agvList, { serialNumber ->
+//                        deleteAgv(serialNumber)
+//                    }, { serialNumber ->
+//                        openAgvToListActivity(serialNumber)
+//                    })
+//                    recyclerView.adapter = adapter
+//                } else {
+//                    adapter.notifyDataSetChanged() // Обновите адаптер, если он уже инициализирован
+//                }
+//            }
+//        }
+//    }
+
+
     private fun loadAgvData() {
         CoroutineScope(Dispatchers.Main).launch {
             val listAgv = mainApi.getAllAGV()
 
+            // Создаем список Deferred для хранения результатов
+            val deferredResults = mutableListOf<Deferred<AGVItem>>() // Измените тип на AGVItem
+
             for (agv in listAgv) {
-                val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_0(agv.serialNumber)
-                if (listTOAgvNoTO.isEmpty()) {
-                    val listTOAgvNoTO2 = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
-                    if(listTOAgvNoTO2.isEmpty()){
-                        agv.statusReadyTo = "1"
-                    } else {
-                        agv.statusReadyTo = "2"
+                // Используем async для параллельного выполнения
+                val deferred = async(Dispatchers.IO) {
+                    val listTOAgvNoTO = loadAgvData0(agv)
+                    val statusReadyTo = when {
+                        listTOAgvNoTO.isEmpty() -> {
+                            val listTOAgvNoTO2 = loadAgvData2(agv)
+                            if (listTOAgvNoTO2.isEmpty()) "1" else "2"
+                        }
+                        else -> "0"
                     }
-                } else {
-                    agv.statusReadyTo = "0"
+                    agv.statusReadyTo = statusReadyTo
+                    agv // Возвращаем AGVItem с обновленным статусом
                 }
-
-//                for (agv in listAgv) {
-//                    val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
-//                    if (listTOAgvNoTO.isEmpty()) {
-//                        agv.statusReadyTo = "2"
-//                    }
-//                }
-//
-//                for (agv in listAgv) {
-//                    val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
-//                    if (listTOAgvNoTO.isEmpty()) {
-//                        agv.statusReadyTo = "2"
-//                    }
-//                }
-
-                Log.d("MyLog", "listAgv: $listAgv")
-
-                agvList.clear() // Очистите список перед добавлением новых данных
-                agvList.addAll(listAgv)
-
-                if (!::adapter.isInitialized) {
-                    adapter = AGVAdapter(agvList, { serialNumber ->
-                        deleteAgv(serialNumber)
-                    }, { serialNumber ->
-                        openAgvToListActivity(serialNumber)
-                    })
-                    recyclerView.adapter = adapter
-                } else {
-                    adapter.notifyDataSetChanged() // Обновите адаптер, если он уже инициализирован
-                }
+                deferredResults.add(deferred)
             }
+
+            // Ждем завершения всех корутин и собираем результаты
+            val updatedAgvs = deferredResults.awaitAll() // Теперь это будет List<AGVItem>
+
+            // Обновляем список и адаптер
+            agvList.clear()
+            agvList.addAll(updatedAgvs)
+
+            if (!::adapter.isInitialized) {
+                adapter = AGVAdapter(agvList, { serialNumber ->
+                    deleteAgv(serialNumber)
+                }, { serialNumber ->
+                    openAgvToListActivity(serialNumber)
+                })
+                recyclerView.adapter = adapter
+            } else {
+                adapter.notifyDataSetChanged() // Обновите адаптер, если он уже инициализирован
+            }
+
+            Log.d("MyLog", "listAgv: $agvList")
+        }
+    }
+
+
+
+    private suspend fun loadAgvData0(agv: AGVItem): List<NameTO> {
+        return withContext(Dispatchers.IO) {
+            mainApi.getTOAgvBySNAndStatus_0(agv.serialNumber)
+        }
+    }
+
+    private suspend fun loadAgvData2(agv: AGVItem): List<NameTO> {
+        return withContext(Dispatchers.IO) {
+             mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
         }
     }
 }
+
