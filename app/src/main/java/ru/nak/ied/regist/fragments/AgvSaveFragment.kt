@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +28,6 @@ import javax.inject.Inject
  * statusTo - 2 ----> Через ~ N дней нужно выполнить TO
  */
 
-
 @AndroidEntryPoint
 class AgvSaveFragment : BaseFragment() {
 
@@ -34,6 +35,8 @@ class AgvSaveFragment : BaseFragment() {
     lateinit var mainApi: MainApi
 
     var listAgv: List<AGVItem>? = null;
+
+    private val agvModels = arrayOf("AGV-1100-ST", "AGV-1100-2P", "AGV-1100-2T", "AGV-3000-ST") // Пример моделей
 
     override fun onClickNew() {
         TODO("Not yet implemented")
@@ -49,15 +52,20 @@ class AgvSaveFragment : BaseFragment() {
         val nameAgv = view.findViewById<EditText>(R.id.etNameAgv)
         val serialNumAgv = view.findViewById<EditText>(R.id.etSerialNumAgv)
         val versionFW = view.findViewById<EditText>(R.id.etVersionFW)
-        val modelAgv = view.findViewById<EditText>(R.id.etModelAgv)
+        val spinnerModelAgv = view.findViewById<Spinner>(R.id.spinnerModelAgv)
         val ePlan = view.findViewById<EditText>(R.id.etePlan)
         val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
 
+        //---------------------------Настройка адаптера для Spinner--------------------------------
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, agvModels)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerModelAgv.adapter = adapter
+        //-----------------------------------------------------------------------------------------
+
         buttonSaveAgv.setOnClickListener {
+            //-----------------------------------------pass-----------------------------------------
             val dialogView = layoutInflater.inflate(R.layout.dialog_password, null)
             val etDialogPassword = dialogView.findViewById<EditText>(R.id.etDialogPassword)
-
-            //-----------------------------------------pass-----------------------------------------
             AlertDialog.Builder(requireContext())
                 .setTitle("Введите пароль")
                 .setView(dialogView)
@@ -78,7 +86,8 @@ class AgvSaveFragment : BaseFragment() {
                                     nameAgv.text.toString(),
                                     serialNumAgv.text.toString(),
                                     versionFW.text.toString(),
-                                    modelAgv.text.toString(),
+                                    //modelAgv.text.toString(),
+                                    spinnerModelAgv.selectedItem.toString(),
                                     ePlan.text.toString(),
                                     thisCurrentTime
                                 )
@@ -108,7 +117,8 @@ class AgvSaveFragment : BaseFragment() {
                             nameAgv.text.clear()
                             serialNumAgv.text.clear()
                             versionFW.text.clear()
-                            modelAgv.text.clear()
+                           // modelAgv.text.clear()
+                            spinnerModelAgv.setSelection(0) // Сброс выбора в Spinner
                             ePlan.text.clear()
                             /**
                              * *********************************************************************

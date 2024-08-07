@@ -56,6 +56,14 @@
             android:layout_weight="1" /> <!-- Spacer -->
 
         <ImageButton
+            android:id="@+id/ibAdminMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_admin_menu" />
+
+        <ImageButton
             android:id="@+id/imageButt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
