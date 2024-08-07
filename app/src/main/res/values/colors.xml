@@ -18,6 +18,7 @@
     <color name="red_light_item_agv_to_nok">#FFADAD</color>
     <color name="green_light_item_agv_to_no">#95FDA3</color>
     <color name="yellow_light_item_agv_before_to">#FFE24D</color>
+    <color name="orange_color_admin">#FF6D00</color>
 
     <color name="picker_red">#D50000</color>
     <color name="picker_green">#3AEF85</color>

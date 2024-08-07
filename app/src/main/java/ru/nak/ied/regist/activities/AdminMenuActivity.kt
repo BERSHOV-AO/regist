@@ -25,6 +25,9 @@ class AdminMenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAdminMenuBinding
 
+    private var backPressedTime: Long = 0 // Время последнего нажатия кнопки "Назад"
+    private lateinit var backToast: Toast // Toast для отображения предупреждения
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,5 +51,21 @@ class AdminMenuActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel() // Отменяем предыдущий Toast
+            super.onBackPressed() // Выходим из активности
+            return
+        } else {
+            backToast = Toast.makeText(
+                applicationContext,
+                "Нажмите еще раз, чтобы выйти",
+                Toast.LENGTH_SHORT
+            )
+            backToast.show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }

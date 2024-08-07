@@ -15,11 +15,18 @@ import ru.nak.ied.regist.utils.TOData
 
 interface MainApi {
 
+    /**
+     * ***************************************DELETE**********************************************
+     */
     @DELETE("delete_agv_by_sn.php")
     suspend fun deleteAgvBySerialNumber(@Query("serialNumber") serialNumber: String): List<AGVItem>
 
     @GET("delete_to_agv_by_sn.php")
     suspend fun deleteAgvTOBySerialNumber(@Query("serialNumberAGV") serialNumber: String): List<TOData>
+
+    /**
+     * ***************************************SAVE**********************************************
+     */
 
     @POST("save_user_agv.php")
     suspend fun saveUser(@Body user: User)
@@ -45,6 +52,9 @@ interface MainApi {
     @POST("save_or_update_agv.php")
     suspend fun saveOrUpdateAgv(@Body agvItem: AGVItem)
 
+    /**
+     * ***************************************GET**********************************************
+     */
     @GET("get_agv_to_by_sn.php")
     suspend fun getTOAgvBySN(@Query("serialNumberAGV") serialNumberAGV: String): List<NameTO>
 
@@ -82,6 +92,9 @@ interface MainApi {
 
     @GET("get_all_agv.php")
     suspend fun getAllAGV(): List<AGVItem>
+
+    @GET("get_all_model_agv.php")
+    suspend fun getAllModelAGV(): List<ModelAGV>
 
     @GET("get_all_agv_to.php")
     suspend fun getAllAgvTo(): List<NameTO>

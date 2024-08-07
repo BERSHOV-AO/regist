@@ -50,27 +50,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" /> <!-- Spacer -->
 
         <ImageButton
             android:id="@+id/ibAdminMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
             android:background="@null"
             app:srcCompat="@drawable/ic_admin_menu" />
 
-        <ImageButton
-            android:id="@+id/imageButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
 
-            android:background="@null"
-            app:srcCompat="@drawable/ic_filter_agv" />
 
         <ImageButton
             android:id="@+id/ibLogOpe"
@@ -79,6 +69,14 @@
             android:layout_marginEnd="25dp"
             android:background="@null"
             app:srcCompat="@drawable/ic_log" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" /> <!-- Spacer -->
+
+
+
     </LinearLayout>
 
     <FrameLayout
@@ -103,3 +101,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--<ImageButton-->
+<!--android:id="@+id/ibFilter"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginEnd="20dp"-->
+
+<!--android:background="@null"-->
+<!--app:srcCompat="@drawable/ic_filter_agv" />-->

@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
+import ru.nak.ied.regist.entities.ModelAGV
 import ru.nak.ied.regist.entities.NameTO
 import ru.nak.ied.regist.utils.TOData
 import javax.inject.Inject
@@ -34,9 +35,8 @@ class AgvSaveFragment : BaseFragment() {
     @Inject
     lateinit var mainApi: MainApi
 
-    var listAgv: List<AGVItem>? = null;
-
-    private val agvModels = arrayOf("AGV-1100-ST", "AGV-1100-2P", "AGV-1100-2T", "AGV-3000-ST") // Пример моделей
+    lateinit var spinnerModelAgv: Spinner
+    lateinit var agvModels: Array<String>
 
     override fun onClickNew() {
         TODO("Not yet implemented")
@@ -52,15 +52,11 @@ class AgvSaveFragment : BaseFragment() {
         val nameAgv = view.findViewById<EditText>(R.id.etNameAgv)
         val serialNumAgv = view.findViewById<EditText>(R.id.etSerialNumAgv)
         val versionFW = view.findViewById<EditText>(R.id.etVersionFW)
-        val spinnerModelAgv = view.findViewById<Spinner>(R.id.spinnerModelAgv)
+        spinnerModelAgv = view.findViewById<Spinner>(R.id.spinnerModelAgv)
         val ePlan = view.findViewById<EditText>(R.id.etePlan)
         val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
 
-        //---------------------------Настройка адаптера для Spinner--------------------------------
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, agvModels)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerModelAgv.adapter = adapter
-        //-----------------------------------------------------------------------------------------
+        loadModelAndInitAdapter()
 
         buttonSaveAgv.setOnClickListener {
             //-----------------------------------------pass-----------------------------------------
@@ -117,7 +113,7 @@ class AgvSaveFragment : BaseFragment() {
                             nameAgv.text.clear()
                             serialNumAgv.text.clear()
                             versionFW.text.clear()
-                           // modelAgv.text.clear()
+                            // modelAgv.text.clear()
                             spinnerModelAgv.setSelection(0) // Сброс выбора в Spinner
                             ePlan.text.clear()
                             /**
@@ -146,5 +142,29 @@ class AgvSaveFragment : BaseFragment() {
     private fun getCurrentTime(): String {
         val currentTimeMillis = System.currentTimeMillis()
         return currentTimeMillis.toString()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadModelAndInitAdapter() // Обновляем данные при возвращении к фрагменту
+    }
+
+    private fun loadModelAndInitAdapter() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val listModelAgv = mainApi.getAllModelAGV()
+                agvModels = listModelAgv.map { it.model }.toTypedArray()
+
+                // Настройка адаптера для Spinner после загрузки данных
+                val adapter =
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, agvModels)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerModelAgv.adapter = adapter
+            } catch (e: Exception) {
+                // Обработка ошибки
+                Toast.makeText(context, "Ошибка загрузки моделей: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 }

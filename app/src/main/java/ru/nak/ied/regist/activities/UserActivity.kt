@@ -44,6 +44,10 @@ class UserActivity : AppCompatActivity() {
             startActivity(intent);
         }
 
+//        binding.ibFilter.setOnClickListener {
+//            FragmentManager.setFragment(AgvAllFragment.newInstance(), this)
+//        }
+
         binding.ibAdminMenu.setOnClickListener {
             //-----------------------------------------pass-----------------------------------------
             val dialogView = layoutInflater.inflate(R.layout.dialog_password, null)

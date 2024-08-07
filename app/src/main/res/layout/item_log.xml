@@ -35,6 +35,7 @@
                 android:paddingStart="3dp"
                 android:paddingEnd="5dp"
                 android:text="TextView:"
+                android:background="@color/green_light_item_agv_to_no"
                 android:textColor="@color/black"
                 android:textSize="12dp" />
 

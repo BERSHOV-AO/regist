@@ -244,6 +244,19 @@
                     app:layout_constraintVertical_bias="1.0"
                     app:srcCompat="@drawable/ic_list_agv_big" />
 
+                <ImageButton
+                    android:id="@+id/btnEPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="52dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnDelete"
+                    app:layout_constraintVertical_bias="0.909"
+                    app:srcCompat="@drawable/ic_e_plan" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
