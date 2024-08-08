@@ -39,7 +39,7 @@
     <LinearLayout
         android:id="@+id/lLLog"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_marginStart="8dp"
@@ -55,17 +55,18 @@
             android:id="@+id/ibAdminMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
             android:background="@null"
             app:srcCompat="@drawable/btn_admin_menu_selector" />
 
 
-
         <ImageButton
             android:id="@+id/ibLogOpe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="25dp"
             android:background="@null"
             app:srcCompat="@drawable/btn_log_selector" />
@@ -83,7 +84,7 @@
         android:id="@+id/placeHolder"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintBottom_toTopOf="@+id/bNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
