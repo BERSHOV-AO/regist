@@ -16,6 +16,7 @@ import java.io.InputStreamReader
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
+    private var isImage1 = true //
 
     private var fileIp: String = "ip_config.txt"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +50,15 @@ class SettingsActivity : AppCompatActivity() {
         binding.readIP.setOnClickListener {
             val ipAddress = readIpAddressFromFile(this)
             binding.textIP.text = ipAddress
+        }
+
+        binding.ibImageSetting.setOnClickListener {
+            if (isImage1) {
+                binding.ibImageSetting.setImageResource(R.drawable.photo_agv_setting) // Первое изображение
+            } else {
+                binding.ibImageSetting.setImageResource(R.drawable.tractor_agv_setting) // Второе изображение
+            }
+            isImage1 = !isImage1 // Меняем состояние
         }
     }
 
@@ -111,6 +121,8 @@ class SettingsActivity : AppCompatActivity() {
         layoutParams.gravity = Gravity.CENTER
         button.layoutParams = layoutParams
     }
+
+
 }
 //**********************************************************************************************
 //    private fun writeDataToFile(ipAddress: String) {

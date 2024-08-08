@@ -63,6 +63,10 @@ class AgvAllFragment : BaseFragment() {
         return view
     }
 
+    private fun openEPlan(ePlane: String) {
+        Log.d("MyLog", "ePlane $ePlane")
+    }
+
     private fun openAgvToListActivity(serialNumber: String) {
         val intent = Intent(requireContext(), ShowOneAgvToActivity::class.java)
         intent.putExtra("SERIAL_NUMBER", serialNumber)
@@ -152,6 +156,8 @@ class AgvAllFragment : BaseFragment() {
                     deleteAgv(serialNumber)
                 }, { serialNumber ->
                     openAgvToListActivity(serialNumber)
+                }, { ePlan ->
+                    openEPlan(ePlan)
                 })
                 recyclerView.adapter = adapter
             } else {
@@ -203,6 +209,8 @@ class AgvAllFragment : BaseFragment() {
                     deleteAgv(serialNumber)
                 }, { serialNumber ->
                     openAgvToListActivity(serialNumber)
+                }, { ePlan ->
+                    openEPlan(ePlan)
                 })
                 recyclerView.adapter = adapter
             } else {
@@ -210,7 +218,6 @@ class AgvAllFragment : BaseFragment() {
             }
             Log.d("MyLog", "Filtered listAgv: $agvList")
         }
-
     }
 
     private suspend fun loadAgvData0(agv: AGVItem): List<NameTO> {

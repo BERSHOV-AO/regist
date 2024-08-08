@@ -20,7 +20,8 @@ import java.util.Locale
 class AGVAdapter(
     private val agvList: MutableList<AGVItem>,
     private val onDeleteClick: (String) -> Unit,
-    private val onShowAgvToListClick: (String) -> Unit
+    private val onShowAgvToListClick: (String) -> Unit,
+    private val onShowEPlaneClick: (String) -> Unit
 ) :
     RecyclerView.Adapter<AGVAdapter.AGVViewHolder>() {
 
@@ -33,6 +34,7 @@ class AGVAdapter(
         val timeLastTo: TextView = itemView.findViewById(R.id.tvTimeOfLastTo)
         val deleteButton: ImageButton = itemView.findViewById(R.id.btnDelete) // Кнопка удаления
         val bListAgvTo: ImageButton = itemView.findViewById(R.id.btnListToAgv)
+        val bEPlan: ImageButton = itemView.findViewById(R.id.btnEPlan)
         val constraintLayoutItemAgv: ConstraintLayout = itemView.findViewById(R.id.clItemAgv)
 
         init {
@@ -46,6 +48,11 @@ class AGVAdapter(
             bListAgvTo.setOnClickListener {
                 val serialNumber = serialNumberTextView.text.toString()
                 onShowAgvToListClick(serialNumber)
+            }
+
+            bEPlan.setOnClickListener {
+                val ePlane = ePlan.text.toString()
+                onShowEPlaneClick(ePlane)
             }
         }
     }

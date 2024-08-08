@@ -1,5 +1,8 @@
 package ru.nak.ied.regist.api
 
+//import okhttp3.ResponseBody
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -14,6 +17,9 @@ import ru.nak.ied.regist.entities.User
 import ru.nak.ied.regist.utils.TOData
 
 interface MainApi {
+
+    @GET("download_pdf.php") // Укажите путь к вашему PHP-скрипту
+    suspend fun downloadPdf(): Call<ResponseBody>
 
     /**
      * ***************************************DELETE**********************************************
