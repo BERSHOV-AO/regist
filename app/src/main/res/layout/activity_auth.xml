@@ -37,7 +37,7 @@
             android:layout_height="30dp"
             android:layout_marginEnd="20dp"
             android:background="@null"
-            app:srcCompat="@drawable/ic_settings" />
+            app:srcCompat="@drawable/btn_settings_selector" />
 
 
     </LinearLayout>
