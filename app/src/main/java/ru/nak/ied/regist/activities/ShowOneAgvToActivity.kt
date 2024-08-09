@@ -45,20 +45,6 @@ class ShowOneAgvToActivity : AppCompatActivity() {
         // Изначальная загрузка данных
         loadData()
 
-
-//        for (agv in listAgv) {
-//            val listTOAgvNoTO = mainApi.getTOAgvBySNAndStatus_0(agv.serialNumber)
-//            if (listTOAgvNoTO.isEmpty()) {
-//                val listTOAgvNoTO2 = mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
-//                if(listTOAgvNoTO2.isEmpty()){
-//                    agv.statusReadyTo = "1"
-//                } else {
-//                    agv.statusReadyTo = "2"
-//                }
-//            } else {
-//                agv.statusReadyTo = "0"
-//            }
-
         binding.bToOneAgv.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val responseSerialNum = intent.getStringExtra("SERIAL_NUMBER").toString()
@@ -89,12 +75,6 @@ class ShowOneAgvToActivity : AppCompatActivity() {
                     intent.putExtra("keyStatusTo", "2")
                     startActivity(intent)
                 }
-//                } else {
-//                    val intent =
-//                        Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
-//                    intent.putExtra("agvSerialNumTo", responseSerialNum)
-//                    startActivity(intent)
-//                }
             }
         }
     }

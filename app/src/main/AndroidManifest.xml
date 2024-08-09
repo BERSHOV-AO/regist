@@ -27,6 +27,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.EPlanShowActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AdminMenuActivity"
             android:exported="false" />
         <activity

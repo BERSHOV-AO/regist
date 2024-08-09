@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -23,6 +22,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.nak.ied.regist.R
+import ru.nak.ied.regist.activities.EPlanShowActivity
 import ru.nak.ied.regist.adapter.AGVAdapter
 import ru.nak.ied.regist.activities.ShowOneAgvToActivity
 import ru.nak.ied.regist.api.MainApi
@@ -65,6 +65,9 @@ class AgvAllFragment : BaseFragment() {
 
     private fun openEPlan(ePlane: String) {
         Log.d("MyLog", "ePlane $ePlane")
+        val intent = Intent(requireContext(), EPlanShowActivity::class.java)
+        intent.putExtra("E_PLAN", ePlane)
+        startActivity(intent)
     }
 
     private fun openAgvToListActivity(serialNumber: String) {
@@ -168,7 +171,7 @@ class AgvAllFragment : BaseFragment() {
         }
     }
 
-     fun loadAgvDataFilterNokTo() {
+    fun loadAgvDataFilterNokTo() {
         CoroutineScope(Dispatchers.Main).launch {
             val listAgv = mainApi.getAllAGV()
 
@@ -232,4 +235,3 @@ class AgvAllFragment : BaseFragment() {
         }
     }
 }
-

@@ -40,7 +40,6 @@ android {
     buildFeatures{
         viewBinding = true
     }
-
 }
 
 dependencies {
@@ -52,6 +51,7 @@ dependencies {
     implementation(libs.retrofit.android.converter)
     implementation(libs.hilt.navigation)
 
+
     val room_version = "2.6.1"
     implementation("androidx.room:room-ktx:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
@@ -59,6 +59,14 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.preference:preference-ktx:1.2.1")
+    // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+
+    // https://mvnrepository.com/artifact/com.github.bumptech.glide/compiler
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
