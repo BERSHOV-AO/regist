@@ -111,6 +111,14 @@ class EPlanShowActivity : AppCompatActivity() {
         binding.image14.setImageResource(R.drawable.scheme_14)
         binding.image15.setImageResource(R.drawable.scheme_15)
         binding.image16.setImageResource(R.drawable.scheme_16)
+        binding.image17.setImageResource(R.drawable.scheme_17)
+        binding.image18.setImageResource(R.drawable.scheme_18)
+        binding.image19.setImageResource(R.drawable.scheme_19)
+        binding.image20.setImageResource(R.drawable.scheme_20)
+        binding.image21.setImageResource(R.drawable.scheme_21)
+        binding.image22.setImageResource(R.drawable.scheme_22)
+        binding.image23.setImageResource(R.drawable.scheme_23)
+        binding.image24.setImageResource(R.drawable.scheme_24)
     }
 
 //    private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {

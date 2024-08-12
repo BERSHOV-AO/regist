@@ -12,6 +12,7 @@ import ru.nak.ied.regist.entities.AGVItem
 import ru.nak.ied.regist.entities.AgvDiagnostic
 import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.ModelAGV
+import ru.nak.ied.regist.entities.NameAndFrequencyTO
 import ru.nak.ied.regist.entities.NameTO
 import ru.nak.ied.regist.entities.User
 import ru.nak.ied.regist.utils.TOData
@@ -61,10 +62,24 @@ interface MainApi {
     /**
      * ***************************************GET**********************************************
      */
+
+    //---------------------------------------by save agv to-----------------------------------------
+    @GET("get_to_data_agv_1100_2p.php")
+    suspend fun getT0DataAgv11002P(): List<NameAndFrequencyTO>
+
+    @GET("get_to_data_agv_1100_st.php")
+    suspend fun getT0DataAgv1100St(): List<NameAndFrequencyTO>
+
+    @GET("get_to_data_agv_1100_2t.php")
+    suspend fun getT0DataAgv11002t(): List<NameAndFrequencyTO>
+
+    @GET("get_to_data_agv_3000_st.php")
+    suspend fun getT0DataAgv3000St(): List<NameAndFrequencyTO>
+
     @GET("get_agv_to_by_sn.php")
     suspend fun getTOAgvBySN(@Query("serialNumberAGV") serialNumberAGV: String): List<NameTO>
 
-    //-------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
     @GET("get_agv_to_by_sn_and_status_1.php")
     suspend fun getTOAgvBySNAndStatus_1(
         @Query("serialNumberAGV") serialNumberAGV: String
@@ -85,7 +100,7 @@ interface MainApi {
         @Query("serialNumberAGV") serialNumberAGV: String
     ): List<NameTO>
 
-    //----------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
 
     @GET("get_all_users.php")
     suspend fun getAllUsers(): List<User>
