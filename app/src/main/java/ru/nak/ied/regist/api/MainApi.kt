@@ -1,6 +1,5 @@
 package ru.nak.ied.regist.api
 
-//import okhttp3.ResponseBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -10,6 +9,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import ru.nak.ied.regist.entities.AGVItem
 import ru.nak.ied.regist.entities.AgvDiagnostic
+import ru.nak.ied.regist.entities.DirComposition
 import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.ModelAGV
 import ru.nak.ied.regist.entities.NameAndFrequencyTO
@@ -62,6 +62,9 @@ interface MainApi {
     /**
      * ***************************************GET**********************************************
      */
+
+    @GET("get_dir.php") // Убедитесь, что путь соответствует вашему скрипту
+    suspend fun getDir(): DirComposition
 
     //---------------------------------------by save agv to-----------------------------------------
     @GET("get_to_data_agv_1100_2p.php")

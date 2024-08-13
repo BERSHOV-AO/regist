@@ -3,6 +3,7 @@ package ru.nak.ied.regist.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,9 @@ class AgvSaveFragment : BaseFragment() {
     @Inject
     lateinit var mainApi: MainApi
 
+    lateinit var spinnerFW: Spinner
+    lateinit var dirCompos: Array<String>
+
     lateinit var spinnerModelAgv: Spinner
     lateinit var agvModels: Array<String>
 
@@ -57,12 +61,24 @@ class AgvSaveFragment : BaseFragment() {
 
         val nameAgv = view.findViewById<EditText>(R.id.etNameAgv)
         val serialNumAgv = view.findViewById<EditText>(R.id.etSerialNumAgv)
-        val versionFW = view.findViewById<EditText>(R.id.etVersionFW)
+        spinnerFW = view.findViewById<Spinner>(R.id.spinnerVersionFW)
         spinnerModelAgv = view.findViewById<Spinner>(R.id.spinnerModelAgv)
         val ePlan = view.findViewById<EditText>(R.id.etePlan)
         val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
 
         loadModelAndInitAdapter()
+        loadFWAndInitAdapter()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = mainApi.getDir()
+                // Обработка ответа
+                Log.d("MyLog", "Directories: ${response.directories}")
+                Log.d("MyLog", "Files: ${response.files}")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
 
         buttonSaveAgv.setOnClickListener {
             //-----------------------------------------pass-----------------------------------------
@@ -87,7 +103,8 @@ class AgvSaveFragment : BaseFragment() {
                                     null,
                                     nameAgv.text.toString(),
                                     serialNumAgv.text.toString(),
-                                    versionFW.text.toString(),
+                                    spinnerFW.selectedItem.toString(),
+                                    //versionFW.text.toString(),
                                     //modelAgv.text.toString(),
                                     spinnerModelAgv.selectedItem.toString(),
                                     ePlan.text.toString(),
@@ -213,7 +230,8 @@ class AgvSaveFragment : BaseFragment() {
 
                             nameAgv.text.clear()
                             serialNumAgv.text.clear()
-                            versionFW.text.clear()
+                            // versionFW.text.clear()
+                            spinnerFW.setSelection(0)
                             spinnerModelAgv.setSelection(0) // Сброс выбора в Spinner
                             ePlan.text.clear()
                             /**
@@ -247,6 +265,7 @@ class AgvSaveFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         loadModelAndInitAdapter() // Обновляем данные при возвращении к фрагменту
+        loadFWAndInitAdapter()
     }
 
     private fun loadModelAndInitAdapter() {
@@ -263,6 +282,26 @@ class AgvSaveFragment : BaseFragment() {
             } catch (e: Exception) {
                 // Обработка ошибки
                 Toast.makeText(context, "Ошибка загрузки моделей: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    private fun loadFWAndInitAdapter() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val listFW = mainApi.getDir().directories
+
+                dirCompos = listFW.toTypedArray()
+
+                // Настройка адаптера для Spinner после загрузки данных
+                val adapterFW =
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, dirCompos)
+                adapterFW.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerFW.adapter = adapterFW
+            } catch (e: Exception) {
+                // Обработка ошибки
+                Toast.makeText(context, "Ошибка загрузки FW: ${e.message}", Toast.LENGTH_SHORT)
                     .show()
             }
         }
