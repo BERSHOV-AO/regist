@@ -34,8 +34,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:background="@color/green_light"
-    />
+        android:background="@color/green_light" />
 
     <Spinner
         android:id="@+id/spinnerModelAgv"
@@ -47,16 +46,14 @@
         android:background="@color/green_light" />
 
 
-    <EditText
-        android:id="@+id/etePlan"
+    <Spinner
+        android:id="@+id/spinnerEPlan"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:background="@color/white"
-        android:hint="ePlan"
-        android:paddingStart="5dp" />
+        android:background="@color/green_light" />
 
     <Button
         android:id="@+id/bSaveAgv"
@@ -68,16 +65,3 @@
         android:backgroundTint="#0F89D5"
         android:text="Добавить AGV" />
 </LinearLayout>
-
-
-
-<!--<EditText-->
-<!--android:id="@+id/etModelAgv"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="30dp"-->
-<!--android:layout_marginStart="10dp"-->
-<!--android:layout_marginTop="10dp"-->
-<!--android:layout_marginEnd="15dp"-->
-<!--android:background="@color/white"-->
-<!--android:hint="Модель AGV"-->
-<!--android:paddingStart="5dp" />-->

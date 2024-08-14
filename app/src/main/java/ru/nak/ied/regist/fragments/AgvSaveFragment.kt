@@ -43,6 +43,9 @@ class AgvSaveFragment : BaseFragment() {
     lateinit var spinnerModelAgv: Spinner
     lateinit var agvModels: Array<String>
 
+    lateinit var spinnerEPlan: Spinner
+    lateinit var ePlanScheme: Array<String>
+
     val agv_1100_st: String = "AGV-1100-ST"
     val agv_1100_2p: String = "AGV-1100-2P"
     val agv_1100_2t: String = "AGV-1100-2T"
@@ -63,11 +66,12 @@ class AgvSaveFragment : BaseFragment() {
         val serialNumAgv = view.findViewById<EditText>(R.id.etSerialNumAgv)
         spinnerFW = view.findViewById<Spinner>(R.id.spinnerVersionFW)
         spinnerModelAgv = view.findViewById<Spinner>(R.id.spinnerModelAgv)
-        val ePlan = view.findViewById<EditText>(R.id.etePlan)
+        spinnerEPlan = view.findViewById<Spinner>(R.id.spinnerEPlan)
         val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
 
         loadModelAndInitAdapter()
         loadFWAndInitAdapter()
+        loadEPlanSchemesAndInitAdapter()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -104,10 +108,9 @@ class AgvSaveFragment : BaseFragment() {
                                     nameAgv.text.toString(),
                                     serialNumAgv.text.toString(),
                                     spinnerFW.selectedItem.toString(),
-                                    //versionFW.text.toString(),
-                                    //modelAgv.text.toString(),
                                     spinnerModelAgv.selectedItem.toString(),
-                                    ePlan.text.toString(),
+                                    spinnerEPlan.selectedItem.toString(),
+                                    //ePlan.text.toString(),
                                     thisCurrentTime
                                 )
                             )
@@ -230,10 +233,9 @@ class AgvSaveFragment : BaseFragment() {
 
                             nameAgv.text.clear()
                             serialNumAgv.text.clear()
-                            // versionFW.text.clear()
                             spinnerFW.setSelection(0)
                             spinnerModelAgv.setSelection(0) // Сброс выбора в Spinner
-                            ePlan.text.clear()
+                            spinnerEPlan.setSelection(0) // Сброс выбора в Spinner
                             /**
                              * *********************************************************************
                              */
@@ -266,8 +268,11 @@ class AgvSaveFragment : BaseFragment() {
         super.onResume()
         loadModelAndInitAdapter() // Обновляем данные при возвращении к фрагменту
         loadFWAndInitAdapter()
+        loadEPlanSchemesAndInitAdapter()
     }
 
+
+    //-------------------------------------------model----------------------------------------------
     private fun loadModelAndInitAdapter() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
@@ -287,6 +292,7 @@ class AgvSaveFragment : BaseFragment() {
         }
     }
 
+    //---------------------------------------------fw-----------------------------------------------
     private fun loadFWAndInitAdapter() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
@@ -306,4 +312,59 @@ class AgvSaveFragment : BaseFragment() {
             }
         }
     }
+
+    //-------------------------------------------ePlane---------------------------------------------
+    private fun loadEPlanSchemesAndInitAdapter() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val listEPlane = mainApi.getDirAndFilesSchemes().files
+
+                // Убираем последние 4 символа у каждого файла
+                ePlanScheme = listEPlane.map { fileName ->
+                    if (fileName.length > 4) {
+                        fileName.substring(0, fileName.length - 4)
+                    } else {
+                        fileName // Если длина имени файла меньше 4, оставляем его без изменений
+                    }
+                }.toTypedArray()
+
+                // Настройка адаптера для Spinner после загрузки данных
+                val adapterEPlane = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    ePlanScheme
+                )
+                adapterEPlane.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerEPlan.adapter = adapterEPlane
+            } catch (e: Exception) {
+                // Обработка ошибки
+                Toast.makeText(context, "Ошибка загрузки FW: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    //    private fun loadEPlanSchemesAndInitAdapter() {
+//        CoroutineScope(Dispatchers.Main).launch {
+//            try {
+//                val listEPlane = mainApi.getDirAndFilesSchemes().files
+//
+//                ePlanScheme = listEPlane.toTypedArray()
+//
+//                // Настройка адаптера для Spinner после загрузки данных
+//                val adapterEPlane =
+//                    ArrayAdapter(
+//                        requireContext(),
+//                        android.R.layout.simple_spinner_item,
+//                        ePlanScheme
+//                    )
+//                adapterEPlane.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//                spinnerEPlan.adapter = adapterEPlane
+//            } catch (e: Exception) {
+//                // Обработка ошибки
+//                Toast.makeText(context, "Ошибка загрузки FW: ${e.message}", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//        }
+//    }
 }

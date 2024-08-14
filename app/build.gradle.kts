@@ -65,6 +65,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.bumptech.glide/compiler
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
+    implementation("com.github.MikeOrtiz:TouchImageView:3.6")
 
 
     implementation(libs.androidx.core.ktx)

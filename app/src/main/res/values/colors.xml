@@ -14,6 +14,7 @@
     <color name="teal_700">#105E53</color>
     <color name="red_light">#F38E8E</color>
     <color name="green_light">#C0ECDD</color>
+    <color name="green_light_spinner">#E3FFF5</color>
 
     <color name="red_light_item_agv_to_nok">#FFADAD</color>
     <color name="green_light_item_agv_to_no">#95FDA3</color>

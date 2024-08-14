@@ -63,8 +63,11 @@ interface MainApi {
      * ***************************************GET**********************************************
      */
 
-    @GET("get_dir.php") // Убедитесь, что путь соответствует вашему скрипту
+    @GET("get_dir_fw.php")
     suspend fun getDir(): DirComposition
+
+    @GET("get_dir_and_files_schemes.php")
+    suspend fun getDirAndFilesSchemes(): DirComposition
 
     //---------------------------------------by save agv to-----------------------------------------
     @GET("get_to_data_agv_1100_2p.php")
