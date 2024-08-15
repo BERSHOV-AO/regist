@@ -2,6 +2,7 @@ package ru.nak.ied.regist.api
 
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -10,6 +11,8 @@ import retrofit2.http.Query
 import ru.nak.ied.regist.entities.AGVItem
 import ru.nak.ied.regist.entities.AgvDiagnostic
 import ru.nak.ied.regist.entities.DirComposition
+import ru.nak.ied.regist.entities.ImageData
+import ru.nak.ied.regist.entities.ImageUploadResponse
 import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.ModelAGV
 import ru.nak.ied.regist.entities.NameAndFrequencyTO
@@ -35,6 +38,16 @@ interface MainApi {
      * ***************************************SAVE**********************************************
      */
 
+    //-------------------------------------------image----------------------------------------------
+    @POST("upload_image.php")
+    suspend fun uploadImage(@Body imageData: ImageData): ImageUploadResponse
+
+    @GET("get_image.php")
+    suspend fun getImage(@Query("name") imageName: String): Response<ResponseBody>
+
+
+
+    //----------------------------------------------------------------------------------------------
     @POST("save_user_agv.php")
     suspend fun saveUser(@Body user: User)
 

@@ -1,7 +1,9 @@
 package ru.nak.ied.regist.activities
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.ImageView
@@ -9,82 +11,57 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.nak.ied.regist.R
 import ru.nak.ied.regist.databinding.ActivityEplanShowBinding
 import android.view.MotionEvent
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ortiz.touchview.TouchImageView
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ru.nak.ied.regist.adapter.ImageAdapter
+import ru.nak.ied.regist.api.MainApi
+import javax.inject.Inject
 
 //class EPlanShowActivity : AppCompatActivity() {
+//    private lateinit var recyclerView: RecyclerView
+//    private lateinit var imageAdapter: ImageAdapter
 //
-//    private lateinit var scaleGestureDetector: ScaleGestureDetector
-//
+//    @SuppressLint("MissingInflatedId")
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_eplan_show) // Укажите ваш layout файл
+//        setContentView(R.layout.activity_eplan_show)
 //
-//        val image1 = findViewById<ImageView>(R.id.image1)
-//        val image2 = findViewById<ImageView>(R.id.image2)
+//        recyclerView = findViewById(R.id.rvSchemes)
+//        recyclerView.layoutManager = LinearLayoutManager(this)
 //
-//        scaleGestureDetector = ScaleGestureDetector(this, ScaleListener(image1))
+//        // Замените на URL-адреса ваших изображений на сервере WAMP
+//        val imageUrls = listOf(
+//            "http://192.168.175.152/host/schemes/scheme_1.png",
+//            "http://192.168.175.152/host/schemes/scheme_2.png"
+//        )
 //
-//        image1.setOnTouchListener { v, event ->
-//            scaleGestureDetector.onTouchEvent(event)
-//            true
-//        }
-//
-//        image2.setOnTouchListener { v, event ->
-//            scaleGestureDetector.onTouchEvent(event)
-//            true
-//        }
-//    }
-//
-//    private inner class ScaleListener(private val imageView: ImageView) : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-//        private var scaleFactor = 1.0f
-//
-//        override fun onScale(detector: ScaleGestureDetector): Boolean {
-//            scaleFactor *= detector.scaleFactor
-//            scaleFactor = maxOf(0.1f, minOf(scaleFactor, 5.0f)) // Ограничение масштаба
-//
-//            // Применяем масштаб только к выбранному ImageView
-//            imageView.scaleX = scaleFactor
-//            imageView.scaleY = scaleFactor
-//
-//            return true
-//        }
+//        imageAdapter = ImageAdapter(imageUrls)
+//        recyclerView.adapter = imageAdapter
 //    }
 //}
-//
-//
-//
-////    private inner class ScaleListener(private val imageViews: List<ImageView>) : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-////        override fun onScale(detector: ScaleGestureDetector): Boolean {
-////            scaleFactor *= detector.scaleFactor
-////            scaleFactor = maxOf(0.1f, minOf(scaleFactor, 5.0f)) // Ограничение масштаба
-////
-////            // Применяем масштаб ко всем ImageView
-////            imageViews.forEach { imageView ->
-////                imageView.scaleX = scaleFactor
-////                imageView.scaleY = scaleFactor
-////            }
-////            return true
-////        }
-////    }
-////}
 
 
+//-----------------------------------------work ok----------------------------------------------
+@AndroidEntryPoint
 class EPlanShowActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var mainApi: MainApi
 
     private lateinit var binding: ActivityEplanShowBinding
     private lateinit var imageView: ImageView
-  //  private var scaleFactor = 1f
-
-  //  private var isImageScaled = false
-
 
     private lateinit var scaleGestureDetector: ScaleGestureDetector
     private var scaleFactor = 1.0f
     private var isImageScaled = false
     private var lastTouchX = 0f
     private var lastTouchY = 0f
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,88 +74,75 @@ class EPlanShowActivity : AppCompatActivity() {
 
         binding.tvEPlan.text = responseEPlan
 
+        loadImageFromServer("scheme_1.png", binding.image1)
+        loadImageFromServer("scheme_2.png", binding.image2)
+        loadImageFromServer("scheme_3.png", binding.image3)
+        loadImageFromServer("scheme_4.png", binding.image4)
+        loadImageFromServer("scheme_5.png", binding.image5)
+        loadImageFromServer("scheme_6.png", binding.image6)
+        loadImageFromServer("scheme_7.png", binding.image7)
+        loadImageFromServer("scheme_8.png", binding.image8)
+        loadImageFromServer("scheme_9.png", binding.image9)
+        loadImageFromServer("scheme_11.png", binding.image11)
+        loadImageFromServer("scheme_12.png", binding.image12)
+        loadImageFromServer("scheme_13.png", binding.image13)
+        loadImageFromServer("scheme_14.png", binding.image14)
+        loadImageFromServer("scheme_15.png", binding.image15)
+        loadImageFromServer("scheme_16.png", binding.image16)
+        loadImageFromServer("scheme_17.png", binding.image17)
+        loadImageFromServer("scheme_18.png", binding.image18)
+        loadImageFromServer("scheme_19.png", binding.image19)
+        loadImageFromServer("scheme_20.png", binding.image20)
+        loadImageFromServer("scheme_21.png", binding.image21)
+        loadImageFromServer("scheme_22.png", binding.image22)
+        loadImageFromServer("scheme_23.png", binding.image23)
+        loadImageFromServer("scheme_24.png", binding.image24)
 
-       // val img_1 = findViewById<View>(R.id.img_1) as ImageView
-//        binding.image1.setOnClickListener { v: View ->
-//            if (!isImageScaled) v.animate().scaleX(1.4f).scaleY(1.4f).setDuration(500)
-//            if (isImageScaled) v.animate().scaleX(1f).scaleY(1f).setDuration(500)
-//            isImageScaled = !isImageScaled
-//        }
+//        binding.image1.setImageResource(R.drawable.scheme_1)
+//        binding.image1.setImageResource(R.drawable.scheme_1)
+//        binding.image2.setImageResource(R.drawable.scheme_2)
+//        binding.image3.setImageResource(R.drawable.scheme_3)
+//        binding.image4.setImageResource(R.drawable.scheme_4)
+//        binding.image5.setImageResource(R.drawable.scheme_5)
+//        binding.image6.setImageResource(R.drawable.scheme_6)
+//        binding.image7.setImageResource(R.drawable.scheme_7)
+//        binding.image8.setImageResource(R.drawable.scheme_8)
+//        binding.image9.setImageResource(R.drawable.scheme_9)
+//        binding.image10.setImageResource(R.drawable.scheme_10)
+//        binding.image11.setImageResource(R.drawable.scheme_11)
+//        binding.image12.setImageResource(R.drawable.scheme_12)
+//        binding.image13.setImageResource(R.drawable.scheme_13)
+//        binding.image14.setImageResource(R.drawable.scheme_14)
+//        binding.image15.setImageResource(R.drawable.scheme_15)
+//        binding.image16.setImageResource(R.drawable.scheme_16)
+//        binding.image17.setImageResource(R.drawable.scheme_17)
+//        binding.image18.setImageResource(R.drawable.scheme_18)
+//        binding.image19.setImageResource(R.drawable.scheme_19)
+//        binding.image20.setImageResource(R.drawable.scheme_20)
+//        binding.image21.setImageResource(R.drawable.scheme_21)
+//        binding.image22.setImageResource(R.drawable.scheme_22)
+//        binding.image23.setImageResource(R.drawable.scheme_23)
+//        binding.image24.setImageResource(R.drawable.scheme_24)
+    }
 
-//        val imageView = binding.image1
-//
-//        scaleGestureDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-//            override fun onScale(detector: ScaleGestureDetector): Boolean {
-//                scaleFactor *= detector.scaleFactor
-//                scaleFactor = maxOf(0.1f, minOf(scaleFactor, 5.0f)) // Ограничиваем масштаб
-//                imageView.scaleX = scaleFactor
-//                imageView.scaleY = scaleFactor
-//                return true // Указываем, что событие обработано
-//            }
-//        })
-//
-//        // Установка OnTouchListener для обработки жестов
-//        imageView.setOnTouchListener { v, event ->
-//            scaleGestureDetector.onTouchEvent(event)
-//
-//            when (event.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    lastTouchX = event.rawX
-//                    lastTouchY = event.rawY
-//                    true // Обработка события начата
-//                }
-//                MotionEvent.ACTION_MOVE -> {
-//                    if (isImageScaled) {
-//                        val dx = event.rawX - lastTouchX
-//                        val dy = event.rawY - lastTouchY
-//                        v.x += dx
-//                        v.y += dy
-//                        lastTouchX = event.rawX
-//                        lastTouchY = event.rawY
-//                        true // Обработка события завершена
-//                    } else {
-//                        false // Если изображение не увеличено, не обрабатываем касания
-//                    }
-//                }
-//                MotionEvent.ACTION_UP -> {
-//                    true // Обработка события завершена
-//                }
-//                else -> false // Другие события не обрабатываем
-//            }
-//        }
-//
-//        // Устанавливаем слушатель клика для переключения состояния увеличения
-//        imageView.setOnClickListener {
-//            isImageScaled = !isImageScaled
-//        }
+    @SuppressLint("SuspiciousIndentation")
+    private fun loadImageFromServer(imageName: String, touchImageView: TouchImageView) {
+        // Запуск корутины для выполнения сетевого запроса
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = mainApi.getImage(imageName)
+            if (response.isSuccessful) {
+                val inputStream = response.body()?.byteStream()
+                val bitmap = BitmapFactory.decodeStream(inputStream)
 
-
-
-
-
-        binding.image1.setImageResource(R.drawable.scheme_1)
-        binding.image2.setImageResource(R.drawable.scheme_2)
-        binding.image3.setImageResource(R.drawable.scheme_3)
-        binding.image4.setImageResource(R.drawable.scheme_4)
-        binding.image5.setImageResource(R.drawable.scheme_5)
-        binding.image6.setImageResource(R.drawable.scheme_6)
-        binding.image7.setImageResource(R.drawable.scheme_7)
-        binding.image8.setImageResource(R.drawable.scheme_8)
-        binding.image9.setImageResource(R.drawable.scheme_9)
-        binding.image10.setImageResource(R.drawable.scheme_10)
-        binding.image11.setImageResource(R.drawable.scheme_11)
-        binding.image12.setImageResource(R.drawable.scheme_12)
-        binding.image13.setImageResource(R.drawable.scheme_13)
-        binding.image14.setImageResource(R.drawable.scheme_14)
-        binding.image15.setImageResource(R.drawable.scheme_15)
-        binding.image16.setImageResource(R.drawable.scheme_16)
-        binding.image17.setImageResource(R.drawable.scheme_17)
-        binding.image18.setImageResource(R.drawable.scheme_18)
-        binding.image19.setImageResource(R.drawable.scheme_19)
-        binding.image20.setImageResource(R.drawable.scheme_20)
-        binding.image21.setImageResource(R.drawable.scheme_21)
-        binding.image22.setImageResource(R.drawable.scheme_22)
-        binding.image23.setImageResource(R.drawable.scheme_23)
-        binding.image24.setImageResource(R.drawable.scheme_24)
+                // Обновление UI на главном потоке
+                withContext(Dispatchers.Main) {
+                    touchImageView.setImageBitmap(bitmap) // Установка загруженного изображения в ImageView
+                }
+                Log.e("MyLog", "OK!!! Image")
+            } else {
+                // Обработка ошибки
+                Log.e("MyLog", "Error: ${response.message()}")
+            }
+        }
     }
 }

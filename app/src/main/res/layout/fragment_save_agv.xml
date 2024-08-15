@@ -64,4 +64,14 @@
         android:layout_marginEnd="15dp"
         android:backgroundTint="#0F89D5"
         android:text="Добавить AGV" />
+
+    <Button
+        android:id="@+id/bSaveImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#0F89D5"
+        android:text="Save Image" />
 </LinearLayout>

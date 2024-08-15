@@ -10,12 +10,11 @@
     tools:context=".activities.EPlanShowActivity">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -405,3 +404,431 @@
         </ScrollView>
     </LinearLayout>
 </RelativeLayout>
+
+
+
+
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/main"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@color/grr"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:context=".activities.EPlanShowActivity">-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvSchemes"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+<!--    </LinearLayout>-->
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/main"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@color/grr"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:context=".activities.EPlanShowActivity">-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginStart="2dp"-->
+<!--        android:layout_marginEnd="2dp"-->
+<!--        android:background="@color/white"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:text="Проектная документация"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20dp"-->
+<!--            android:textStyle="bold" />-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#C0F0F8"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textViewName"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:text="ePlan: "-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="12dp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvEPlan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="3dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="12dp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="3dp"-->
+<!--            android:layout_marginBottom="3dp"-->
+<!--            android:background="@color/bl"-->
+<!--            android:orientation="horizontal" />-->
+
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:fillViewport="true">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image1"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image3"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image4"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image5"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image6"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image7"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image8"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image9"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image10"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image11"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image12"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image13"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image14"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image15"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image16"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image17"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image18"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image19"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image20"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image21"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image22"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image23"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image24"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+
+<!--                <com.ortiz.touchview.TouchImageView-->
+<!--                    android:id="@+id/image25"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:background="@color/grr"-->
+<!--                    android:orientation="horizontal" />-->
+<!--            </LinearLayout>-->
+<!--        </ScrollView>-->
+<!--    </LinearLayout>-->
+<!--</RelativeLayout>-->

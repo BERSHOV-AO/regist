@@ -17,12 +17,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.nak.ied.regist.R
+import ru.nak.ied.regist.activities.UploadToServerImages
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
-import ru.nak.ied.regist.entities.ModelAGV
-import ru.nak.ied.regist.entities.NameAndFrequencyTO
+import ru.nak.ied.regist.entities.ImageData
 import ru.nak.ied.regist.entities.NameTO
-import ru.nak.ied.regist.utils.TOData
 import javax.inject.Inject
 
 /**
@@ -62,12 +61,15 @@ class AgvSaveFragment : BaseFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_save_agv, container, false)
 
+        val uploadToServerImages = UploadToServerImages()
+
         val nameAgv = view.findViewById<EditText>(R.id.etNameAgv)
         val serialNumAgv = view.findViewById<EditText>(R.id.etSerialNumAgv)
         spinnerFW = view.findViewById<Spinner>(R.id.spinnerVersionFW)
         spinnerModelAgv = view.findViewById<Spinner>(R.id.spinnerModelAgv)
         spinnerEPlan = view.findViewById<Spinner>(R.id.spinnerEPlan)
         val buttonSaveAgv = view.findViewById<Button>(R.id.bSaveAgv)
+        val buttonSaveImage = view.findViewById<Button>(R.id.bSaveImage)
 
         loadModelAndInitAdapter()
         loadFWAndInitAdapter()
@@ -250,8 +252,34 @@ class AgvSaveFragment : BaseFragment() {
                     dialog.dismiss()
                 }.show()
         }
+
+
+
+        buttonSaveImage.setOnClickListener {
+            uploadImage(
+                ImageData(uploadToServerImages.bitmapToBase64(requireContext()), "test.png")
+            )
+
+        }
         return view
     }
+
+
+    /**
+     * *****************************************save image****************************************
+     */
+    fun uploadImage(imageData: ImageData) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val imageResponse = mainApi.uploadImage(imageData)
+            Log.d("MyLog", "imageResponseURL ${imageResponse.url}")
+            Log.d("MyLog", "imageResponseMessage ${imageResponse.message}")
+        }
+    }
+
+
+    /**
+     * ********************************************************************************************
+     */
 
     companion object {
         @JvmStatic
