@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream
 class UploadToServerImages {
 
     fun bitmapToBase64(context: Context): String {
-        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.delorean)
+        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.gmc_5)
         val byteOutputStream = ByteArrayOutputStream()
         // выбираем формат нашего изображения
         // 100 - качество

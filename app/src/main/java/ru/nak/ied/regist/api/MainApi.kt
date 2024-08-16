@@ -29,10 +29,12 @@ interface MainApi {
      * ***************************************DELETE**********************************************
      */
     @DELETE("delete_agv_by_sn.php")
-    suspend fun deleteAgvBySerialNumber(@Query("serialNumber") serialNumber: String): List<AGVItem>
+    suspend fun deleteAgvBySerialNumber(@Query("serialNumber") serialNumber: String):
+            List<AGVItem>
 
     @GET("delete_to_agv_by_sn.php")
-    suspend fun deleteAgvTOBySerialNumber(@Query("serialNumberAGV") serialNumber: String): List<TOData>
+    suspend fun deleteAgvTOBySerialNumber(@Query("serialNumberAGV") serialNumber: String):
+            List<TOData>
 
     /**
      * ***************************************SAVE**********************************************
@@ -45,7 +47,13 @@ interface MainApi {
     @GET("get_image.php")
     suspend fun getImage(@Query("name") imageName: String): Response<ResponseBody>
 
+    @GET("get_scheme_AGV_0002_00_01_00_001.php")
+    suspend fun getScheme_AGV_0002_00_01_00_001(@Query("name") imageName: String):
+            Response<ResponseBody>
 
+    @GET("get_scheme_AGV_0002_00_01_00_001_a.php")
+    suspend fun getScheme_AGV_0002_00_01_00_001a(@Query("name") imageName: String):
+            Response<ResponseBody>
 
     //----------------------------------------------------------------------------------------------
     @POST("save_user_agv.php")

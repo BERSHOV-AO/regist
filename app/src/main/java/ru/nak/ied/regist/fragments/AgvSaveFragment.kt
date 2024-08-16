@@ -112,7 +112,6 @@ class AgvSaveFragment : BaseFragment() {
                                     spinnerFW.selectedItem.toString(),
                                     spinnerModelAgv.selectedItem.toString(),
                                     spinnerEPlan.selectedItem.toString(),
-                                    //ePlan.text.toString(),
                                     thisCurrentTime
                                 )
                             )
@@ -254,13 +253,12 @@ class AgvSaveFragment : BaseFragment() {
         }
 
 
-
-        buttonSaveImage.setOnClickListener {
-            uploadImage(
-                ImageData(uploadToServerImages.bitmapToBase64(requireContext()), "test.png")
-            )
-
-        }
+//        buttonSaveImage.setOnClickListener {
+//            uploadImage(
+//                ImageData(uploadToServerImages.bitmapToBase64(requireContext()), "test.png")
+//            )
+//
+//        }
         return view
     }
 
@@ -345,23 +343,17 @@ class AgvSaveFragment : BaseFragment() {
     private fun loadEPlanSchemesAndInitAdapter() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val listEPlane = mainApi.getDirAndFilesSchemes().files
+                val listEPlane = mainApi.getDirAndFilesSchemes().directories
 
-                // Убираем последние 4 символа у каждого файла
-                ePlanScheme = listEPlane.map { fileName ->
-                    if (fileName.length > 4) {
-                        fileName.substring(0, fileName.length - 4)
-                    } else {
-                        fileName // Если длина имени файла меньше 4, оставляем его без изменений
-                    }
-                }.toTypedArray()
+                ePlanScheme = listEPlane.toTypedArray()
 
                 // Настройка адаптера для Spinner после загрузки данных
-                val adapterEPlane = ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_spinner_item,
-                    ePlanScheme
-                )
+                val adapterEPlane =
+                    ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        ePlanScheme
+                    )
                 adapterEPlane.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerEPlan.adapter = adapterEPlane
             } catch (e: Exception) {
@@ -372,20 +364,29 @@ class AgvSaveFragment : BaseFragment() {
         }
     }
 
-    //    private fun loadEPlanSchemesAndInitAdapter() {
+    /**
+     * --------------------------------------ePlan pdf-------------------------------------------
+     */
+//    private fun loadEPlanSchemesAndInitAdapter() {
 //        CoroutineScope(Dispatchers.Main).launch {
 //            try {
 //                val listEPlane = mainApi.getDirAndFilesSchemes().files
 //
-//                ePlanScheme = listEPlane.toTypedArray()
+//                // Убираем последние 4 символа у каждого файла
+//                ePlanScheme = listEPlane.map { fileName ->
+//                    if (fileName.length > 4) {
+//                        fileName.substring(0, fileName.length - 4)
+//                    } else {
+//                        fileName // Если длина имени файла меньше 4, оставляем его без изменений
+//                    }
+//                }.toTypedArray()
 //
 //                // Настройка адаптера для Spinner после загрузки данных
-//                val adapterEPlane =
-//                    ArrayAdapter(
-//                        requireContext(),
-//                        android.R.layout.simple_spinner_item,
-//                        ePlanScheme
-//                    )
+//                val adapterEPlane = ArrayAdapter(
+//                    requireContext(),
+//                    android.R.layout.simple_spinner_item,
+//                    ePlanScheme
+//                )
 //                adapterEPlane.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 //                spinnerEPlan.adapter = adapterEPlane
 //            } catch (e: Exception) {
@@ -395,4 +396,7 @@ class AgvSaveFragment : BaseFragment() {
 //            }
 //        }
 //    }
+    /**
+     * ---------------------------------------------------------------------------------------------
+     */
 }
