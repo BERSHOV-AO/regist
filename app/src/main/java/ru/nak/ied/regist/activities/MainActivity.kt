@@ -25,8 +25,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val userName: EditText = findViewById(R.id.user_name)
+        val userSurname: EditText = findViewById(R.id.user_surname)
         val userLogin: EditText = findViewById(R.id.user_login)
-        val userEmail: EditText = findViewById(R.id.user_email)
         val userPass: EditText = findViewById(R.id.user_puss)
         val button: Button = findViewById(R.id.button_reg)
         val linkToAuth: TextView = findViewById(R.id.link_to_auth)
@@ -37,19 +38,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener {
+
             val login = userLogin.text.toString().trim()
-            val email = userEmail.text.toString().trim()
+            val name = userName.text.toString().trim()
+            val surname = userSurname.text.toString().trim()
             val pass = userPass.text.toString().trim()
 
-            if (login.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+            if (name.isEmpty() || surname.isEmpty() || login.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             } else {
-                val user = User(login, email, pass)
+                val user = User(null, name, surname, login, pass)
 
                 Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG).show()
 
+                userName.text.clear()
+                userSurname.text.clear()
                 userLogin.text.clear()
-                userEmail.text.clear()
                 userPass.text.clear()
 
                 CoroutineScope(Dispatchers.IO).launch {
