@@ -97,6 +97,9 @@ interface MainApi {
     @GET("get_to_data_agv_1100_st.php")
     suspend fun getT0DataAgv1100St(): List<NameAndFrequencyTO>
 
+    @GET("get_to_data_agv_selected_table.php")
+    suspend fun getTODataAGVSelectedTable(@Query("table") table: String): List<NameAndFrequencyTO>
+
     @GET("get_to_data_agv_1100_2t.php")
     suspend fun getT0DataAgv11002t(): List<NameAndFrequencyTO>
 

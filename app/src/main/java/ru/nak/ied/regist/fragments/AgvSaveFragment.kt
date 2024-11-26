@@ -45,11 +45,6 @@ class AgvSaveFragment : BaseFragment() {
     lateinit var spinnerEPlan: Spinner
     lateinit var ePlanScheme: Array<String>
 
-    val agv_1100_st: String = "AGV-1100-ST"
-    val agv_1100_2p: String = "AGV-1100-2P"
-    val agv_1100_2t: String = "AGV-1100-2T"
-    val agv_3000_st: String = "AGV-3000-ST"
-
     override fun onClickNew() {
         TODO("Not yet implemented")
     }
@@ -115,121 +110,30 @@ class AgvSaveFragment : BaseFragment() {
                                     thisCurrentTime
                                 )
                             )
-                            //---------------------------agv_1100_st--------------------------------
-                            //----------------------------------------------------------------------
-                            if (spinnerModelAgv.selectedItem.toString() == agv_1100_st) {
-                                val listNameAndFrequencyTO = mainApi.getT0DataAgv1100St()
 
-                                listNameAndFrequencyTO.forEach { item ->
-                                    mainApi.saveAgvTo(
-                                        NameTO(
-                                            null,
-                                            item.nameTo,
-                                            serialNumAgv.text.toString(),
-                                            item.frequencyTo,
-                                            "1",
-                                            thisCurrentTime
-                                        )
-                                    )
-                                }
-                                Toast.makeText(
-                                    context,
-                                    "Добавлен agv_1100_st c S/N: ${serialNumAgv.text}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            //-----------------------------agv_1100_2p------------------------------
-                            //----------------------------------------------------------------------
-                            if (spinnerModelAgv.selectedItem.toString() == agv_1100_2p) {
-                                val listNameAndFrequencyTO = mainApi.getT0DataAgv11002P()
+                            val listNameAndFrequencyTO =
+                                mainApi.getTODataAGVSelectedTable(
+                                    spinnerModelAgv.selectedItem.toString()
+                                )
 
-                                listNameAndFrequencyTO.forEach { item ->
-                                    mainApi.saveAgvTo(
-                                        NameTO(
-                                            null,
-                                            item.nameTo,
-                                            serialNumAgv.text.toString(),
-                                            item.frequencyTo,
-                                            "1",
-                                            thisCurrentTime
-                                        )
+                            listNameAndFrequencyTO.forEach { item ->
+                                mainApi.saveAgvTo(
+                                    NameTO(
+                                        null,
+                                        item.nameTo,
+                                        serialNumAgv.text.toString(),
+                                        item.frequencyTo,
+                                        "1",
+                                        thisCurrentTime
                                     )
-                                }
-                                Toast.makeText(
-                                    context,
-                                    "Добавлен agv_1100_2p c S/N: ${serialNumAgv.text}",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                )
                             }
-                            //-----------------------------agv_1100_2t------------------------------
-                            //----------------------------------------------------------------------
-                            if (spinnerModelAgv.selectedItem.toString() == agv_1100_2t) {
-                                val listNameAndFrequencyTO = mainApi.getT0DataAgv11002t()
+                            Toast.makeText(
+                                context,
+                                "Добавлен agv_1100_st c S/N: ${serialNumAgv.text}",
+                                Toast.LENGTH_LONG
+                            ).show()
 
-                                listNameAndFrequencyTO.forEach { item ->
-                                    mainApi.saveAgvTo(
-                                        NameTO(
-                                            null,
-                                            item.nameTo,
-                                            serialNumAgv.text.toString(),
-                                            item.frequencyTo,
-                                            "1",
-                                            thisCurrentTime
-                                        )
-                                    )
-                                }
-                                Toast.makeText(
-                                    context,
-                                    "Добавлен agv_1100_2t c S/N: ${serialNumAgv.text}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            //----------------------------agv_3000_st-------------------------------
-                            //----------------------------------------------------------------------
-                            if (spinnerModelAgv.selectedItem.toString() == agv_3000_st) {
-                                val listNameAndFrequencyTO = mainApi.getT0DataAgv3000St()
-
-                                listNameAndFrequencyTO.forEach { item ->
-                                    mainApi.saveAgvTo(
-                                        NameTO(
-                                            null,
-                                            item.nameTo,
-                                            serialNumAgv.text.toString(),
-                                            item.frequencyTo,
-                                            "1",
-                                            thisCurrentTime
-                                        )
-                                    )
-                                }
-                                Toast.makeText(
-                                    context,
-                                    "Добавлен agv_3000_st c S/N: ${serialNumAgv.text}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            //--------------------------------else----------------------------------
-//                            else {
-//
-//                                for ((key, value) in TOData.toMap) {
-//                                    println("Ключ: $key, Значение: $value")
-//
-//                                    mainApi.saveAgvTo(
-//                                        NameTO(
-//                                            null,
-//                                            key,
-//                                            serialNumAgv.text.toString(),
-//                                            value,
-//                                            "1",
-//                                            thisCurrentTime
-//                                        )
-//                                    )
-//                                }
-//                                Toast.makeText(
-//                                    context,
-//                                    "Добавлен AGV c S/N: ${serialNumAgv.text}",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            }
                             //----------------------------------------------------------------------
 
                             nameAgv.text.clear()
@@ -252,7 +156,6 @@ class AgvSaveFragment : BaseFragment() {
                 }.show()
         }
 
-
 //        buttonSaveImage.setOnClickListener {
 //            uploadImage(
 //                ImageData(uploadToServerImages.bitmapToBase64(requireContext()), "test.png")
@@ -273,7 +176,6 @@ class AgvSaveFragment : BaseFragment() {
             Log.d("MyLog", "imageResponseMessage ${imageResponse.message}")
         }
     }
-
 
     /**
      * ********************************************************************************************
@@ -296,7 +198,6 @@ class AgvSaveFragment : BaseFragment() {
         loadFWAndInitAdapter()
         loadEPlanSchemesAndInitAdapter()
     }
-
 
     //-------------------------------------------model----------------------------------------------
     private fun loadModelAndInitAdapter() {
