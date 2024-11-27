@@ -27,6 +27,7 @@ import ru.nak.ied.regist.adapter.AGVAdapter
 import ru.nak.ied.regist.activities.ShowOneAgvToActivity
 import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
+import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.NameTO
 import javax.inject.Inject
 
@@ -99,6 +100,18 @@ class AgvAllFragment : BaseFragment() {
 
                         // Здесь вы можете добавить код для удаления AGV из базы данных или API.
                         // После успешного удаления обновите список в адаптере:
+
+                        mainApi.saveLogAgv(
+                            LogAgv(
+                                null,
+                                "1",
+                                "",
+                                getCurrentTime(),
+                                serialNumber,
+                                "Удаление AGV из базы данных",
+                                getCurrentTime()
+                            )
+                        )
                         adapter.removeItem(serialNumber)
                     }
                 } else {
@@ -234,4 +247,9 @@ class AgvAllFragment : BaseFragment() {
             mainApi.getTOAgvBySNAndStatus_2(agv.serialNumber)
         }
     }
+}
+
+private fun getCurrentTime(): String {
+    val currentTimeMillis = System.currentTimeMillis()
+    return currentTimeMillis.toString()
 }

@@ -31,6 +31,8 @@ class EPlanShowActivity : AppCompatActivity() {
 
     val AGV_0002_00_01_00_001: String = "AGV-0002.00.01.00.001"
     val AGV_0002_00_01_00_001a: String = "AGV-0002.00.01.00.001a"
+    val AGV_0001_00_00_00_001b: String =  "AGV-0001.00.00.00.001b"
+    val E832741000_V2_4_1: String = "E832741000_V2.4.1"
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -80,6 +82,12 @@ class EPlanShowActivity : AppCompatActivity() {
             }
             if (responseEPlan == AGV_0002_00_01_00_001a) {
                 response = mainApi.getScheme_AGV_0002_00_01_00_001a(imageName)
+            }
+            if (responseEPlan == AGV_0001_00_00_00_001b) {
+                response = mainApi.getScheme_AGV_0001_00_00_00_001b(imageName)
+            }
+            if (responseEPlan == E832741000_V2_4_1) {
+                response = mainApi.getScheme_AGV_E832741000_V2_4_1(imageName)
             }
             if (response.isSuccessful) {
                 val inputStream = response.body()?.byteStream()

@@ -39,7 +39,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="590dp"
         android:background="@color/white"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -205,7 +205,7 @@
         <Button
             android:id="@+id/bToOneAgv"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginTop="10dp"

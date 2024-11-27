@@ -55,6 +55,14 @@ interface MainApi {
     suspend fun getScheme_AGV_0002_00_01_00_001a(@Query("name") imageName: String):
             Response<ResponseBody>
 
+    @GET("get_scheme_AGV_0001_00_00_00_001_b.php")
+    suspend fun getScheme_AGV_0001_00_00_00_001b(@Query("name") imageName: String):
+            Response<ResponseBody>
+
+    @GET("get_scheme_AGV_E832741000_V2_4_1.php")
+    suspend fun getScheme_AGV_E832741000_V2_4_1(@Query("name") imageName: String):
+            Response<ResponseBody>
+
     //----------------------------------------------------------------------------------------------
     @POST("save_user_agv.php")
     suspend fun saveUser(@Body user: User)

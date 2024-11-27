@@ -118,8 +118,8 @@ class AuthActivity : AppCompatActivity() {
                                         login,
                                         getCurrentTime(),
                                         "null",
-                                        "null",
-                                        "null"
+                                        "Пользователь вошел в приложение android",
+                                        getCurrentTime()
                                     ))
 
                                     val intent = Intent(context, UserActivity::class.java)
