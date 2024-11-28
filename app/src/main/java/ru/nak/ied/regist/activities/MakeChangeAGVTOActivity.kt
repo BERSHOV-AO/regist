@@ -49,7 +49,6 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
         val responseSerialNum = intent.getStringExtra("agvSerialNumTo");
         val responseKeyStatusTo = intent.getStringExtra("keyStatusTo")
 
-
         binding.tvSerNum.text = responseSerialNum
 
         //--------------------- Извлечение табельного номера из SharedPreferences---------------
@@ -60,13 +59,16 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
 
-            if(responseKeyStatusTo == "0") {
-                listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!) as MutableList<NameTO>
-            }
+//            if(responseKeyStatusTo == "0") {
+//                listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!) as MutableList<NameTO>
+//            }
+//
+//            if(responseKeyStatusTo == "2") {
+//                listTOAgv = mainApi.getTOAgvBySNAndStatus_2(responseSerialNum!!) as MutableList<NameTO>
+//            }
 
-            if(responseKeyStatusTo == "2") {
-                listTOAgv = mainApi.getTOAgvBySNAndStatus_2(responseSerialNum!!) as MutableList<NameTO>
-            }
+            // listTOAgv = mainApi.getTOAgvBySNAndStatus_2(responseSerialNum!!) as MutableList<NameTO>
+            listTOAgv = mainApi.getTOAgvBySNAndStatus(responseSerialNum!!) as MutableList<NameTO>
 
             Log.d("MyLog", "!!!!!!!!!!!!!!listTOAgv false:   $listTOAgv")
 
@@ -82,7 +84,6 @@ class MakeChangeAGVTOActivity : AppCompatActivity() {
                         getCurrentTime()
                     )
                 )
-
                 Log.d(
                     "MyLog",
                     "Switch at position $position changed to $isChecked with text '$switchText'"

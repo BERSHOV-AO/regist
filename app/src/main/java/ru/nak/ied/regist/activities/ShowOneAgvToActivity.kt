@@ -59,22 +59,28 @@ class ShowOneAgvToActivity : AppCompatActivity() {
                         "У AGV sn: $responseSerialNum, все ТО выполнены!",
                         Toast.LENGTH_SHORT
                     ).show()
-                }
-                if (listTOAgvNoTO_0.isNotEmpty()) {
+                } else {
                     val intent =
                         Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
                     intent.putExtra("agvSerialNumTo", responseSerialNum)
-                    intent.putExtra("keyStatusTo", "0")
+                    //  intent.putExtra("keyStatusTo", "0")
                     startActivity(intent)
                 }
-
-                if (listTOAgvNoTO_2.isNotEmpty()) {
-                    val intent =
-                        Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
-                    intent.putExtra("agvSerialNumTo", responseSerialNum)
-                    intent.putExtra("keyStatusTo", "2")
-                    startActivity(intent)
-                }
+//                if (listTOAgvNoTO_0.isNotEmpty()) {
+//                    val intent =
+//                        Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
+//                    intent.putExtra("agvSerialNumTo", responseSerialNum)
+//                    intent.putExtra("keyStatusTo", "0")
+//                    startActivity(intent)
+//                }
+//
+//                if (listTOAgvNoTO_2.isNotEmpty()) {
+//                    val intent =
+//                        Intent(this@ShowOneAgvToActivity, MakeChangeAGVTOActivity::class.java)
+//                    intent.putExtra("agvSerialNumTo", responseSerialNum)
+//                    intent.putExtra("keyStatusTo", "2")
+//                    startActivity(intent)
+//                }
             }
         }
     }
