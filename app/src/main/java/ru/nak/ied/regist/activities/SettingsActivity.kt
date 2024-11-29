@@ -86,7 +86,7 @@ class SettingsActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return "192.168.175.152"
+        return "1.1.1.1"
     }
 
     fun restartApplication(context: Context) {
