@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.nak.ied.regist.R
@@ -16,6 +17,7 @@ import ru.nak.ied.regist.databinding.ActivityAuthBinding
 import ru.nak.ied.regist.entities.LogAgv
 import ru.nak.ied.regist.entities.User
 import javax.inject.Inject
+import org.json.JSONObject
 
 @AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
@@ -43,24 +45,52 @@ class AuthActivity : AppCompatActivity() {
             }
         }
 
+        var isButtonEnabled = true // Флаг для отслеживания состояния кнопки
+
         binding.imWifi.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                val isConnected = getDataBaseConnection()
-                if (isConnected) {
-                    binding.imWifi.setImageResource(R.drawable.ic_wifi_green)
-                    Toast.makeText(
-                        context, "Связь с сервером установлена!",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    binding.imWifi.setImageResource(R.drawable.ic_wifi_red)
-                    Toast.makeText(
-                        context, "Нет связи с сервером, проверьте wifi соединение, ip адрес!",
-                        Toast.LENGTH_LONG
-                    ).show()
+            if (isButtonEnabled) { // Проверяем, доступна ли кнопка
+                isButtonEnabled = false // Блокируем кнопку
+                CoroutineScope(Dispatchers.Main).launch {
+                    val isConnected = getDataBaseConnection()
+                    if (isConnected) {
+                        binding.imWifi.setImageResource(R.drawable.ic_wifi_green)
+                        Toast.makeText(
+                            context, "Связь с сервером установлена!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        binding.imWifi.setImageResource(R.drawable.ic_wifi_red)
+                        Toast.makeText(
+                            context, "Нет связи с сервером, проверьте wifi соединение, ip адрес!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    delay(3000) // Задержка в 3 секунды
+                    isButtonEnabled = true // Разблокируем кнопку
                 }
+            } else {
+                Toast.makeText(context, "Пожалуйста, подождите...", Toast.LENGTH_SHORT).show()
             }
         }
+
+//        binding.imWifi.setOnClickListener {
+//            CoroutineScope(Dispatchers.Main).launch {
+//                val isConnected = getDataBaseConnection()
+//                if (isConnected) {
+//                    binding.imWifi.setImageResource(R.drawable.ic_wifi_green)
+//                    Toast.makeText(
+//                        context, "Связь с сервером установлена!",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+//                } else {
+//                    binding.imWifi.setImageResource(R.drawable.ic_wifi_red)
+//                    Toast.makeText(
+//                        context, "Нет связи с сервером, проверьте wifi соединение, ip адрес!",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+//                }
+//            }
+//        }
 
         binding.linkToReg.setOnClickListener {
 
@@ -112,15 +142,17 @@ class AuthActivity : AppCompatActivity() {
                                     binding.userLoginAuth.text.clear()
                                     binding.userPussAuth.text.clear()
 
-                                    mainApi.saveLogAgv(LogAgv(
-                                        null,
-                                        "1",
-                                        login,
-                                        getCurrentTime(),
-                                        "null",
-                                        "Пользователь вошел в приложение android",
-                                        getCurrentTime()
-                                    ))
+                                    mainApi.saveLogAgv(
+                                        LogAgv(
+                                            null,
+                                            "1",
+                                            login,
+                                            getCurrentTime(),
+                                            "null",
+                                            "Пользователь вошел в приложение android",
+                                            getCurrentTime()
+                                        )
+                                    )
 
                                     val intent = Intent(context, UserActivity::class.java)
                                     intent.putExtra("login", login)
@@ -131,16 +163,6 @@ class AuthActivity : AppCompatActivity() {
                                         "Пользователь с табельным номером $login авторизован",
                                         Toast.LENGTH_LONG
                                     ).show()
-
-//                                    mainApi.saveLogAgv(
-//                                        LogAgv(
-//                                            null,
-//                                            login,
-//                                            getCurrentTime(),
-//                                            null
-//                                        )
-//                                    )
-
 
                                     userFound = true
                                     return@launch // Выход из функции launch
@@ -175,14 +197,34 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
+//    private suspend fun getDataBaseConnection(): Boolean {
+//        return withContext(Dispatchers.IO) {
+//            try {
+//                val connectDB = mainApi.getConnectDB()
+//                Log.d("MyLog", "connect OK")
+//                connectDB
+//            } catch (e: Exception) {
+//                Log.d("MyLog", "connect error")
+//                e.printStackTrace()
+//                false
+//            }
+//        }
+//    }
+
     private suspend fun getDataBaseConnection(): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                val connectDB = mainApi.getConnectDB()
-                Log.d("MyLog", "connect OK")
-                connectDB
+                val response = mainApi.getConnectDB()
+
+                if (response.isSuccessful) {
+                    val jsonResponse = JSONObject(response.body()?.string() ?: "{}")
+                    jsonResponse.getBoolean("success")
+                } else {
+                    Log.d("MyLog", "Error: ${response.code()} ${response.message()}")
+                    false
+                }
             } catch (e: Exception) {
-                Log.d("MyLog", "connect error")
+                Log.d("MyLog", "Connect error: ${e.message}")
                 e.printStackTrace()
                 false
             }

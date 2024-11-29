@@ -41,22 +41,43 @@ class AGVChangeStatusTOAdapter(
         return AGVChangeStatusViewHolder(view)
     }
 
+//    override fun onBindViewHolder(holder: AGVChangeStatusViewHolder, position: Int) {
+//        val currentItem = agvToList[position]
+//
+//        if (currentItem.statusTo == "1") {
+//            holder.switchStatusToName.isChecked = true
+//        }
+//        if (currentItem.statusTo == "0") {
+//            holder.switchStatusToName.isChecked = false
+//        }
+//        if (currentItem.statusTo == "2") {               // добавил 28.11.24 надо проверить
+//            holder.switchStatusToName.isChecked = false
+//        }
+//
+//        // holder.switchStatusToName.isChecked = currentItem.statusTo
+//        holder.switchStatusToName.text = currentItem.nameTo
+//    }
+
     override fun onBindViewHolder(holder: AGVChangeStatusViewHolder, position: Int) {
         val currentItem = agvToList[position]
 
-        if (currentItem.statusTo == "1") {
-            holder.switchStatusToName.isChecked = true
-        }
-        if (currentItem.statusTo == "0") {
-            holder.switchStatusToName.isChecked = false
-        }
-        if (currentItem.statusTo == "2") {               // добавил 28.11.24 надо проверить
-            holder.switchStatusToName.isChecked = false
-        }
-
+        // Установка состояния переключателя
         // holder.switchStatusToName.isChecked = currentItem.statusTo
         holder.switchStatusToName.text = currentItem.nameTo
+
+        // Установка цвета фона в зависимости от значения statusTo
+
+//        if(currentItem.statusTo == "0") {
+//            holder.itemView.setBackgroundColor(Color.RED)
+//        }
+
+        when (currentItem.statusTo) {
+
+            "0" -> holder.itemView.setBackgroundColor(holder.itemView.resources.getColor(R.color.red_light_item_agv_to_nok))
+            "2" -> holder.itemView.setBackgroundColor(holder.itemView.resources.getColor(R.color.yellow_light_item_agv_before_to))
+        }
     }
+
 
     //----------------------work------------------------------
 //    fun removeItem(serialNumber: String, positionToAgv: Int?) {

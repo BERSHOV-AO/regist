@@ -90,16 +90,13 @@ class AgvAllFragment : BaseFragment() {
             .setView(dialogView)
             .setPositiveButton("OK") { dialog, _ ->
                 val enteredPassword = etDialogPassword.text.toString()
-                if (enteredPassword == "121286") {
+                if (enteredPassword == "красный") {
                     Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
 
                     CoroutineScope(Dispatchers.Main).launch {
 
                         mainApi.deleteAgvBySerialNumber(serialNumber)
                         mainApi.deleteAgvTOBySerialNumber(serialNumber)
-
-                        // Здесь вы можете добавить код для удаления AGV из базы данных или API.
-                        // После успешного удаления обновите список в адаптере:
 
                         mainApi.saveLogAgv(
                             LogAgv(

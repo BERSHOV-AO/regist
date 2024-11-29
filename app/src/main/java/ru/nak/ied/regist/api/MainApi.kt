@@ -158,8 +158,11 @@ interface MainApi {
     @GET("get_all_agv_to.php")
     suspend fun getAllAgvTo(): List<NameTO>
 
+//    @GET("test_connect_db.php")
+//    suspend fun getConnectDB(): Boolean
+
     @GET("test_connect_db.php")
-    suspend fun getConnectDB(): Boolean
+    suspend fun getConnectDB(): Response<ResponseBody>
 
     @GET("user_presence.php")
     suspend fun getUserExistence(@Body login: String, @Body pass: String): Boolean
