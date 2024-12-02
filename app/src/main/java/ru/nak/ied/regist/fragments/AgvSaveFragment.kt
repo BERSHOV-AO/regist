@@ -81,80 +81,87 @@ class AgvSaveFragment : BaseFragment() {
             }
         }
 
-        buttonSaveAgv.setOnClickListener {
-            //-----------------------------------------pass-----------------------------------------
-            val dialogView = layoutInflater.inflate(R.layout.dialog_password, null)
-            val etDialogPassword = dialogView.findViewById<EditText>(R.id.etDialogPassword)
-            AlertDialog.Builder(requireContext())
-                .setTitle("Введите пароль")
-                .setView(dialogView)
-                .setPositiveButton("OK") { dialog, _ ->
-                    val enteredPassword = etDialogPassword.text.toString()
-                    if (enteredPassword == "121286") {
-                        Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
-                        //--------------------------------------------------------------------------
 
-                        val thisCurrentTime: String = getCurrentTime()
-                        /**
-                         * **************************CoroutineScope*********************************
-                         */
-                        CoroutineScope(Dispatchers.Main).launch {
-                            mainApi.saveAGV(
-                                AGVItem(
-                                    null,
-                                    nameAgv.text.toString(),
-                                    serialNumAgv.text.toString(),
-                                    spinnerFW.selectedItem.toString(),
-                                    spinnerModelAgv.selectedItem.toString(),
-                                    spinnerEPlan.selectedItem.toString(),
-                                    thisCurrentTime
-                                )
-                            )
+            buttonSaveAgv.setOnClickListener {
 
-                            val listNameAndFrequencyTO =
-                                mainApi.getTODataAGVSelectedTable(
-                                    spinnerModelAgv.selectedItem.toString()
-                                )
+                if (nameAgv.text.isEmpty() || serialNumAgv.text.isEmpty()) {
+                    Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_LONG).show()
+                } else {
+                //-----------------------------------------pass-----------------------------------------
+                val dialogView = layoutInflater.inflate(R.layout.dialog_password, null)
+                val etDialogPassword = dialogView.findViewById<EditText>(R.id.etDialogPassword)
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Введите пароль")
+                    .setView(dialogView)
+                    .setPositiveButton("OK") { dialog, _ ->
+                        val enteredPassword = etDialogPassword.text.toString()
+                        if (enteredPassword == "121286") {
+                            Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
+                            //--------------------------------------------------------------------------
 
-                            listNameAndFrequencyTO.forEach { item ->
-                                mainApi.saveAgvTo(
-                                    NameTO(
+                            val thisCurrentTime: String = getCurrentTime()
+                            /**
+                             * **************************CoroutineScope*********************************
+                             */
+                            CoroutineScope(Dispatchers.Main).launch {
+                                mainApi.saveAGV(
+                                    AGVItem(
                                         null,
-                                        item.nameTo,
+                                        nameAgv.text.toString(),
                                         serialNumAgv.text.toString(),
-                                        item.frequencyTo,
-                                        "1",
+                                        spinnerFW.selectedItem.toString(),
+                                        spinnerModelAgv.selectedItem.toString(),
+                                        spinnerEPlan.selectedItem.toString(),
                                         thisCurrentTime
                                     )
                                 )
+
+                                val listNameAndFrequencyTO =
+                                    mainApi.getTODataAGVSelectedTable(
+                                        spinnerModelAgv.selectedItem.toString()
+                                    )
+
+                                listNameAndFrequencyTO.forEach { item ->
+                                    mainApi.saveAgvTo(
+                                        NameTO(
+                                            null,
+                                            item.nameTo,
+                                            serialNumAgv.text.toString(),
+                                            item.frequencyTo,
+                                            "1",
+                                            thisCurrentTime
+                                        )
+                                    )
+                                }
+                                Toast.makeText(
+                                    context,
+                                    "Добавлен agv_1100_st c S/N: ${serialNumAgv.text}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+
+                                //----------------------------------------------------------------------
+
+                                nameAgv.text.clear()
+                                serialNumAgv.text.clear()
+                                spinnerFW.setSelection(0)
+                                spinnerModelAgv.setSelection(0) // Сброс выбора в Spinner
+                                spinnerEPlan.setSelection(0) // Сброс выбора в Spinner
+                                /**
+                                 * *********************************************************************
+                                 */
                             }
-                            Toast.makeText(
-                                context,
-                                "Добавлен agv_1100_st c S/N: ${serialNumAgv.text}",
-                                Toast.LENGTH_LONG
-                            ).show()
-
-                            //----------------------------------------------------------------------
-
-                            nameAgv.text.clear()
-                            serialNumAgv.text.clear()
-                            spinnerFW.setSelection(0)
-                            spinnerModelAgv.setSelection(0) // Сброс выбора в Spinner
-                            spinnerEPlan.setSelection(0) // Сброс выбора в Spinner
-                            /**
-                             * *********************************************************************
-                             */
+                        } else {
+                            // Пароль неверный, показать сообщение об ошибке
+                            Toast.makeText(context, "Неверный пароль", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        // Пароль неверный, показать сообщение об ошибке
-                        Toast.makeText(context, "Неверный пароль", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
                     }
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Отмена") { dialog, _ ->
-                    dialog.dismiss()
-                }.show()
+                    .setNegativeButton("Отмена") { dialog, _ ->
+                        dialog.dismiss()
+                    }.show()
+            }  //---<
         }
+
 
 //        buttonSaveImage.setOnClickListener {
 //            uploadImage(

@@ -15,24 +15,65 @@ import ru.nak.ied.regist.api.MainApi
 import ru.nak.ied.regist.entities.AGVItem
 import javax.inject.Inject
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+
 @AndroidEntryPoint
 class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
     private lateinit var zbView: ZBarScannerView
-    var listAgv: List<AGVItem>? = null;
+    var listAgv: List<AGVItem>? = null
 
     @Inject
     lateinit var mainApi: MainApi
+
+    private val cameraPermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startCamera()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Разрешение на использование камеры отклонено",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish() // Закрываем текущую активность, если разрешение не предоставлено
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         zbView = ZBarScannerView(this)
         setContentView(zbView)
+
+        // Проверка разрешения на камеру
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startCamera()
+        } else {
+            cameraPermissionRequest.launch(Manifest.permission.CAMERA)
+        }
+    }
+
+    private fun startCamera() {
+        zbView.setResultHandler(this)
+        zbView.startCamera()
     }
 
     override fun onResume() {
         super.onResume()
-        zbView.setResultHandler(this)
-        zbView.startCamera()
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            zbView.setResultHandler(this)
+            zbView.startCamera()
+        }
     }
 
     override fun onPause() {
@@ -58,9 +99,6 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
                     ).show()
 
                     agvFound = true
-                    // Если AGV найден, переходим в ItemsActivity
-//                    val intent = Intent(this@ScannerActivity, ItemsActivity::class.java)
-//                    intent.putExtra("key", result.contents)
                     val intent = Intent(this@ScannerActivity, ShowOneAgvToActivity::class.java)
                     intent.putExtra("SERIAL_NUMBER", result.contents)
                     startActivity(intent)
@@ -69,7 +107,6 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
                 }
             }
 
-            // Если AGV не найден, выводим сообщение и закрываем сканер
             if (!agvFound) {
                 Log.d("MyLog", "AGV НЕ найден:")
                 Toast.makeText(
@@ -86,3 +123,79 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
         super.onBackPressed()
     }
 }
+
+/**
+ * Работает, но без запроса камеры
+ */
+
+//@AndroidEntryPoint
+//class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
+//    private lateinit var zbView: ZBarScannerView
+//    var listAgv: List<AGVItem>? = null;
+//
+//    @Inject
+//    lateinit var mainApi: MainApi
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        zbView = ZBarScannerView(this)
+//        setContentView(zbView)
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        zbView.setResultHandler(this)
+//        zbView.startCamera()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        zbView.stopCamera()
+//    }
+//
+//    override fun handleResult(result: Result?) {
+//        Log.d("MyLog", "Result: ${result?.contents}")
+//
+//        CoroutineScope(Dispatchers.Main).launch {
+//            // Получаем список AGV
+//            listAgv = mainApi.getAllAGV()
+//
+//            var agvFound = false
+//            listAgv?.forEach { agv ->
+//                if (agv.serialNumber == result?.contents) {
+//                    Log.d("MyLog", "AGV найден: ${agv.serialNumber}")
+//                    Toast.makeText(
+//                        this@ScannerActivity,
+//                        "AGV найден: ${agv.serialNumber}",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//
+//                    agvFound = true
+//                    // Если AGV найден, переходим в ItemsActivity
+////                    val intent = Intent(this@ScannerActivity, ItemsActivity::class.java)
+////                    intent.putExtra("key", result.contents)
+//                    val intent = Intent(this@ScannerActivity, ShowOneAgvToActivity::class.java)
+//                    intent.putExtra("SERIAL_NUMBER", result.contents)
+//                    startActivity(intent)
+//                    finish() // Закрываем текущую активность
+//                    return@launch // Завершаем выполнение launch
+//                }
+//            }
+//
+//            // Если AGV не найден, выводим сообщение и закрываем сканер
+//            if (!agvFound) {
+//                Log.d("MyLog", "AGV НЕ найден:")
+//                Toast.makeText(
+//                    this@ScannerActivity,
+//                    "AGV НЕ найден",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                finish() // Закрываем текущую активность (сканер)
+//            }
+//        }
+//    }
+//
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//    }
+//}
