@@ -16,7 +16,7 @@
     <string name="ip_agv">http://192.168.0.7/host/</string>
     <string name="ip_agv_pga">http://192.168.175.152/host/</string>
     <string name="pass_default">121286</string>
-
+    <string name="passAdmin">бронетранспортер</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -40,6 +40,8 @@ class AgvAllFragment : BaseFragment() {
     private lateinit var adapter: AGVAdapter
     private var agvList: MutableList<AGVItem> = mutableListOf() // Используем MutableList
 
+    val passAdmin: String = "бронетранспортер"
+
     override fun onClickNew() {
         TODO("Not yet implemented")
     }
@@ -90,7 +92,7 @@ class AgvAllFragment : BaseFragment() {
             .setView(dialogView)
             .setPositiveButton("OK") { dialog, _ ->
                 val enteredPassword = etDialogPassword.text.toString()
-                if (enteredPassword == "красный") {
+                if (enteredPassword == passAdmin) {
                     Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
 
                     CoroutineScope(Dispatchers.Main).launch {

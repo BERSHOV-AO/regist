@@ -45,6 +45,8 @@ class AgvSaveFragment : BaseFragment() {
     lateinit var spinnerEPlan: Spinner
     lateinit var ePlanScheme: Array<String>
 
+    val passAdmin: String = "бронетранспортер"
+
     override fun onClickNew() {
         TODO("Not yet implemented")
     }
@@ -81,7 +83,6 @@ class AgvSaveFragment : BaseFragment() {
             }
         }
 
-
             buttonSaveAgv.setOnClickListener {
 
                 if (nameAgv.text.isEmpty() || serialNumAgv.text.isEmpty()) {
@@ -95,7 +96,8 @@ class AgvSaveFragment : BaseFragment() {
                     .setView(dialogView)
                     .setPositiveButton("OK") { dialog, _ ->
                         val enteredPassword = etDialogPassword.text.toString()
-                        if (enteredPassword == "121286") {
+//                        if (enteredPassword == "121286") {
+                        if (enteredPassword == passAdmin) {
                             Toast.makeText(context, "Пароль верный", Toast.LENGTH_SHORT).show()
                             //--------------------------------------------------------------------------
 
