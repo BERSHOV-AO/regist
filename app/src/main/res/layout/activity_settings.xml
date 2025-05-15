@@ -76,7 +76,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Введите новый IP-адрес сервера:"
-
+                android:textColor="@color/black"
                 android:textSize="16dp" />
         </LinearLayout>
 
@@ -213,6 +213,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Читать из настроек приложения текущий IP-адрес сервера:"
+                android:textColor="@color/black"
                 android:textSize="16dp" />
 
         </LinearLayout>
@@ -230,7 +231,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="#0F89D5"
-                android:text="читать текущий IP"
+                android:text="Читать текущий IP"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp"
                 android:textStyle="bold"

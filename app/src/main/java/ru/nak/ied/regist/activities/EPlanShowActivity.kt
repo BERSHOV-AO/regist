@@ -29,10 +29,17 @@ class EPlanShowActivity : AppCompatActivity() {
 
     private lateinit var response: Response<ResponseBody>
 
-    val AGV_0002_00_01_00_001: String = "AGV-0002.00.01.00.001"
-    val AGV_0002_00_01_00_001a: String = "AGV-0002.00.01.00.001a"
-    val AGV_0001_00_00_00_001b: String =  "AGV-0001.00.00.00.001b"
-    val E832741000_V2_4_1: String = "E832741000_V2.4.1"
+    // ------------------- old version -------------------
+//    val AGV_0002_00_01_00_001: String = "AGV-0002.00.01.00.001"
+//    val AGV_0002_00_01_00_001a: String = "AGV-0002.00.01.00.001a"
+//    val AGV_0001_00_00_00_001b: String =  "AGV-0001.00.00.00.001b"
+//    val E832741000_V2_4_1: String = "E832741000_V2.4.1"
+
+    val AGV_0001_00_00_00_001: String = "AGV-0001.00.00.00.001"
+    val AGV_0001_00_00_00_001a: String = "AGV-0001.00.00.00.001a"
+    val AGV_0001_00_00_00_001b: String = "AGV-0001.00.00.00.001b"
+    val AGV_0001_00_00_00_001m: String = "AGV-0001.00.00.00.001m"
+    val AGV_0001_00_00_00_001c: String = "AGV-0001.00.00.00.001c"
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -77,17 +84,20 @@ class EPlanShowActivity : AppCompatActivity() {
         // Запуск корутины для выполнения сетевого запроса
         CoroutineScope(Dispatchers.IO).launch {
 
-            if (responseEPlan == AGV_0002_00_01_00_001) {
+            if (responseEPlan == AGV_0001_00_00_00_001) {
                 response = mainApi.getScheme_AGV_0002_00_01_00_001(imageName)
             }
-            if (responseEPlan == AGV_0002_00_01_00_001a) {
+            if (responseEPlan == AGV_0001_00_00_00_001a) {
                 response = mainApi.getScheme_AGV_0002_00_01_00_001a(imageName)
             }
             if (responseEPlan == AGV_0001_00_00_00_001b) {
                 response = mainApi.getScheme_AGV_0001_00_00_00_001b(imageName)
             }
-            if (responseEPlan == E832741000_V2_4_1) {
+            if (responseEPlan == AGV_0001_00_00_00_001m) {
                 response = mainApi.getScheme_AGV_E832741000_V2_4_1(imageName)
+            }
+            if (responseEPlan == AGV_0001_00_00_00_001c) {
+                response = mainApi.getScheme_AGV_0001_00_00_00_001c(imageName)
             }
             if (response.isSuccessful) {
                 val inputStream = response.body()?.byteStream()
